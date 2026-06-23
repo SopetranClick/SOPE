@@ -1,0 +1,39 @@
+package com.sope.sopetran_click.model.category.public_Entities;
+
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "news")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class News {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_news")
+    private Long idNews;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_public_entitie", referencedColumnName = "id_public_entitie")
+    private Public_Entitie idPublicEntitie;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "date", nullable = false)
+    private LocalDateTime date;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+
+
+
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería Cultural — SopetranClick</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/cultural.css">
+
+  
+</head>
+<body>
+
+<div class="hero-bg"></div>
+<div class="noise"></div>
+
+<div class="wrapper">
+
+  <button class="btn-back" onclick="history.back()"><i class="fas fa-arrow-left"></i> SopetranClick</button>
+
+  <!-- BREADCRUMB: navegación entre apartados (Inicio › Eventos / Fechas / Historia) -->
+  <div class="breadcrumb-flow" id="breadcrumb"></div>
+
+  <!-- HERO HEADER -->
+  <div class="page-header">
+    <div class="tag"><i class="fas fa-landmark"></i> Galería Cultural</div>
+    <h1>El alma de <em>Sopetrán</em></h1>
+    <p>Historia viva, tradiciones que perduran y eventos que unen a nuestra comunidad.</p>
+    <div class="header-line"><i class="fas fa-feather-alt"></i></div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filtros">
+    <button class="filtro-btn activo" data-filtro="todos" onclick="filtrar('todos',this)">Todo</button>
+    <button class="filtro-btn" data-filtro="eventos" onclick="filtrar('eventos',this)">Eventos</button>
+    <button class="filtro-btn" data-filtro="fechas" onclick="filtrar('fechas',this)">Fechas Especiales</button>
+    <button class="filtro-btn" data-filtro="historia" onclick="filtrar('historia',this)">Historia</button>
+  </div>
+
+  <!-- CIFRAS -->
+  <div class="cifras-row" id="sec-cifras">
+    <div class="cifra-card"><div class="cifra-num">1.541</div><div class="cifra-label">Año de Fundación</div></div>
+    <div class="cifra-card"><div class="cifra-num">15+</div><div class="cifra-label">Eventos anuales</div></div>
+    <div class="cifra-card"><div class="cifra-num">24</div><div class="cifra-label">Veredas y zonas</div></div>
+    <div class="cifra-card"><div class="cifra-num">480</div><div class="cifra-label">Años de historia</div></div>
+  </div>
+
+  <!-- ════ EVENTOS ════ -->
+  <div id="sec-eventos">
+    <div class="section-title">Próximos <span>Eventos</span></div>
+    <div class="section-sub">No te pierdas lo que está pasando en el municipio</div>
+    <div class="eventos-grid" id="eventos-grid"></div>
+  </div>
+
+  <!-- ════ FECHAS ESPECIALES ════ -->
+  <div id="sec-fechas" class="timeline-section">
+    <div class="section-title">Fechas <span>Especiales</span></div>
+    <div class="section-sub">El calendario cultural de Sopetrán a lo largo del año</div>
+    <div class="timeline" id="fechas-grid"></div>
+  </div>
+
+  <!-- ════ HISTORIA ════ -->
+  <div id="sec-historia">
+    <div class="section-title">Historia del <span>Municipio</span></div>
+    <div class="section-sub">Conoce el legado que construye nuestra identidad</div>
+    <div class="historia-grid" id="historia-grid"></div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="cerrarModal()">×</button>
+    <div class="modal-em" id="m-em"></div>
+    <div class="modal-cat" id="m-cat"></div>
+    <h2 id="m-titulo"></h2>
+    <p id="m-desc"></p>
+    <div class="modal-meta" id="m-meta"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/cultural.js"></script>
+</body>
+</html>

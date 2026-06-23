@@ -1,0 +1,935 @@
+
+    /* ============================================================
+       PRESENTACIÓN ALTERNATIVA — LOCALES NO ALIMENTARIOS
+       Aplica a: servicios (barbería, farmacia) y tiendas no-comida
+       (ferretería, etc.)
+    ============================================================ */
+
+    /* PANTALLA DE DETALLE DE SERVICIO (reemplaza la portada + orbital
+       para locales que NO son restaurantes ni panaderías) */
+#pantalla-servicio {
+    display: none;
+    min-height: 100vh;
+    background: #090909;
+}
+
+/* HERO horizontal tipo "tarjeta de negocio" */
+.srv-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+}
+@media (max-width: 768px) {
+    .srv-hero { grid-template-columns: 1fr; }
+    .srv-hero-imgs { height: 260px; }
+}
+
+.srv-hero-imgs {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+}
+.srv-hero-imgs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+    transition: transform 5s ease;
+}
+.srv-hero-imgs:hover img { transform: scale(1.04); }
+.srv-hero-imgs .img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.4), transparent);
+}
+.srv-categoria-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: rgba(139,0,0,0.85);
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.srv-hero-info {
+    background: #0f0f0f;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 4px solid #8b0000;
+}
+.srv-hero-info .srv-tipo {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #8b0000;
+    margin-bottom: 12px;
+}
+.srv-hero-info h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
+.srv-hero-info .srv-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+.srv-status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+.srv-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse-green 2s infinite;
+}
+.srv-dot.cerrado { background: #ef4444; animation: none; }
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+.srv-status-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: #999;
+}
+.srv-rating-pill {
+    margin-left: auto;
+    background: rgba(139,0,0,0.2);
+    border: 1px solid rgba(139,0,0,0.4);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #ff8888;
+}
+.srv-btn-row {
+    display: flex;
+    gap: 12px;
+}
+.srv-btn-primary {
+    background: #8b0000;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.srv-btn-primary:hover { background: #a50000; transform: scale(1.03); }
+.srv-btn-ghost {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.srv-btn-ghost:hover { border-color: rgba(255,255,255,0.4); }
+
+/* CATÁLOGO DE PRODUCTOS/SERVICIOS (lista minimalista) */
+.srv-catalogo {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+.srv-catalogo-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.srv-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.srv-item:hover { background: rgba(255,255,255,0.02); }
+.srv-item-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+.srv-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.srv-item-info { flex: 1; }
+.srv-item-nombre {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 3px;
+}
+.srv-item-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #666;
+    line-height: 1.4;
+}
+.srv-item-precio {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: #ddd;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.srv-item-precio.gratis { color: #22c55e; font-size: 0.8rem; }
+
+/* Galería de fotos en grid pequeño */
+.srv-fotos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 36px;
+}
+.srv-foto-item {
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.srv-foto-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: filter 0.3s, transform 0.3s;
+}
+.srv-foto-item:hover img { filter: brightness(0.95); transform: scale(1.05); }
+
+.srv-volver-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 20px;
+    background: #8b0000;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(139,0,0,0.35);
+    position: relative;
+    z-index: 100;
+}
+.srv-volver-btn:hover { background: #a50000; transform: scale(1.03); }
+
+
+/* =============================================
+           VARIABLES — paleta del proyecto SopetranClick
+        ============================================= */
+        :root {
+            --rojo:       #8b0000;
+            --rojo-vivo:  #c0392b;
+            --rojo-glow:  rgba(139, 0, 0, 0.45);
+            --negro:      #080808;
+            --gris-panel: #111111;
+            --gris-card:  #151515;
+            --gris-borde: #1e1e1e;
+            --texto:      #e8e8e8;
+            --texto-dim:  #666;
+            --texto-mid:  #999;
+            --font-titulo: 'Playfair Display', serif;
+            --font-ui:     'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--negro);
+            color: var(--texto);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--negro); }
+        ::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 2px; }
+
+        /* =============================================
+           PANTALLA A — DIRECTORIO DE LOCALES
+        ============================================= */
+        #pantalla-directorio { display: block; }
+        #pantalla-local      { display: none; }
+
+        /* — Hero del directorio — */
+        .dir-hero {
+            position: relative;
+            padding: 70px 0 50px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Líneas decorativas de fondo */
+        .dir-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 80px,
+                    rgba(139,0,0,0.04) 80px,
+                    rgba(139,0,0,0.04) 81px
+                );
+            pointer-events: none;
+        }
+
+        .dir-hero .etiqueta {
+            display: inline-block;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            color: var(--rojo-vivo);
+            text-transform: uppercase;
+            border: 1px solid rgba(139,0,0,0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .dir-hero h1 {
+            font-family: var(--font-titulo);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .dir-hero h1 em {
+            color: var(--rojo-vivo);
+            font-style: italic;
+        }
+
+        .dir-hero p {
+            font-size: 0.85rem;
+            color: var(--texto-dim);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* — Barra de búsqueda — */
+        .barra-busqueda {
+            max-width: 680px;
+            margin: 36px auto 0;
+            position: relative;
+        }
+
+        .barra-busqueda input {
+            width: 100%;
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 50px;
+            color: var(--texto);
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            padding: 14px 54px 14px 24px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .barra-busqueda input:focus {
+            border-color: var(--rojo);
+            box-shadow: 0 0 0 3px rgba(139,0,0,0.12);
+        }
+
+        .barra-busqueda input::placeholder { color: var(--texto-dim); }
+
+        .barra-busqueda .icono-buscar {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--texto-dim);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        /* — Filtros de categoría — */
+        .filtros {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 28px 0 40px;
+            padding: 0 20px;
+        }
+
+        .filtro-btn {
+            background: transparent;
+            border: 1px solid var(--gris-borde);
+            color: var(--texto-mid);
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .filtro-btn:hover {
+            border-color: var(--rojo);
+            color: var(--texto);
+        }
+
+        .filtro-btn.activo {
+            background: var(--rojo);
+            border-color: var(--rojo);
+            color: #fff;
+            box-shadow: 0 0 14px var(--rojo-glow);
+        }
+
+        /* Contador de resultados */
+        .contador-resultados {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--texto-dim);
+            margin-bottom: 28px;
+            letter-spacing: 0.05em;
+        }
+
+        .contador-resultados span {
+            color: var(--rojo-vivo);
+            font-weight: 600;
+        }
+
+        /* — Grid de tarjetas de locales — */
+        .locales-grid {
+            display: grid;
+            /*
+                3 columnas en desktop,
+                2 en tablet,
+                1 en móvil (Bootstrap maneja el responsive)
+            */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* Tarjeta de local */
+        .local-card {
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            animation: entrarCard 0.4s ease both;
+        }
+
+        .local-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139,0,0,0.5);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,0,0,0.15);
+        }
+
+        /* Imagen de portada de la tarjeta */
+        .local-card-img {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .local-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.7);
+        }
+
+        .local-card:hover .local-card-img img {
+            transform: scale(1.07);
+        }
+
+        /* Badge de categoría encima de la imagen */
+        .badge-categoria {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .badge-restaurante { background: rgba(139,0,0,0.85); color: #fff; }
+        .badge-tienda      { background: rgba(20,60,20,0.85); color: #90ee90; }
+        .badge-servicio    { background: rgba(20,40,80,0.85); color: #90c8ff; }
+
+        /* Rating flotante */
+        .rating-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.75);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-badge .estrella { color: #f5c518; font-size: 0.65rem; }
+
+        /* Cuerpo de la tarjeta */
+        .local-card-body {
+            padding: 16px 18px 18px;
+        }
+
+        .local-card-body h3 {
+            font-family: var(--font-titulo);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .local-card-body .descripcion {
+            font-size: 0.75rem;
+            color: var(--texto-dim);
+            line-height: 1.5;
+            margin-bottom: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Pie de la tarjeta: horario + botón */
+        .local-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .horario {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            color: var(--texto-dim);
+        }
+
+        .horario .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71;
+        }
+
+        .horario .dot.cerrado { background: #e74c3c; box-shadow: 0 0 5px #e74c3c; }
+
+        .btn-entrar {
+            background: transparent;
+            border: 1px solid rgba(139,0,0,0.5);
+            color: var(--rojo-vivo);
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            padding: 6px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        .btn-entrar:hover {
+            background: var(--rojo);
+            color: #fff;
+            border-color: var(--rojo);
+        }
+
+        /* Sin resultados */
+        .sin-resultados {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--texto-dim);
+            grid-column: 1 / -1;
+        }
+
+        .sin-resultados p { font-size: 0.9rem; margin-top: 10px; }
+
+        /* =============================================
+           PANTALLA B — LOCAL INDIVIDUAL
+           (portada + menú orbital, igual que antes)
+        ============================================= */
+
+        /* — Portada del local — */
+        #local-portada {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--negro);
+        }
+
+        #local-portada::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, #1a0000 0%, #000 70%);
+            z-index: -1;
+        }
+
+        .portada-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 200px 200px;
+            gap: 6px;
+            width: 100%;
+            max-width: 960px;
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.96);
+            animation: aparecer 0.7s ease forwards 0.2s;
+        }
+
+        .portada-grid .foto-grande { grid-row: 1 / 3; grid-column: 1 / 2; }
+
+        .foto-item { position: relative; overflow: hidden; }
+        .foto-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.3s;
+            filter: brightness(0.7);
+        }
+        .foto-item:hover img { transform: scale(1.06); filter: brightness(0.9); }
+        .foto-item::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--rojo-glow), transparent);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .foto-item:hover::after { opacity: 1; }
+
+        /* Info flotante sobre la portada */
+        .portada-info {
+            position: absolute;
+            bottom: 80px; left: 50%;
+            transform: translateX(-50%);
+            text-align: center; z-index: 10;
+            opacity: 0;
+            animation: aparecer 0.6s ease forwards 0.8s;
+        }
+
+        .portada-info .etiqueta-local {
+            font-size: 0.6rem; letter-spacing: 0.25em;
+            color: var(--rojo-vivo); text-transform: uppercase; margin-bottom: 6px;
+        }
+
+        .portada-info h1 {
+            font-family: var(--font-titulo);
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700; color: #fff;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.9);
+            line-height: 1.1;
+        }
+
+        .portada-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 8px;
+        }
+
+        .btn-ver-menu {
+            margin-top: 22px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: transparent; border: 1.5px solid var(--rojo);
+            color: #fff; font-family: var(--font-ui);
+            font-size: 0.75rem; letter-spacing: 0.15em;
+            text-transform: uppercase; padding: 12px 32px;
+            border-radius: 50px; cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .btn-ver-menu:hover { background: var(--rojo); box-shadow: 0 0 20px var(--rojo-glow); }
+
+        /* Botón volver al directorio */
+        .btn-volver-dir {
+            position: absolute; top: 24px; left: 24px; z-index: 20;
+            background: rgba(0,0,0,0.6); border: 1px solid var(--gris-borde);
+            color: var(--texto-mid); font-family: var(--font-ui);
+            font-size: 0.72rem; letter-spacing: 0.08em;
+            padding: 8px 18px; border-radius: 50px;
+            cursor: pointer; transition: border-color 0.3s, color 0.3s;
+            backdrop-filter: blur(8px);
+        }
+        .btn-volver-dir:hover { border-color: var(--rojo); color: #fff; }
+
+        /* — Menú Orbital — */
+        #local-menu { display: none; padding: 40px 20px 80px; }
+
+        .menu-header {
+            display: grid; grid-template-columns: 1fr auto;
+            align-items: center; gap: 20px;
+            max-width: 1100px; margin: 0 auto 36px;
+            padding-bottom: 16px; border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .menu-header .sub { font-size: 0.6rem; letter-spacing: 0.25em; color: var(--rojo-vivo); text-transform: uppercase; margin-bottom: 4px; }
+        .menu-header h2 { font-family: var(--font-titulo); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; }
+
+        .btn-volver-portada {
+            background: transparent; border: 1px solid var(--gris-borde);
+            color: var(--texto-dim); font-family: var(--font-ui);
+            font-size: 0.72rem; letter-spacing: 0.08em;
+            padding: 8px 18px; border-radius: 50px;
+            cursor: pointer; transition: border-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        .btn-volver-portada:hover { border-color: var(--rojo); color: #fff; }
+
+        /* Grid menú: orbital | catálogo */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            grid-template-rows: auto auto;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Celda orbital */
+        .celda-orbital {
+            grid-column: 1/2; grid-row: 1/2;
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 20px; padding: 30px;
+            position: relative; overflow: hidden;
+            min-height: 440px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .celda-orbital::before {
+            content: ''; position: absolute;
+            width: 360px; height: 360px; border-radius: 50%;
+            border: 1px solid rgba(139,0,0,0.14);
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        .celda-orbital::after {
+            content: ''; position: absolute;
+            width: 450px; height: 450px; border-radius: 50%;
+            border: 1px dashed rgba(139,0,0,0.06);
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+
+        .foto-plato {
+            width: 240px; height: 240px; border-radius: 50%;
+            object-fit: cover; position: relative; z-index: 2;
+            border: 3px solid #1f1f1f;
+            box-shadow: 0 0 60px rgba(0,0,0,0.8), 0 0 30px var(--rojo-glow);
+            transition: transform 0.4s, opacity 0.3s;
+        }
+
+        /* Burbujas orbitando */
+        .burbuja {
+            position: absolute; z-index: 3;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .burbuja:hover { transform: scale(1.14) !important; }
+
+        .burbuja-img {
+            width: 58px; height: 58px; border-radius: 50%;
+            background: var(--gris-panel);
+            border: 1.5px solid rgba(139,0,0,0.4);
+            box-shadow: 0 0 12px rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; overflow: hidden;
+        }
+        .burbuja-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .burbuja-label {
+            background: rgba(8,8,8,0.9);
+            border: 1px solid rgba(139,0,0,0.4);
+            color: #fff; font-size: 0.62rem;
+            padding: 2px 7px; border-radius: 20px; white-space: nowrap;
+        }
+
+        .burbuja-1 { top: 8%;   left: 6%;  animation: flotar 3.8s ease-in-out infinite 0.0s; }
+        .burbuja-2 { top: 6%;   right: 10%;animation: flotar 4.2s ease-in-out infinite 0.6s; }
+        .burbuja-3 { top: 42%;  left: 2%;  animation: flotar 3.5s ease-in-out infinite 1.1s; }
+        .burbuja-4 { bottom: 12%;left: 10%;animation: flotar 4.0s ease-in-out infinite 0.3s; }
+        .burbuja-5 { bottom: 8%; right: 8%;animation: flotar 3.7s ease-in-out infinite 0.9s; }
+        .burbuja-6 { top: 42%;  right: 2%; animation: flotar 4.4s ease-in-out infinite 1.4s; }
+
+        .nombre-plato {
+            position: absolute; bottom: 18px; left: 50%;
+            transform: translateX(-50%); text-align: center; z-index: 4;
+        }
+        .nombre-plato h3 { font-family: var(--font-titulo); font-size: 1.2rem; font-weight: 700; white-space: nowrap; }
+        .nombre-plato .precio-plato { font-size: 0.78rem; color: var(--rojo-vivo); letter-spacing: 0.08em; }
+
+        /* Catálogo lateral */
+        .celda-catalogo {
+            grid-column: 2/3; grid-row: 1/3;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+
+        .catalogo-titulo {
+            font-size: 0.58rem; letter-spacing: 0.2em;
+            color: var(--texto-dim); text-transform: uppercase; margin-bottom: 4px;
+        }
+
+        .catalogo-card {
+            display: grid; grid-template-columns: 60px 1fr auto;
+            align-items: center; gap: 12px;
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 12px; padding: 10px 12px;
+            cursor: pointer;
+            transition: border-color 0.25s, background 0.25s, transform 0.2s;
+        }
+        .catalogo-card:hover, .catalogo-card.activo {
+            border-color: var(--rojo); background: #150000;
+            transform: translateX(-4px);
+        }
+
+        .catalogo-card img {
+            width: 60px; height: 60px; border-radius: 50%;
+            object-fit: cover; border: 2px solid #222;
+        }
+
+        .catalogo-card h4 {
+            font-family: var(--font-titulo); font-size: 0.88rem; font-weight: 700;
+            margin-bottom: 2px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .catalogo-card p { font-size: 0.68rem; color: var(--texto-dim); line-height: 1.4; }
+        .catalogo-precio { font-size: 0.75rem; color: var(--rojo-vivo); font-weight: 600; white-space: nowrap; }
+
+        /* Detalle inferior */
+        .celda-detalle {
+            grid-column: 1/2; grid-row: 2/3;
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 20px; padding: 22px 26px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: center;
+        }
+
+        .detalle-nombre h3 { font-family: var(--font-titulo); font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
+        .detalle-nombre p { font-size: 0.78rem; color: var(--texto-dim); line-height: 1.6; }
+
+        .detalle-precio { text-align: center; }
+        .detalle-precio .moneda { font-size: 0.65rem; color: var(--texto-dim); letter-spacing: 0.1em; }
+        .detalle-precio .monto { font-family: var(--font-titulo); font-size: 1.9rem; font-style: italic; }
+
+        .detalle-accion { display: flex; flex-direction: column; gap: 8px; }
+
+        .btn-ordenar {
+            background: var(--rojo); border: none; color: #fff;
+            font-family: var(--font-ui); font-size: 0.72rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 11px 20px; border-radius: 50px; cursor: pointer;
+            transition: box-shadow 0.3s, transform 0.2s;
+        }
+        .btn-ordenar:hover { box-shadow: 0 0 22px var(--rojo-glow); transform: translateY(-2px); }
+
+        .btn-compartir {
+            background: transparent; border: 1px solid var(--gris-borde);
+            color: var(--texto-dim); font-family: var(--font-ui);
+            font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+            padding: 9px 20px; border-radius: 50px; cursor: pointer;
+            transition: border-color 0.3s, color 0.3s;
+        }
+        .btn-compartir:hover { border-color: var(--rojo); color: #fff; }
+
+        /* =============================================
+           ANIMACIONES
+        ============================================= */
+        @keyframes aparecer {
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(-8px); }
+        }
+
+        /* Las burbujas no colisionan con :hover usando !important en .burbuja:hover */
+
+        @keyframes entrarCard {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =============================================
+           RESPONSIVE
+        ============================================= */
+        @media (max-width: 900px) {
+            .locales-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .locales-grid { grid-template-columns: 1fr; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .celda-catalogo { grid-column: 1; grid-row: auto; flex-direction: row; overflow-x: auto; }
+            .catalogo-card { min-width: 210px; }
+            .celda-detalle { grid-template-columns: 1fr; text-align: center; }
+            .portada-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 150px 150px; }
+            .portada-grid .foto-grande { grid-row: 1/3; }
+        }
