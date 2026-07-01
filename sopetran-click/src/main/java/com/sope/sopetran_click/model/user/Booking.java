@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -12,4 +12,5 @@ public interface ProductService {
     ProductResponseDTO buscarPorId(Long id);
     List<ProductResponseDTO> listarTodos();
     void eliminarProducto(Long id);
+    List<ProductResponseDTO> listarProductosPorLocal(Long localId);
 }

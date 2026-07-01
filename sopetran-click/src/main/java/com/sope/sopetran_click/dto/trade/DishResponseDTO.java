@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DishResponseDTO {
     private Long idDish;
+    private Long idRestaurant;
     private String name;
     private String description;
     private BigDecimal price;

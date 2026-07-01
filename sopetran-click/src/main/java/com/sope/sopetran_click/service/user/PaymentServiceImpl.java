@@ -49,7 +49,7 @@ public class PaymentServiceImpl implements PaymentService {
                 : null;
 
         Payments payment = new Payments();
-        payment.setIdUser(user);
+        payment.setUser(user);
         payment.setIdCategory(category);
         payment.setIdBooking(booking);
         payment.setCost(dto.getCost().doubleValue());
@@ -87,7 +87,7 @@ public class PaymentServiceImpl implements PaymentService {
         Booking booking = (dto.getIdBooking() != null)
                 ? bookingRepository.findById(dto.getIdBooking()).orElse(null) : null;
 
-        payment.setIdUser(user);
+        payment.setUser(user);
         payment.setIdCategory(category);
         payment.setIdBooking(booking);
         payment.setCost(dto.getCost().doubleValue());
@@ -104,9 +104,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<PaymentsResponseDTO> findAllByUserId(Long userId) {
+    public List<PaymentsResponseDTO> findAllByUserId(Long idUsers) {
         // Asumiendo que tu repositorio tiene un método findByIdUserId o similar
-        return paymentsRepository.findByUserId(userId).stream()
+        return paymentsRepository.findByUser_idUsers(idUsers).stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
@@ -122,7 +122,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentsResponseDTO convertToResponseDTO(Payments payment) {
         PaymentsResponseDTO response = new PaymentsResponseDTO();
         response.setIdPayment(payment.getIdPayment());
-        response.setUserName(payment.getIdUser().getName());
+        response.setUserName(payment.getUser().getName());
         response.setCategoryName(payment.getIdCategory().getName());
         response.setIdBooking(payment.getIdBooking() != null ? payment.getIdBooking().getIdBooking() : null);
         response.setCost(java.math.BigDecimal.valueOf(payment.getCost()));

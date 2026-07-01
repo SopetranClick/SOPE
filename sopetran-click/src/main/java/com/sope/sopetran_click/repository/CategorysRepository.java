@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CategorysRepository extends JpaRepository<Categorys, Long> {
 
     // Buscar categoría por su nombre exacto (ej. "Alojamiento", "Comercio")
-    Categorys findByNameCategory(String nameCategory);
+    Categorys findByName(String name);
 }

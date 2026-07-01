@@ -20,7 +20,7 @@ public class Dish {
 
     // La Clave Foránea: Muchos platos pertenecen a un solo restaurante
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
+    @JoinColumn(name = "id_restaurant", referencedColumnName = "id_restaurant")
     private Restaurant restaurant; // Reutiliza tu clase modelo de restaurante aquí
 
     @Column(name = "nombre_plato", nullable = false, length = 150)

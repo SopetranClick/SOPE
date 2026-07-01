@@ -24,7 +24,7 @@ public class Payments {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_users", referencedColumnName = "id_users")
-    private Users idUser;
+    private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_category", referencedColumnName = "id_category")

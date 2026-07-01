@@ -12,4 +12,5 @@ public interface LocalService {
     LocalResponseDTO buscarPorId(Long id);
     List<LocalResponseDTO> listarTodos();
     void eliminarLocal(Long id);
+
 }

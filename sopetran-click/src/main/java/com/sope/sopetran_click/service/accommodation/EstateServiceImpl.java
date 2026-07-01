@@ -8,10 +8,12 @@ import com.sope.sopetran_click.model.category.accommodation.Accommodations;
 import com.sope.sopetran_click.repository.EstateRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class EstateServiceImpl implements EstateService{
 
     @Autowired
@@ -23,7 +25,7 @@ public class EstateServiceImpl implements EstateService{
     @Override
     @Transactional
     public EstateResponseDTO crearFinca(EstateRequestDTO dto) {
-        accommodationsRepository.findById(dto.getIdAccommodation())
+        Accommodations alojamiento= accommodationsRepository.findById(dto.getIdAccommodation())
                 .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada."));
 
         Estate  estate = new Estate();
@@ -32,9 +34,8 @@ public class EstateServiceImpl implements EstateService{
         estate.setPrice(dto.getPrecioPorNoche());
         estate.setContact(dto.getContacto());
         estate.setDescription(dto.getDescripcion());
-        estate.setIdAccommodation(accommodationsRepository.findById(dto.getIdAccommodation())
-                .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada.")));
-
+        estate.setIdAccommodation(alojamiento);
+        estate.setTypeEstate(dto.getTipoFinca());
         Estate estateGuardado = estateRepository.save(estate);
 
         return convertToResponseDTO(estateGuardado);

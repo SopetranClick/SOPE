@@ -15,9 +15,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     /**
      * Filtra las reservas por el tipo de categoría especificado.
-     * * @param categoryType El nombre o código de la categoría (ej: "ACCOMMODATION", "TRANSPORT").
+     * * @param targetType El nombre o código de la categoría (ej: "ACCOMMODATION", "TRANSPORT").
      * @return Una lista de objetos Booking que coinciden con el tipo dado.
      */
-    List<Booking> findByCategoryType(String categoryType);
-    List<Booking> findAllByIdUsers_Id(Long userId);
+    List<Booking> findBytargetType(String targetType);
+    List<Booking> findAllByUser_IdUsers(Long idUsers);
 }

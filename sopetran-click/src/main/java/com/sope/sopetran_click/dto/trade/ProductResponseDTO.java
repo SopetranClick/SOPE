@@ -10,11 +10,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductResponseDTO {
     private Long idProduct;
+    private Long idLocal;
     private String name;
     private String description;
     private BigDecimal price;
     private Integer stock;
     private String imageUrl;
     private Boolean isActive;
-    private String hotelName;
+    private String localName;
 }

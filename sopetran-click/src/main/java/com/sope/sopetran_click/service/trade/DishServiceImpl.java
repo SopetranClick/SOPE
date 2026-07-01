@@ -2,6 +2,7 @@ package com.sope.sopetran_click.service.trade;
 
 import com.sope.sopetran_click.dto.trade.DishRequestDTO;
 import com.sope.sopetran_click.dto.trade.DishResponseDTO;
+import com.sope.sopetran_click.dto.trade.RestaurantResponseDTO;
 import com.sope.sopetran_click.model.category.trade.Dish;
 import com.sope.sopetran_click.model.category.trade.Restaurant;
 import com.sope.sopetran_click.repository.DishRepository;
@@ -10,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.springframework.stereotype.Service;
+@Service
 public class DishServiceImpl implements DishService{
 
     @Autowired
@@ -70,12 +72,34 @@ public class DishServiceImpl implements DishService{
                 .collect(Collectors.toList());
     }
 
+
+
     @Override
     public void eliminarPlato(Long id) {
         if (!dishRepository.existsById(id)) {
             throw new RuntimeException("No se puede eliminar: plato no encontrado por ID");
         }
         dishRepository.deleteById(id);
+    }
+
+    @Override
+    public RestaurantResponseDTO buscarPorIdRestaurant(Long id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se puede actualizar: restaurante no encontrado por ID"));
+        return convertToResponseDTO(restaurant);
+    }
+
+    @Override
+    public List<DishResponseDTO> listarPlatosPorRestaurante(Long restaurantId) {
+        // 1. Validamos si el restaurante existe para lanzar una excepción amigable
+        if (!restaurantRepository.existsById(restaurantId)) {
+            throw new RuntimeException("No se pueden listar los platos: Restaurante no encontrado con ID: " + restaurantId);
+        }
+
+        // 2. Filtramos de manera segura todos los platos asociados a ese restaurante
+        return dishRepository.findByRestaurantIdRestaurant(restaurantId).stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
     }
 
     private DishResponseDTO convertToResponseDTO(Dish dish) {
@@ -86,11 +110,26 @@ public class DishServiceImpl implements DishService{
         response.setDescription(dish.getDescription());
         response.setRestaurantName(dish.getRestaurant().getName());
         response.setIsAvailable(dish.getIsAvailable());
+        response.setImageUrl(dish.getImageUrl());
+        response.setIdRestaurant(dish.getRestaurant().getIdRestaurant());
 
         // Obtenemos de forma segura la información de la categoría padre
         if (dish.getRestaurant() != null) {
+            response.setIdRestaurant(dish.getRestaurant().getIdRestaurant());
             response.setRestaurantName(dish.getRestaurant().getName());
         }
+        return response;
+    }
+
+    private RestaurantResponseDTO convertToResponseDTO(Restaurant restaurant) {
+        if (restaurant == null) return null;
+
+        RestaurantResponseDTO response = new RestaurantResponseDTO();
+        response.setIdRestaurant(restaurant.getIdRestaurant());
+        response.setNombre(restaurant.getName());
+        response.setContacto(restaurant.getContact());
+
+        // Mapea aquí cualquier otro campo que tengas definido en tu RestaurantResponseDTO
         return response;
     }
 }

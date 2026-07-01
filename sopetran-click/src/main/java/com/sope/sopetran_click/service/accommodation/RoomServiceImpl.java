@@ -9,8 +9,11 @@ import com.sope.sopetran_click.repository.HotelsRepository;
 import com.sope.sopetran_click.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import org.springframework.stereotype.Service;
+@Service
 public class RoomServiceImpl implements RoomService{
 
     @Autowired
@@ -26,10 +29,16 @@ public class RoomServiceImpl implements RoomService{
         return convertToResponseDTO(room);
     }
 
+
     @Override
-    public HotelResponseDTO buscarPorIdhotel(Long idhotel) {
-        Hotels hotel = hotelRepository.findById(idhotel)
-            .orElseThrow(() -> new RuntimeException("Hotel no encontrado"));
+    @Transactional(readOnly = true)
+    public HotelResponseDTO buscarPorIdhotel(Long idHabitacion) {
+        Room room = roomRepository.findById(idHabitacion)
+                .orElseThrow(() -> new RuntimeException("Habitación no encontrada con ID: " + idHabitacion));
+        Hotels hotel = room.getHotel();
+        if (hotel == null) {
+            throw new RuntimeException("La habitación no tiene hotel asignado.");
+        }
         return convertToHotelResponseDTO(hotel);
     }
 

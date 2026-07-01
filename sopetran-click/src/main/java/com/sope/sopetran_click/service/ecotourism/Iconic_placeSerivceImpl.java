@@ -1,6 +1,7 @@
 package com.sope.sopetran_click.service.ecotourism;
 
 import com.sope.sopetran_click.dto.accommodation.RoomResponseDTO;
+import com.sope.sopetran_click.dto.ecotourism.IconicPlaceRequestDTO;
 import com.sope.sopetran_click.dto.ecotourism.IconicPlaceResponseDTO;
 import com.sope.sopetran_click.dto.ecotourism.SiteResponseDTO;
 import com.sope.sopetran_click.model.category.accommodation.Room;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+@Service
 public class Iconic_placeSerivceImpl implements Iconic_placeService {
 
     @Autowired
@@ -22,12 +25,15 @@ public class Iconic_placeSerivceImpl implements Iconic_placeService {
     @Override
     public IconicPlaceResponseDTO getIconicPlace(Long id) {
 
-        Iconic_place iconicPlace = iconicPlaceRepository.findById(id).orElse(null);
+        Iconic_place iconicPlace = iconicPlaceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lugar icónico no encontrado"));
         return convertToResponseDTO(iconicPlace);
     }
 
+
+
     @Override
-    public IconicPlaceResponseDTO createIconicPlace(IconicPlaceResponseDTO iconicPlace) {
+    public IconicPlaceResponseDTO createIconicPlace(IconicPlaceRequestDTO iconicPlace) {
         Site site = siteRepository.findById(iconicPlace.getIdLugar())
             .orElseThrow(() -> new RuntimeException("Site no encontrado"));
 
@@ -42,7 +48,7 @@ public class Iconic_placeSerivceImpl implements Iconic_placeService {
     }
 
     @Override
-    public IconicPlaceResponseDTO updateIconicPlace(Long id, IconicPlaceResponseDTO iconicPlace) {
+    public IconicPlaceResponseDTO updateIconicPlace(Long id, IconicPlaceRequestDTO iconicPlace) {
         Site site = siteRepository.findById(iconicPlace.getIdLugar())
                 .orElseThrow(() -> new RuntimeException("Site no encontrado"));
 
@@ -93,7 +99,7 @@ public class Iconic_placeSerivceImpl implements Iconic_placeService {
         IconicPlaceResponseDTO dto = new IconicPlaceResponseDTO();
         dto.setIdLugar(iconicPlace.getIdsite().getIdSite());
         dto.setNombreLugar(iconicPlace.getName());
-        dto.setIdLugar(iconicPlace.getIdsite().getIdSite());
+        dto.setIndicaciones(iconicPlace.getDescription());
         // Mapea aquí los demás campos que tengas en tu DTO
         if (dto.getIdLugar() != null) {
             dto.setNombreLugar(iconicPlace.getIdsite().getName());

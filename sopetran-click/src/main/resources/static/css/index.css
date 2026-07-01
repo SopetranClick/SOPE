@@ -659,7 +659,7 @@
             box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
         }
 
-        
+
 
         /* --- SLIDER BOOTSTRAP PERSONALIZADO --- */
         #heroCarousel {
@@ -705,7 +705,7 @@
         .carousel-control-prev, .carousel-control-next {
             width: 8%;
         }
-        
+
         .carousel-control-prev-icon, .carousel-control-next-icon {
             padding: 25px;
             background-color: rgba(139, 0, 0, 0.5);
@@ -785,34 +785,34 @@
 /* --- 2. Máscaras Específicas (Individuales) --- */
 
 #btn-alojamiento {
-    -webkit-mask-image: url('../img/Mennu/mennu_alojamiento-removebg-preview.png');
-    mask-image: url('../img/Mennu/mennu_alojamiento-removebg-preview.png');
+    -webkit-mask-image: url('/static/img/Mennu/mennu_alojamiento-removebg-preview.png');
+    mask-image: url('/static/img/Mennu/mennu_alojamiento-removebg-preview.png');
     height: 140px;
     width: 140px;
 }
 
 #btn-transporte {
-    -webkit-mask-image: url('../img/Mennu/mennu_trasporte-removebg-preview.png');
-    mask-image: url('../img/Mennu/mennu_trasporte-removebg-preview.png');
+    -webkit-mask-image: url('/static/img/Mennu/mennu_trasporte-removebg-preview.png');
+    mask-image: url('/static/img/Mennu/mennu_trasporte-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 
 #btn-ecoturismo {
-    -webkit-mask-image: url('../img/Mennu/turismo3-removebg-preview.png');
-    mask-image: url('../img/Mennu/turismo3-removebg-preview.png');
+    -webkit-mask-image: url('/static/img/Mennu/turismo3-removebg-preview.png');
+    mask-image: url('/static/img/Mennu/turismo3-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 #btn-comercio{
-    -webkit-mask-image: url('../img/Mennu/Comerciooo-removebg-preview.png');
-    mask-image: url('../img/Mennu/Comerciooo-removebg-preview.png');
+    -webkit-mask-image: url('/static/img/Mennu/Comerciooo-removebg-preview.png');
+    mask-image: url('/static/img/Mennu/Comerciooo-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 #btn-entidades{
-    -webkit-mask-image: url('../img/Mennu/Entidades-removebg-preview.png');
-    mask-image: url('../img/Mennu/Entidades-removebg-preview.png');
+    -webkit-mask-image: url('/static/img/Mennu/Entidades-removebg-preview.png');
+    mask-image: url('/static/img/Mennu/Entidades-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
@@ -869,7 +869,7 @@
         }
 
          /* --- AJUSTES SOLICITADOS SIN CAMBIAR TU ESTRUCTURA --- */
-        
+
 
         /* 2. Logo al frente */
         .nav {
@@ -953,9 +953,9 @@
         }
 
         /* Fondos específicos (ajustar rutas si es necesario) */
-        .p1 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('../img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png'); }
-        .p2 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('../img/PRINCI/Principal-Iglesia.png'); }
-        .p3 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('../img/PRINCI/Carrusel3.PNG'); }
+        .p1 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png'); }
+        .p2 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Principal-Iglesia.png'); }
+        .p3 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Carrusel3.PNG'); }
 
         .pantalla-info {
             padding: 20px;

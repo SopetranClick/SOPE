@@ -28,7 +28,7 @@ public class News {
     private String description;
 
     @Column(name = "date", nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime fechaPublicacion;
 
     @Column(name = "title", nullable = false)
     private String title;

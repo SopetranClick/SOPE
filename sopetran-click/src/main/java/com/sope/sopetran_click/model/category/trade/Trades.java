@@ -20,7 +20,7 @@ public class Trades {
     private Long idTrades;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_categorys", referencedColumnName = "id_categorys")
+    @JoinColumn(name = "id_category", referencedColumnName = "id_category")
     private Categorys idCategorys;
 
     

@@ -32,7 +32,7 @@ public class NewsServiceImpl implements NewsService {
         news.setIdPublicEntitie(publicEntitie);
         news.setTitle(dto.getTitulo());
         news.setDescription(dto.getContenido());
-        news.setDate(LocalDateTime.now()); // Asignar fecha actual al crear
+        news.setFechaPublicacion(LocalDateTime.now()); // Asignar fecha actual al crear
 
         News saved = newsRepository.save(news);
         return mapearAResponse(saved);
@@ -87,7 +87,7 @@ public class NewsServiceImpl implements NewsService {
                 n.getIdNews(),
                 n.getTitle(),
                 n.getDescription(),
-                n.getDate(),
+                n.getFechaPublicacion(),
                 n.getIdPublicEntitie() != null ? n.getIdPublicEntitie().getDescription() : null
         );
     }

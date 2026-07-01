@@ -6,8 +6,9 @@
     <title>SopetranClick .</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/quienessomos.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+
+    <link rel="stylesheet" href="/static/css/quienessomos.css">
 
 
 </head>
@@ -15,8 +16,8 @@
 
     <!-- Intro Animada -->
     <div id="Welcomed">
-        <img src="../static/img/PRINCI/escena1.jpg" alt="Escena 1" class="active">
-        <img src="../static/img/PRINCI/Principal-Iglesia.png" alt="Iglesia">
+        <img src="/static/img/PRINCI/escena1.jpg" alt="Escena 1" class="active">
+        <img src="/static/img/PRINCI/Principal-Iglesia.png" alt="Iglesia">
         <article>
             <h1 id="welcome-text">Sopetran Antioquia<br>
                 <span style="font-size: 1.5rem; font-weight: 300; font-family: 'Inter';">Descubre el corazón verde de Colombia</span>
@@ -32,7 +33,7 @@
         <!-- NAV -->
         <nav class="nav" id="main-nav">
             <article class="d-flex align-items-center gap-2">
-                <img src="../static/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png" alt="Logo" class="LogoPrincipal">
+                <img src="/static/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png" alt="Logo" class="LogoPrincipal">
                 <h2 class="Name">SopetranClick <b>.</b></h2>
             </article>
             <article>
@@ -41,7 +42,7 @@
                 <button onclick="navegarA('quienes')"     class="Quienesnav">Quiénes Somos</button>
             </article>
             <article>
-                <img src="../static/img/Logo/apoyo.png" alt="Apoyo" style="width: 35px;">
+                <img src="/static/img/Logo/apoyo.png" alt="Apoyo" style="width: 35px;">
             </article>
         </nav>
 
@@ -64,9 +65,9 @@
                         <!-- SLIDE 1 → Ecoturismo -->
                         <div class="carousel-item active">
                             <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('../static/img/PRINCI/Carrusel3.PNG');"></div>
+                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/Carrusel3.PNG');"></div>
                                 <div class="overlay-vignette"></div>
-                                <img src="../static/img/PRINCI/Carrusel3.PNG" alt="Sopetran">
+                                <img src="/static/img/PRINCI/Carrusel3.PNG" alt="Sopetran">
                             </div>
                             <!-- Área clicable que lleva a Ecoturismo -->
                             <div class="carousel-item-link" onclick="abrirModulo('ecoturismo')"></div>
@@ -80,9 +81,9 @@
                         <!-- SLIDE 2 → Comercio -->
                         <div class="carousel-item">
                             <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('../static/img/PRINCI/carrusel2.jpg');"></div>
+                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/carrusel2.jpg');"></div>
                                 <div class="overlay-vignette"></div>
-                                <img src="../static/img/PRINCI/necesito-poner-estas-imagenes-a-un-tamaño-de-1600x (1).png" alt="Cultura">
+                                <img src="/static/img/PRINCI/necesito-poner-estas-imagenes-a-un-tamaño-de-1600x (1).png" alt="Cultura">
                             </div>
                             <div class="carousel-item-link" onclick="abrirModulo('comercio')"></div>
                             <div class="carousel-caption">
@@ -95,9 +96,9 @@
                         <!-- SLIDE 3 → Alojamiento -->
                         <div class="carousel-item">
                             <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('../static/img/PRINCI/IMG-20250830-WA0069.jpg');"></div>
+                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/IMG-20250830-WA0069.jpg');"></div>
                                 <div class="overlay-vignette"></div>
-                                <img src="../static/img/PRINCI/upscalemedia-transformed.png" alt="Gastronomía">
+                                <img src="/static/img/PRINCI/upscalemedia-transformed.png" alt="Gastronomía">
                             </div>
                             <div class="carousel-item-link" onclick="abrirModulo('alojamiento')"></div>
                             <div class="carousel-caption">
@@ -208,23 +209,23 @@
                 <section class="highlight-section">
                     <div class="highlight-grid">
                         <div class="highlight-item span-2" onclick="abrirModulo('ecoturismo')">
-                            <img src="../static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png" alt="Paisaje principal">
+                            <img src="/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png" alt="Paisaje principal">
                             <div class="highlight-label"><span>Naturaleza</span>Senderos y Horizontes</div>
                         </div>
                         <div class="highlight-item" onclick="abrirModulo('alojamiento')">
-                            <img src="../static/img/PRINCI/BasilicaCuadro.PNG" alt="Basílica">
+                            <img src="/static/img/PRINCI/BasilicaCuadro.PNG" alt="Basílica">
                             <div class="highlight-label"><span>Patrimonio</span>Basílica</div>
                         </div>
                         <div class="highlight-item" onclick="abrirModulo('comercio')">
-                            <img src="../static/img/PRINCI/VentaDeFrutas.PNG" alt="Frutas">
+                            <img src="/static/img/PRINCI/VentaDeFrutas.PNG" alt="Frutas">
                             <div class="highlight-label"><span>Gastronomía</span>Sabores Locales</div>
                         </div>
                         <div class="highlight-item" onclick="abrirModulo('ecoturismo')">
-                            <img src="../static/img/PRINCI/carrusel1.jpg" alt="Paisaje">
+                            <img src="/static/img/PRINCI/carrusel1.jpg" alt="Paisaje">
                             <div class="highlight-label"><span>Paisajes</span>Occidente Antioqueño</div>
                         </div>
                         <div class="highlight-item" onclick="abrirModulo('alojamiento')">
-                            <img src="../static/img/PRINCI/BasilicaTecho.PNG" alt="Basílica Techo">
+                            <img src="/static/img/PRINCI/BasilicaTecho.PNG" alt="Basílica Techo">
                             <div class="highlight-label"><span>Arquitectura</span>Arte Colonial</div>
                         </div>
                     </div>
@@ -353,7 +354,7 @@
             <section id="vista-alojamiento" class="spa-view">
                 <div style="position: relative;">
                     <iframe 
-                        src="mennu/MenuAlojamiento.html"
+                        src="/mennu/MenuAlojamiento.html"
                         style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
                         title="Módulo Alojamiento"
                     ></iframe>
@@ -363,7 +364,7 @@
             <!-- VISTA 3: TRANSPORTE -->
             <section id="vista-transporte" class="spa-view">
                 <iframe 
-                    src="mennu/vista-transporte.html"
+                    src="/mennu/vista-transporte.html"
                     style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
                     title="Módulo Transporte"
                 ></iframe>
@@ -372,7 +373,7 @@
             <!-- VISTA 4: ECOTURISMO -->
             <section id="vista-ecoturismo" class="spa-view">
                 <iframe 
-                    src="mennu/MennuEcoturismo.html"
+                    src="/mennu/MennuEcoturismo.html"
                     style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
                     title="Módulo Ecoturismo"
                 ></iframe>
@@ -381,7 +382,7 @@
             <!-- VISTA 5: COMERCIO -->
             <section id="vista-comercio" class="spa-view">
                 <iframe 
-                    src="mennu/MennuComercio.html"
+                    src="/mennu/MennuComercio.html"
                     style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
                     title="Módulo Comercio"
                 ></iframe>
@@ -390,7 +391,7 @@
             <!-- VISTA 6: ENTIDADES -->
             <section id="vista-entidades" class="spa-view">
                 <iframe
-                        src="mennu/vista-galeria-cultural.html"
+                        src="/mennu/vista-galeria-cultural.html"
                         style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
                         title="Módulo Entidades Publicas"
                 ></iframe>
@@ -497,7 +498,7 @@
                             <p>SopetranClick es un directorio digital interactivo que reúne los restaurantes, alojamientos, comercios, rutas ecoturísticas y entidades del municipio de Sopetrán, Antioquia. Nació como proyecto académico del programa de Análisis y Desarrollo de Software del SENA, con el objetivo de visibilizar y digitalizar el tejido productivo local.</p>
                         </div>
                         <div class="qs-img-block">
-                            <img src="../static/img/PRINCI/Principal-Iglesia.png" alt="Sopetrán">
+                            <img src="/static/img/PRINCI/Principal-Iglesia.png" alt="Sopetrán">
                         </div>
                     </div>
                 </div>
@@ -575,7 +576,7 @@
 
     <!-- Botón Saltarín Central -->
     <button id="btn-salto-central" class="animacion-salto" onclick="abrirPanel()">
-        <img src="../static/img/Mennu/punta-de-flecha-hacia-arriba (1).png" alt="Icono Salto" width="60">
+        <img src="/static/img/Mennu/punta-de-flecha-hacia-arriba (1).png" alt="Icono Salto" width="60">
     </button>
 
     <!-- PANEL DESPLEGABLE -->
@@ -626,7 +627,7 @@
         </footer>
     </div>
 
-    <script src="../static/js/app.js"></script>
+    <script src="/static/js/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
 

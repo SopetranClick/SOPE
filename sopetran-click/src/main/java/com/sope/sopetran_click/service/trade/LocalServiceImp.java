@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.springframework.stereotype.Service;
+@Service
 public class LocalServiceImp implements LocalService{
 
     @Autowired
@@ -28,6 +29,8 @@ public class LocalServiceImp implements LocalService{
         local.setName(dto.getNombre());
         local.setDescription(dto.getDescription());
         local.setContact(dto.getContacto());
+        local.setType_local(dto.getTipoLocal());
+        local.setAddress(dto.getDireccion());
         local.setIdTrades(trade);
 
         Local localGuardado = localRepository.save(local);

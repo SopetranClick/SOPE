@@ -9,5 +9,5 @@ import java.util.List;
 public interface EstateRepository extends JpaRepository<Estate, Long> {
 
     // Buscar fincas por tipo (ej. "recreativa", "casa campestre")
-    List<Estate> findByTipoFinca(String tipoFinca);
+    List<Estate> findByTypeEstate(String tipoFinca);
 }

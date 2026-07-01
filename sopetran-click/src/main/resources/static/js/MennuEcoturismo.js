@@ -205,7 +205,7 @@ const VEREDAS = [
         icono: '🌿',
         tags: ['Cascadas', 'Café', 'Senderismo'],
         cantidad: 5,
-        img: null, // Pon aquí tu ruta: '../../Img/Veredas/santa-rita.jpg'
+        img: null, // Pon aquí tu ruta: '/Img/Veredas/santa-rita.jpg'
         lugares: [
             {
                 nombre: 'Cascada del Gallinaso',
@@ -214,7 +214,7 @@ const VEREDAS = [
                 desc: 'Caída de agua rodeada de selva nativa, ideal para baños naturales y fotografía.',
                 tags: ['🥾 Senderismo', '📸 Foto'],
                 icono: '💧',
-                img: "../../Img/PRINCI/carrosaFrutas.PNG"
+                img: "/Img/PRINCI/carrosaFrutas.PNG"
             },
             {
                 nombre: 'Mirador Las Águilas',
@@ -592,5 +592,5 @@ renderVeredas();
       que es tu función existente del SPA router. ✅
 
    5. Para agregar imágenes reales a veredas y lugares:
-      Cambia el campo img: null  →  img: '../../Img/Veredas/nombre.jpg'
+      Cambia el campo img: null  →  img: '/Img/Veredas/nombre.jpg'
 ================================================================ */

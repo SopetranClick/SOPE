@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.springframework.stereotype.Service;
+@Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
         product.setImageUrl(dto.getImageUrl());
 
         Product productguardado = productRepository.save(product);
-        return null;
+        return convertToResponseDTO(productguardado);
     }
 
     @Override
@@ -74,6 +75,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    @Override
+    public List<ProductResponseDTO> listarProductosPorLocal(Long localId) {
+        return productRepository.findByLocalIdLocal(localId).stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     private ProductResponseDTO convertToResponseDTO(Product product) {
         ProductResponseDTO response = new ProductResponseDTO();
         response.setIdProduct(product.getIdProduct());
@@ -82,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
         response.setDescription(product.getDescription());
         response.setStock(product.getStock());
         response.setImageUrl(product.getImageUrl());
-        response.setLocalName(product.getLocal().getName());
+        response.setIdLocal(product.getLocal().getIdLocal());
 
         // Obtenemos de forma segura la información de la categoría padre
         if (product.getLocal() != null) {

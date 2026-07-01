@@ -32,7 +32,7 @@ body::-webkit-scrollbar { display: none; }
 .exp-hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('../img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png');
+    background-image: url('/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png');
     background-size: cover;
     background-position: center;
     filter: brightness(0.32);

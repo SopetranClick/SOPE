@@ -101,15 +101,15 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingResponseDTO> findAllByUserId(Long userId) {
-        return bookingRepository.findAllByIdUsers_Id(userId).stream()
+    public List<BookingResponseDTO> findAllByUserId(Long idUsers) {
+        return bookingRepository.findAllByUser_IdUsers(idUsers).stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingResponseDTO> findAllByCategoryId(String categoryId) {
-        return bookingRepository.findByCategoryType(categoryId).stream()
+    public List<BookingResponseDTO> findAllByCategoryId(String targetType) {
+        return bookingRepository.findBytargetType(targetType).stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
