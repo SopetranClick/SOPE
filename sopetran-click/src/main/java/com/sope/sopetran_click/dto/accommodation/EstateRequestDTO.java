@@ -20,28 +20,28 @@ public class EstateRequestDTO {
 
     @NotBlank(message = "The name can not be empty.")
     @Size(min = 3, max = 100, message = "The name must have between 3 and 100 letters.")
-    private String nombre;
+    private String name;
 
     @NotBlank(message = "You need to write the type of place.")
     @Size(max = 50, message = "The type can not have more than 50 letters.")
-    private String tipoFinca; // 'finca recreativa', 'casa campestre'
+    private String farmType; // 'finca recreativa', 'casa campestre'
 
     @NotBlank(message = "The description can not be empty.")
     @Size(max = 1000, message = "The description can not have more than 1000 letters.")
-    private String descripcion;
+    private String description;
 
     @NotBlank(message = "You need to add the address.")
     @Size(max = 255, message = "The address can not have more than 255 letters.")
-    private String ubicacion;
+    private String location;
 
     @NotNull(message = "You need to add the price per night.")
     @DecimalMin(value = "0.0", inclusive = false, message = "The price must be more than 0.")
-    private BigDecimal precioPorNoche;
+    private BigDecimal pricePerNight;
 
     @NotNull(message = "You need to add the max number of people.")
     @Min(value = 1, message = "The place must have space for at least 1 person.")
     @Max(value = 200, message = "The place can not have more than 200 people.")
-    private Integer capacidad;
+    private Integer capacity;
 
     @NotBlank(message = "You need to add the main image.")
     @Pattern(regexp = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
@@ -50,5 +50,5 @@ public class EstateRequestDTO {
 
     @NotBlank(message = "You need to add a phone or contact.")
     @Size(min = 7, max = 20, message = "The contact must have between 7 and 20 letters or numbers.")
-    private String contacto;
+    private String contact;
 }

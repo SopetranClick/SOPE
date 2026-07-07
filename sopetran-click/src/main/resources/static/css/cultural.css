@@ -19,7 +19,8 @@ body {
     background: var(--oscuro);
     color: var(--texto);
     font-family: 'Inter', sans-serif;
-    min-height: 100vh; overflow-x: hidden;
+    min-height: 100vh;
+    overflow-x: hidden; overflow-y: auto;
 }
 
 /* ── FONDO ── */
@@ -36,7 +37,7 @@ body {
     background-size: 200px 200px;
 }
 
-.wrapper { position: relative; z-index: 1; max-width: 1220px; margin: 0 auto; padding: 50px 24px 100px; }
+.wrapper { position: relative; z-index: 1; max-width: 1220px; margin: 0 auto; padding: 100px 24px 100px; }
 
 /* ── BACK (volver a SopetranClick) ── */
 .btn-back {

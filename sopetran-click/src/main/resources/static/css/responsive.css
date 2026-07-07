@@ -1,0 +1,464 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   SOPETRANCLICK — RESPONSIVE CSS
+   Incluir DESPUÉS de cada CSS individual: <link href="/css/responsive.css">
+   Cubre: index, exploración, quiénes somos, alojamiento, comercio,
+          ecoturismo, cultural, transporte
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════
+   TABLET — max 992px
+   ══════════════════════════════════════════ */
+@media (max-width: 992px) {
+
+    /* ── NAV ── */
+    .nav {
+        padding: 0.8rem 1.5rem !important;
+        gap: 8px;
+    }
+    .nav button {
+        padding: 6px 14px !important;
+        font-size: 0.75rem !important;
+    }
+    .Name { font-size: 1.2rem !important; }
+    .Name b { font-size: 1.4rem !important; }
+    .LogoPrincipal { width: 38px !important; height: 38px !important; }
+
+    /* ── INDEX: Carrusel ── */
+    #heroCarousel { height: 450px !important; }
+    .carousel-caption h2 { font-size: 2.5rem !important; }
+    .carousel-caption p { font-size: 1rem !important; }
+
+    /* ── INDEX: Secciones ── */
+    .eventos-section,
+    .cifras-wrapper,
+    .sec-aventuras { padding: 40px 20px !important; }
+    .eventos-grid { gap: 16px !important; }
+
+    /* ── INDEX: Grid categorías ── */
+    .grid-categorias {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+
+    /* ── Exploración ── */
+    .exp-hero { height: 350px !important; }
+    .exp-titulo { font-size: 3rem !important; }
+
+    /* ── Quiénes Somos ── */
+    .qs-hero { height: 380px !important; }
+
+    /* ── Alojamiento ── */
+    .gallery-grid {
+        max-width: 360px !important;
+        gap: 10px !important;
+    }
+
+    /* ── Ecoturismo: Detalle ── */
+    .detalle-hero { height: 50vh !important; min-height: 300px !important; }
+
+    /* ── Cultural ── */
+    /* padding-top ampliado para que ".btn-back" no quede tapado por el nav fijo */
+    .wrapper { padding: 110px 16px 60px !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   MÓVIL — max 768px
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* ── NAV: Hamburguesa-style (scroll horizontal) ── */
+    .nav {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        padding: 0.6rem 0.8rem !important;
+        gap: 6px !important;
+    }
+    .nav button {
+        padding: 5px 10px !important;
+        font-size: 0.68rem !important;
+        border-radius: 8px !important;
+    }
+    .Name { display: none !important; }
+    .LogoPrincipal { width: 32px !important; height: 32px !important; }
+
+    /* ── INDEX: Carrusel ── */
+    #heroCarousel {
+        height: 350px !important;
+        margin-top: 70px !important;
+    }
+    .carousel-caption {
+        bottom: 10% !important;
+        padding: 0 16px !important;
+    }
+    .carousel-caption h2 { font-size: 1.8rem !important; }
+    .carousel-caption p { font-size: 0.85rem !important; }
+    .carousel-caption .btn {
+        padding: 8px 20px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* ── INDEX: Eventos ── */
+    .eventos-section { padding: 30px 16px !important; }
+    .eventos-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .evento-card-header h3 { font-size: 1.8rem !important; }
+
+    /* ── INDEX: Categorías ── */
+    .grid-categorias {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .categoria-card { padding: 20px !important; }
+    .categoria-card h3 { font-size: 1rem !important; }
+
+    /* ── INDEX: Cifras ── */
+    .cifras-section {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+    .cifra-numero { font-size: 2rem !important; }
+
+    /* ── INDEX: Aventuras ── */
+    .aventura-grid { grid-template-columns: 1fr !important; }
+    .aventura-card { padding: 20px 16px !important; }
+
+    /* ── INDEX: Reseñas ── */
+    .resenas-section { padding: 30px 16px !important; }
+    .resena-card { min-width: 260px !important; }
+
+    /* ── INDEX: Experiencias ── */
+    .grid-experiencias {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    .pantalla-item { height: 280px !important; }
+
+    /* ── INDEX: Footer ── */
+    .panel-footer {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    .footer-links-side {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* ── INDEX: Map ── */
+    .map-section { flex-direction: column !important; }
+
+    /* ── INDEX: Botón volver ── */
+    .btn-volver-fijo {
+        top: auto !important;
+        bottom: 16px !important;
+        left: 16px !important;
+        padding: 8px 16px !important;
+        font-size: 0.78rem !important;
+    }
+
+    /* ── EXPLORACIÓN ── */
+    .exp-hero { height: 300px !important; }
+    .exp-titulo { font-size: 2.2rem !important; }
+    .exp-subtitulo { font-size: 0.85rem !important; }
+    .aventura-grid { grid-template-columns: 1fr !important; }
+    .mapa-section { flex-direction: column !important; }
+
+    /* ── QUIÉNES SOMOS ── */
+    .qs-hero { height: 320px !important; }
+    .qs-titulo { font-size: 2.2rem !important; }
+    .qs-bajada { font-size: 0.85rem !important; }
+    .qs-valores { grid-template-columns: 1fr !important; }
+    .qs-equipo { grid-template-columns: 1fr !important; }
+    .qs-mision-grid { grid-template-columns: 1fr !important; }
+    .qs-timeline { padding: 0 8px !important; }
+    .qs-timeline-item { flex-direction: column !important; gap: 8px !important; }
+
+    /* ── ALOJAMIENTO ── */
+    /* La galería (#gridGallery) ya se oculta <=992px desde alojamiento.css;
+       aquí solo ajustamos el panel de info y el catálogo inferior para que
+       no queden superpuestos en pantallas de celular. */
+    .content-wrapper {
+        flex-direction: column !important;
+    }
+    .info-section {
+        padding: 1.5rem !important;
+        padding-top: 110px !important;    /* espacio para que el nav fijo no tape el panel */
+        padding-bottom: 190px !important; /* espacio reservado para el catálogo fijo inferior, separado del glass-panel */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .glass-panel {
+        padding: 1.5rem !important;
+        width: 100% !important;
+    }
+    .title-display { font-size: 1.6rem !important; }
+    .description-display {
+        font-size: 0.82rem !important;
+        max-width: 320px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .stack-footer {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        bottom: 16px !important;
+        max-width: 92vw !important;
+        padding: 12px 8px !important;
+    }
+    .stack-card {
+        min-width: 70px !important;
+        width: 70px !important;
+        height: 90px !important;
+    }
+    /* La tarjeta activa solo se resalta con borde, sin cambiar de tamaño,
+       para que todas las tarjetas del catálogo se vean del mismo tamaño */
+    .stack-card.active {
+        transform: none !important;
+        border-color: white !important;
+        box-shadow: 0 4px 14px rgba(255,255,255,0.3) !important;
+    }
+    /* Controles de galería (flechas + ojo): arriba del catálogo, no debajo.
+       OJO: esto solo debe aplicar cuando el nav está visible (.is-visible,
+       activado por el botón "ocultar interfaz"). Si se aplica al elemento
+       base, el "bottom" empuja el nav dentro del viewport y anula el
+       translateY(150%) que lo esconde por defecto, dejándolo siempre
+       encima del catálogo aunque no se haya activado. */
+    .nav-bar-bottom.is-visible {
+        bottom: 150px !important;
+    }
+
+    /* ── COMERCIO ── */
+    /* Hero servicio */
+    .srv-hero {
+        grid-template-columns: 1fr !important;
+    }
+    .srv-hero-imgs { height: 220px !important; }
+    .srv-hero-info {
+        padding: 24px 16px !important;
+        border-left: none !important;
+        border-top: 3px solid #8b0000 !important;
+    }
+    .srv-hero-info h1 { font-size: 1.5rem !important; }
+    /* Directorio */
+    .grid-locales {
+        grid-template-columns: 1fr !important;
+    }
+    .local-card { min-height: auto !important; }
+    /* Catálogo orbital */
+    .orbital-container { transform: scale(0.7) !important; }
+    /* Fotos grid */
+    .srv-fotos-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .srv-body { padding: 20px 16px !important; }
+
+    /* ── ECOTURISMO ── */
+    .veredas-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .lugares-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .detalle-hero {
+        height: 45vh !important;
+        min-height: 260px !important;
+    }
+    .detalle-body { padding: 20px 16px !important; }
+    .detalle-info-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    .detalle-galeria {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .detalle-relacionados {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── CULTURAL ── */
+    /* padding-top ampliado para que ".btn-back" no quede tapado por el nav fijo (que en móvil puede ocupar 2 líneas) */
+    .wrapper { padding: 110px 12px 60px !important; }
+    .page-header h1 { font-size: 2rem !important; }
+    .eventos-timeline { gap: 20px !important; }
+    .evento-featured-card,
+    .evento-card {
+        padding: 20px !important;
+    }
+    .historia-card {
+        padding: 20px 16px !important;
+    }
+    .historia-card .historia-texto { font-size: 0.85rem !important; }
+    .fechas-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* ── TRANSPORTE ── */
+    /* padding-top ampliado para que ".btn-back" no quede tapado por el nav fijo (que en móvil puede ocupar 2 líneas) */
+    .wrapper { padding: 110px 12px 60px !important; }
+    .step-header h1 { font-size: 1.6rem !important; }
+    .transport-grid,
+    .driver-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .ruta-card,
+    .driver-card {
+        padding: 20px 16px !important;
+    }
+    .bus-asientos-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+
+/* ══════════════════════════════════════════
+   MÓVIL PEQUEÑO — max 480px
+   ══════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+    /* ── NAV ── */
+    .nav {
+        padding: 0.5rem !important;
+        gap: 4px !important;
+    }
+    .nav button {
+        padding: 4px 8px !important;
+        font-size: 0.62rem !important;
+    }
+
+    /* ── INDEX ── */
+    #heroCarousel {
+        height: 280px !important;
+        margin-top: 60px !important;
+    }
+    .carousel-caption h2 { font-size: 1.3rem !important; }
+    .carousel-caption p { font-size: 0.75rem !important; margin-bottom: 0.8rem !important; }
+
+    .cifras-section { grid-template-columns: 1fr !important; }
+    .cifra-numero { font-size: 1.8rem !important; }
+
+    .eventos-section h2 { font-size: 1.4rem !important; }
+    .evento-card-header h3 { font-size: 1.4rem !important; }
+
+    .resena-card { min-width: 220px !important; }
+
+    /* ── EXPLORACIÓN ── */
+    .exp-hero { height: 240px !important; }
+    .exp-titulo { font-size: 1.8rem !important; }
+
+    /* ── QUIÉNES SOMOS ── */
+    .qs-hero { height: 260px !important; }
+    .qs-titulo { font-size: 1.8rem !important; }
+    .qs-stat-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    /* ── ALOJAMIENTO ── */
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .text-panel h1 { font-size: 1.2rem !important; }
+    .stack-card {
+        min-width: 60px !important;
+        width: 60px !important;
+        height: 45px !important;
+    }
+
+    /* ── COMERCIO ── */
+    .srv-hero-imgs { height: 180px !important; }
+    .srv-hero-info { padding: 20px 12px !important; }
+    .srv-hero-info h1 { font-size: 1.3rem !important; }
+    .srv-fotos-grid { grid-template-columns: 1fr !important; }
+
+    /* ── ECOTURISMO ── */
+    .detalle-hero { height: 35vh !important; min-height: 220px !important; }
+    .detalle-info-grid { grid-template-columns: 1fr !important; }
+    .detalle-galeria { grid-template-columns: 1fr !important; }
+
+    /* ── CULTURAL ── */
+    .page-header h1 { font-size: 1.6rem !important; }
+    .breadcrumb-flow { gap: 6px !important; font-size: 0.7rem !important; }
+    .breadcrumb-flow .crumb { padding: 4px 10px !important; }
+
+    /* ── TRANSPORTE ── */
+    .step-header h1 { font-size: 1.3rem !important; }
+    .bus-asientos-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .breadcrumb-flow .crumb { padding: 4px 10px !important; font-size: 0.7rem !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   MÓVIL MUY PEQUEÑO — max 360px
+   ══════════════════════════════════════════ */
+@media (max-width: 360px) {
+    .nav button { font-size: 0.58rem !important; padding: 3px 6px !important; }
+
+    #heroCarousel { height: 220px !important; }
+    .carousel-caption h2 { font-size: 1.1rem !important; }
+
+    .exp-titulo, .qs-titulo { font-size: 1.5rem !important; }
+
+    .page-header h1 { font-size: 1.3rem !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   UTILIDADES RESPONSIVAS GLOBALES
+   ══════════════════════════════════════════ */
+
+/* Imágenes responsivas */
+img { max-width: 100%; height: auto; }
+
+/* Prevenir overflow horizontal en todas las vistas */
+html, body { overflow-x: hidden; overflow-y: auto;  }
+
+/* Mejorar tap targets en móvil */
+@media (max-width: 768px) {
+    button, a, .crumb, .stack-card, .local-card, .vereda-card, .lugar-card {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Smooth scrolling global */
+html { scroll-behavior: smooth; }
+
+/* Fix para iframes en vistas embebidas (alojamiento, ecoturismo, etc.) */
+@media (max-width: 768px) {
+    iframe {
+        width: 100% !important;
+        height: 100vh !important;
+        border: none !important;
+    }
+}
+
+/* Fix scroll — fragmentos inline (antes eran iframes con body propio) */
+.spa-view {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+}
+
+.spa-view .wrapper,
+.spa-view .content-wrapper,
+.spa-view #pantalla-directorio,
+.spa-view #pantalla-local,
+.spa-view #pantalla-servicio {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}

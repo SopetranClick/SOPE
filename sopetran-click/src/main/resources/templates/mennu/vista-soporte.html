@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+    FRAGMENTO: vista-soporte
+    Uso en Index.html:
+        <div th:insert="~{mennu/vista-soporte :: vista-soporte}"></div>
+-->
+
+<section th:fragment="vista-soporte" id="vista-soporte" class="spa-view">
+  <div class="soporte-wrapper">
+    <button class="btn-back" onclick="navegarA('inicio')">
+      <i class="fas fa-arrow-left"></i> SopetranClick
+    </button>
+
+    <header class="soporte-header">
+      <div class="tag">Centro de Ayuda</div>
+      <h1>¿En qué podemos <span>ayudarte</span>?</h1>
+      <p>Envía tu PQRS y te responderemos lo antes posible.</p>
+    </header>
+
+    <div class="soporte-grid">
+      <!-- Formulario PQRS -->
+      <form class="pqrs-form" id="pqrs-form" onsubmit="return enviarPqrs(event)">
+        <label>Tipo de solicitud
+          <select id="pqrs-tipo" required>
+            <option value="">Selecciona…</option>
+            <option value="PETICION">Petición</option>
+            <option value="QUEJA">Queja</option>
+            <option value="RECLAMO">Reclamo</option>
+            <option value="SUGERENCIA">Sugerencia</option>
+          </select>
+        </label>
+        <label>Nombre completo <input type="text" id="pqrs-nombre" required></label>
+        <label>Correo electrónico <input type="email" id="pqrs-email" required></label>
+        <label>Teléfono (opcional) <input type="tel" id="pqrs-tel"></label>
+        <label>Asunto <input type="text" id="pqrs-asunto" required></label>
+        <label>Mensaje <textarea id="pqrs-mensaje" rows="5" required></textarea></label>
+        <button type="submit" class="btn-enviar">Enviar PQRS</button>
+        <p class="pqrs-feedback" id="pqrs-feedback"></p>
+      </form>
+
+      <!-- Contáctanos -->
+      <aside class="contacto-box">
+        <h3>Contáctanos</h3>
+        <a class="contacto-item" href="https://wa.me/57XXXXXXXXXX" target="_blank">
+          <i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a class="contacto-item" href="mailto:soporte@sopetranclick.com">
+          <i class="fas fa-envelope"></i> soporte@sopetranclick.com</a>
+        <a class="contacto-item" href="tel:+57XXXXXXXXXX">
+          <i class="fas fa-phone"></i> +57 XXX XXX XXXX</a>
+        <div class="contacto-horario">
+          <i class="fas fa-clock"></i> Lun–Vie 8:00 a.m. – 6:00 p.m.
+        </div>
+        <button class="btn-comerciante" onclick="navegarA('marketing')">
+          ¿Eres comerciante? Conoce nuestros planes
+        </button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -19,12 +19,15 @@ public class WebConfig implements WebMvcConfigurer {
         // Esto soluciona los errores de NoResourceFoundException para css, js e imágenes.
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
+        
 
-        // 2. SOLUCIÓN PARA LA CARPETA /mennu/:
+        // 3. SOLUCIÓN PARA LA CARPETA /mennu/:
         // Mapea peticiones de sub-vistas HTML (como /mennu/MenuAlojamiento.html)
         // Busca tanto en "static/mennu/" como en una carpeta "mennu/" fuera de static.
         registry.addResourceHandler("/mennu/**")
                 .addResourceLocations("classpath:/static/mennu/", "classpath:/mennu/");
+
+
 
         // 3. MAPEO ESTÁNDAR DE APOYO (Opcional pero recomendado):
         // Permite acceder a recursos omitiendo el prefijo "static" si el frontend lo requiere.

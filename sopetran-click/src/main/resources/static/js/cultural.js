@@ -1,73 +1,87 @@
 /* ════════════════════════════════════════
-   DATOS
+   DATOS — cargados desde la API real
 ════════════════════════════════════════ */
-const eventos = [
-    {
-        featured: true, emoji: '🎉', dia: '28', mes: 'Jun',
-        titulo: 'Feria de las Flores Sopetrán 2025',
-        categoria: 'Festival', color: '#2a0a0a',
-        desc: 'La fiesta más colorida del occidente antioqueño. Desfiles, música, gastronomía típica y la tradicional elección de la Reina de las Flores. Tres días de alegría para toda la familia.',
-        lugar: 'Parque Principal', hora: '10:00 AM - 11:00 PM',
-        larga: 'Una de las festividades más esperadas del año en Sopetrán. Las calles se visten de color con arreglos florales elaborados por artesanos locales. Incluye exposición de carros antiguos, conciertos de música popular y la famosa noche de la antorcha que recorre el municipio.'
-    },
-    {
-        emoji: '🎭', dia: '15', mes: 'Jul',
-        titulo: 'Festival de Teatro Popular',
-        categoria: 'Arte', color: '#1a0a2a',
-        desc: 'Grupos teatrales de Antioquia se reúnen para llenar las plazas de Sopetrán con obras que celebran la cultura campesina.',
-        lugar: 'Parque Central', hora: '5:00 PM'
-    },
-    {
-        emoji: '🎵', dia: '05', mes: 'Ago',
-        titulo: 'Noche de Serenatas',
-        categoria: 'Música', color: '#0a1a0a',
-        desc: 'Una noche mágica donde los trovadores locales rinden homenaje a la música antioqueña bajo las estrellas del occidente.',
-        lugar: 'Plaza de Bolívar', hora: '7:00 PM'
-    },
-    {
-        emoji: '🏺', dia: '20', mes: 'Sep',
-        titulo: 'Expo Artesanías del Occidente',
-        categoria: 'Artesanías', color: '#1a1400',
-        desc: 'Artesanos de toda la región exponen y venden sus creaciones. Talleres abiertos de cerámica, tejido y madera.',
-        lugar: 'Casa de la Cultura', hora: '9:00 AM - 6:00 PM'
-    },
-];
+let eventos = [];
+let fechasEspeciales = [];
+let historia = [];
 
-const fechasEspeciales = [
-    { dia: '25', mes: 'Dic', nombre: 'Novenas de Navidad', desc: 'Celebración tradicional con pesebres artesanales que adornan cada barrio del municipio.', icon: '⛪' },
-    { dia: '02', mes: 'Feb', nombre: 'Día de la Candelaria', desc: 'Patrona del municipio. Misa solemne, procesión y celebraciones populares en el parque principal.', icon: '🕯️' },
-    { dia: '19', mes: 'Mar', nombre: 'Día de San José', desc: 'Honor al santo patrono de los trabajadores. Actividades familiares y culturales durante todo el día.', icon: '🌿' },
-    { dia: '01', mes: 'Nov', nombre: 'Día de los Difuntos', desc: 'Tradición de visita al cementerio con flores y música. Una de las fechas más sentidas del año.', icon: '🌸' },
-    { dia: '16', mes: 'Jul', nombre: 'Día de la Virgen del Carmen', desc: 'Celebración del transporte. Bendición de vehículos y procesión por las calles principales.', icon: '🚗' },
-    { dia: '07', mes: 'Ago', nombre: 'Batalla de Boyacá', desc: 'Actos cívicos en instituciones educativas. Izadas de bandera y presentaciones artísticas.', icon: '🇨🇴' },
-];
+const MESES_ABBR = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
-const historia = [
-    {
-        main: true, emoji: '⛪', color: '#1a0808', era: 'Fundación • Siglo XVI',
-        titulo: 'Los Orígenes de Sopetrán',
-        numero: '01',
-        texto: 'Sopetrán fue fundado en el año 1541 por el conquistador español Jerónimo Luis Tejelo bajo el nombre de "Pueblo de Sopetrán". Su nombre proviene del latín "Sub Petra" que significa "bajo la piedra", en referencia a los grandes afloramientos rocosos que caracterizan su paisaje. Desde sus inicios, fue un importante cruce de caminos entre el río Cauca y el interior del departamento, convirtiéndose en punto de encuentro de culturas indígenas, españolas y africanas que dieron forma a su identidad única.',
-    },
-    {
-        emoji: '🏛️', color: '#0e0e1a', era: 'Siglo XIX',
-        titulo: 'La Basílica de Nuestra Señora',
-        numero: '02',
-        texto: 'La imponente Basílica Menor de Nuestra Señora de Chiquinquirá, construida entre 1870 y 1920, es el símbolo más reconocible del municipio. Declarada Patrimonio Arquitectónico, atrae peregrinos de toda Colombia.',
-    },
-    {
-        emoji: '🌳', color: '#0a1a0a', era: 'Geografía',
-        titulo: 'Verde y Biodiversidad',
-        numero: '03',
-        texto: 'Ubicado en el occidente antioqueño a orillas del río Cauca, Sopetrán cuenta con pisos térmicos que van del cálido húmedo hasta el frío, albergando una biodiversidad excepcional y paisajes únicos.',
-    },
-    {
-        emoji: '🎨', color: '#1a1408', era: 'Cultura Viva',
-        titulo: 'Tradición y Arte Popular',
-        numero: '04',
-        texto: 'La música de carrilera, las décimas campesinas y los tejidos artesanales son parte del ADN cultural sopetranero. El municipio ha dado al departamento trovadores, pintores y artesanos reconocidos.',
-    },
-];
+const EMOJI_POR_CATEGORIA = {
+    'festival': '🎉', 'arte': '🎭', 'música': '🎵', 'musica': '🎵', 'artesanías': '🏺', 'artesanias': '🏺'
+};
+const COLOR_POR_CATEGORIA = {
+    'festival': '#2a0a0a', 'arte': '#1a0a2a', 'música': '#0a1a0a', 'musica': '#0a1a0a', 'artesanías': '#1a1400', 'artesanias': '#1a1400'
+};
+function derivarEmojiCategoria(categoria) {
+    return EMOJI_POR_CATEGORIA[(categoria || '').toLowerCase()] || '📅';
+}
+function derivarColorCategoria(categoria) {
+    return COLOR_POR_CATEGORIA[(categoria || '').toLowerCase()] || '#141414';
+}
+
+const EMOJI_POR_ERA = { 'fundación': '⛪', 'fundacion': '⛪', 'geografía': '🌳', 'geografia': '🌳', 'cultura viva': '🎨' };
+function derivarEmojiEra(era) {
+    const clave = Object.keys(EMOJI_POR_ERA).find(k => (era || '').toLowerCase().includes(k));
+    return clave ? EMOJI_POR_ERA[clave] : '🏛️';
+}
+const COLORES_ERA = ['#1a0808', '#0e0e1a', '#0a1a0a', '#1a1408'];
+function derivarColorEra(indice) {
+    return COLORES_ERA[indice % COLORES_ERA.length];
+}
+
+/** Carga eventos, fechas especiales e historia desde la API real */
+async function cargarDatosCulturales() {
+    const [resEventos, resFechas, resHistoria] = await Promise.all([
+        fetch('/api/events'),
+        fetch('/api/special-dates'),
+        fetch('/api/history-entries')
+    ]);
+
+    if (resEventos.ok) {
+        const data = await resEventos.json();
+        eventos = data.map(e => {
+            const fecha = new Date(e.fechaEvento);
+            return {
+                featured: !!e.featured,
+                emoji: derivarEmojiCategoria(e.categoria),
+                dia: String(fecha.getDate()).padStart(2, '0'),
+                mes: MESES_ABBR[fecha.getMonth()],
+                titulo: e.nombreEvento,
+                categoria: e.categoria || 'Evento',
+                color: derivarColorCategoria(e.categoria),
+                desc: e.descripcionLarga ? e.descripcionLarga.slice(0, 160) : '',
+                lugar: e.lugar,
+                hora: fecha.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' }),
+                larga: e.descripcionLarga
+            };
+        });
+    }
+
+    if (resFechas.ok) {
+        const data = await resFechas.json();
+        fechasEspeciales = data.map(f => ({
+            dia: String(f.dia).padStart(2, '0'),
+            mes: MESES_ABBR[f.mes - 1],
+            nombre: f.nombre,
+            desc: f.descripcion,
+            icon: '📌'
+        }));
+    }
+
+    if (resHistoria.ok) {
+        const data = await resHistoria.json();
+        historia = data.map((h, i) => ({
+            main: !!h.main,
+            emoji: derivarEmojiEra(h.era),
+            color: derivarColorEra(i),
+            era: h.era,
+            titulo: h.titulo,
+            numero: h.numero,
+            texto: h.texto
+        }));
+    }
+}
 
 /* ════════════════════════════════════════
    BREADCRUMB — navegación entre apartados
@@ -143,8 +157,8 @@ function aplicarFiltro(tipo) {
 function renderEventos() {
     const grid = document.getElementById('eventos-grid');
     if (!grid) return;
-    grid.innerHTML = eventos.map(ev => `
-    <div class="evento-card ${ev.featured ? 'evento-featured' : ''}" onclick="abrirModal('ev','${ev.titulo}','${ev.categoria}','${ev.emoji}','${ev.larga || ev.desc}','${ev.lugar}','${ev.hora || ''}')">
+    grid.innerHTML = eventos.map((ev, i) => `
+    <div class="evento-card ${ev.featured ? 'evento-featured' : ''}" onclick="abrirModal('ev',${i})">
       <div class="evento-img-wrap">
         <div class="ev-bg" style="background:${ev.color};">${ev.emoji}</div>
         <div class="ev-overlay"></div>
@@ -169,8 +183,8 @@ function renderEventos() {
 function renderFechas() {
     const grid = document.getElementById('fechas-grid');
     if (!grid) return;
-    grid.innerHTML = fechasEspeciales.map(f => `
-    <div class="timeline-card" onclick="abrirModal('fecha','${f.nombre}','Fecha Especial','${f.icon}','${f.desc}','','')">
+    grid.innerHTML = fechasEspeciales.map((f, i) => `
+    <div class="timeline-card" onclick="abrirModal('fecha',${i})">
       <div class="tl-icon">${f.icon}</div>
       <div class="tl-fecha">${f.dia}</div>
       <div class="tl-mes">${f.mes}</div>
@@ -186,7 +200,7 @@ function renderFechas() {
 function renderHistoria() {
     const grid = document.getElementById('historia-grid');
     if (!grid) return;
-    grid.innerHTML = historia.map(h => `
+    grid.innerHTML = historia.map((h, i) => `
     <div class="historia-card ${h.main ? 'historia-main' : ''}">
       <div class="hist-banner" style="background:${h.color};">
         ${h.emoji}
@@ -195,8 +209,8 @@ function renderHistoria() {
       <div class="hist-body">
         <div class="hist-era">${h.era}</div>
         <div class="hist-title">${h.titulo}</div>
-        <div class="hist-text">${h.texto.substring(0,180)}${h.texto.length > 180 ? '...' : ''}</div>
-        <button class="btn-ver-mas-hist" onclick="event.stopPropagation();abrirModal('hist','${h.titulo}','${h.era}','${h.emoji}','${h.texto}','','')">
+        <div class="hist-text">${(h.texto || '').substring(0,180)}${(h.texto || '').length > 180 ? '...' : ''}</div>
+        <button class="btn-ver-mas-hist" onclick="event.stopPropagation();abrirModal('hist',${i})">
           Leer más <i class="fas fa-arrow-right"></i>
         </button>
       </div>
@@ -207,7 +221,26 @@ function renderHistoria() {
 /* ════════════════════════════════════════
    MODAL DE DETALLE
 ════════════════════════════════════════ */
-function abrirModal(tipo, titulo, cat, emoji, desc, lugar, hora) {
+function abrirModal(tipo, index) {
+    let titulo, cat, emoji, desc, lugar, hora;
+
+    if (tipo === 'ev') {
+        const ev = eventos[index];
+        if (!ev) return;
+        titulo = ev.titulo; cat = ev.categoria; emoji = ev.emoji;
+        desc = ev.larga || ev.desc; lugar = ev.lugar; hora = ev.hora || '';
+    } else if (tipo === 'fecha') {
+        const f = fechasEspeciales[index];
+        if (!f) return;
+        titulo = f.nombre; cat = 'Fecha Especial'; emoji = f.icon; desc = f.desc; lugar = ''; hora = '';
+    } else if (tipo === 'hist') {
+        const h = historia[index];
+        if (!h) return;
+        titulo = h.titulo; cat = h.era; emoji = h.emoji; desc = h.texto; lugar = ''; hora = '';
+    } else {
+        return;
+    }
+
     document.getElementById('m-em').textContent = emoji;
     document.getElementById('m-cat').textContent = cat;
     document.getElementById('m-titulo').textContent = titulo;
@@ -223,7 +256,17 @@ function cerrarModal() { document.getElementById('modal').classList.remove('open
 /* ════════════════════════════════════════
    INIT
 ════════════════════════════════════════ */
-renderEventos();
-renderFechas();
-renderHistoria();
+cargarDatosCulturales()
+    .then(() => {
+        renderEventos();
+        renderFechas();
+        renderHistoria();
+    })
+    .catch(e => {
+        console.error('Error cargando datos culturales:', e);
+        ['eventos-grid', 'fechas-grid', 'historia-grid'].forEach(id => {
+            const grid = document.getElementById(id);
+            if (grid) grid.innerHTML = '<p class="sin-resultados">No se pudo cargar la información.</p>';
+        });
+    });
 renderBreadcrumb();

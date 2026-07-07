@@ -8,6 +8,7 @@ import com.sope.sopetran_click.repository.LocalRepository;
 import com.sope.sopetran_click.repository.TradesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,9 @@ public class LocalServiceImp implements LocalService{
         local.setType_local(dto.getTipoLocal());
         local.setAddress(dto.getDireccion());
         local.setIdTrades(trade);
+        local.setRating(dto.getRating());
+        local.setHorario(dto.getHorario());
+        local.setAbierto(dto.getAbierto() != null ? dto.getAbierto() : true);
 
         Local localGuardado = localRepository.save(local);
 
@@ -51,7 +55,12 @@ public class LocalServiceImp implements LocalService{
         localexiste.setName(dto.getNombre());
         localexiste.setDescription(dto.getDescription());
         localexiste.setContact(dto.getContacto());
+        localexiste.setType_local(dto.getTipoLocal());
+        localexiste.setAddress(dto.getDireccion());
         localexiste.setIdTrades(trade);
+        localexiste.setRating(dto.getRating());
+        localexiste.setHorario(dto.getHorario());
+        localexiste.setAbierto(dto.getAbierto() != null ? dto.getAbierto() : true);
 
         Local localActualizado = localRepository.save(localexiste);
         return convertToResponseDTO(localActualizado);
@@ -86,10 +95,28 @@ public class LocalServiceImp implements LocalService{
         response.setNombre(local.getName());
         response.setDescription(local.getDescription());
         response.setContacto(local.getContact());
+        response.setTipoLocal(local.getType_local());
+        response.setDireccion(local.getAddress());
+        response.setCategoria(local.getType_local());
+        response.setRating(local.getRating());
+        response.setHorario(local.getHorario());
+        response.setAbierto(local.getAbierto());
 
-        // Obtenemos de forma segura la información de la categoría padre
         if (local.getIdTrades() != null) {
-            response.setNombre(local.getIdTrades().getDescription());
+            response.setIdTrade(local.getIdTrades().getIdTrades());
+        }
+
+        if (local.getImagenes() != null && !local.getImagenes().isEmpty()) {
+            response.setCoverUrl(local.getCoverUrl());
+            response.setGallery(
+                    local.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            response.setCoverUrl(local.getCoverUrl());
+            response.setGallery(Collections.emptyList());
         }
         return response;
     }

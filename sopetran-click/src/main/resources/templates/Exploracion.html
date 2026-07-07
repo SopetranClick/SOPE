@@ -1,138 +1,167 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exploración — SopetranClick</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/exploracion.css">
-    <link rel="stylesheet" href="/static/css/index.css">
-
+    <!-- th:href corrige la ruta para Spring Boot (antes era /static/css/ que no existe en runtime) -->
+    <link rel="stylesheet" th:href="@{/css/exploracion.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 <body>
 
-    <!-- HERO -->
-    <div class="exp-hero">
-        <div class="exp-hero-bg"></div>
-        <div class="exp-hero-overlay"></div>
-        <div class="exp-hero-content">
-            <p class="exp-eyebrow">Sopetrán · Antioquia</p>
-            <h1 class="exp-titulo">Exploración</h1>
-            <p class="exp-subtitulo">Todo lo que Sopetrán tiene para vivir, sentir y descubrir en un solo lugar</p>
-        </div>
+<!-- HERO -->
+<div class="exp-hero">
+    <div class="exp-hero-bg"></div>
+    <div class="exp-hero-overlay"></div>
+    <div class="exp-hero-content">
+        <p class="exp-eyebrow">Sopetrán · Antioquia</p>
+        <h1 class="exp-titulo">Exploración</h1>
+        <p class="exp-subtitulo">Todo lo que Sopetrán tiene para vivir, sentir y descubrir en un solo lugar</p>
     </div>
+</div>
 
-    <!-- ¿QUÉ BUSCAS HOY? -->
-    <div class="sec-div"><h2>¿Qué buscas hoy?</h2></div>
-    <section class="aventura-section">
-        <div class="aventura-intro">
-            <h3>Elige el tipo de experiencia</h3>
-            <p>Selecciona y te llevamos directamente a lo que necesitas</p>
+<!-- ¿QUÉ BUSCAS HOY? -->
+<div class="sec-div"><h2>¿Qué buscas hoy?</h2></div>
+<section class="aventura-section">
+    <div class="aventura-intro">
+        <h3>Elige el tipo de experiencia</h3>
+        <p>Selecciona y te llevamos directamente a lo que necesitas</p>
+    </div>
+    <div class="aventura-grid">
+
+        <div class="aventura-card av-descanso" onclick="irA('alojamiento')">
+            <div class="av-icon-wrap">🛌</div>
+            <div class="av-content">
+                <h3>Descansar</h3>
+                <p>Fincas, cabañas y alojamientos para desconectarte del ruido de la ciudad.</p>
+                <span class="av-link">Ver alojamientos →</span>
+            </div>
+            <div class="av-glow"></div>
         </div>
-        <div class="aventura-grid">
 
-            <div class="aventura-card av-descanso" onclick="irA('alojamiento')">
-                <div class="av-icon-wrap">🛌</div>
-                <div class="av-content">
-                    <h3>Descansar</h3>
-                    <p>Fincas, cabañas y alojamientos para desconectarte del ruido de la ciudad.</p>
-                    <span class="av-link">Ver alojamientos →</span>
-                </div>
-                <div class="av-glow"></div>
+        <div class="aventura-card av-aventura" onclick="irA('ecoturismo')">
+            <div class="av-icon-wrap">🥾</div>
+            <div class="av-content">
+                <h3>Aventurarme</h3>
+                <p>Cascadas, senderos y miradores para los que aman la naturaleza salvaje.</p>
+                <span class="av-link">Ver rutas →</span>
             </div>
-
-            <div class="aventura-card av-aventura" onclick="irA('ecoturismo')">
-                <div class="av-icon-wrap">🥾</div>
-                <div class="av-content">
-                    <h3>Aventurarme</h3>
-                    <p>Cascadas, senderos y miradores para los que aman la naturaleza salvaje.</p>
-                    <span class="av-link">Ver rutas →</span>
-                </div>
-                <div class="av-glow"></div>
-            </div>
-
-            <div class="aventura-card av-comer" onclick="irA('comercio')">
-                <div class="av-icon-wrap">🍽️</div>
-                <div class="av-content">
-                    <h3>Comer bien</h3>
-                    <p>Bandeja paisa, trucha del río y cocina campesina que no olvidarás.</p>
-                    <span class="av-link">Ver restaurantes →</span>
-                </div>
-                <div class="av-glow"></div>
-            </div>
-
-            <div class="aventura-card av-comprar" onclick="irA('comercio')">
-                <div class="av-icon-wrap">🛒</div>
-                <div class="av-content">
-                    <h3>Comprar local</h3>
-                    <p>Artesanías, tiendas y servicios del comercio de nuestro municipio.</p>
-                    <span class="av-link">Ver comercio →</span>
-                </div>
-                <div class="av-glow"></div>
-            </div>
-
+            <div class="av-glow"></div>
         </div>
-    </section>
 
-    <!-- HIGHLIGHTS -->
-    <div class="sec-div"><h2>Rincones que enamoran</h2></div>
-    <section class="highlights-section" style="padding-top:40px;">
-        <div class="highlights-grid">
-
-            <div class="h-item h-span" onclick="irA('ecoturismo')">
-                <img src="/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png" alt="Naturaleza">
-                <div class="h-label"><span>Naturaleza</span>Senderos y Horizontes</div>
+        <div class="aventura-card av-comer" onclick="irA('comercio')">
+            <div class="av-icon-wrap">🍽️</div>
+            <div class="av-content">
+                <h3>Comer bien</h3>
+                <p>Bandeja paisa, trucha del río y cocina campesina que no olvidarás.</p>
+                <span class="av-link">Ver restaurantes →</span>
             </div>
-
-            <div class="h-item" onclick="irA('alojamiento')">
-                <img src="/static/img/PRINCI/BasilicaCuadro.PNG" alt="Basílica">
-                <div class="h-label"><span>Patrimonio</span>Basílica</div>
-            </div>
-
-            <div class="h-item" onclick="irA('comercio')">
-                <img src="/static/img/PRINCI/VentaDeFrutas.PNG" alt="Frutas">
-                <div class="h-label"><span>Gastronomía</span>Sabores Locales</div>
-            </div>
-
-            <div class="h-item" onclick="irA('ecoturismo')">
-                <img src="/static/img/PRINCI/carrusel1.jpg" alt="Paisaje">
-                <div class="h-label"><span>Paisajes</span>Occidente Antioqueño</div>
-            </div>
-
-            <div class="h-item" onclick="irA('alojamiento')">
-                <img src="/static/img/PRINCI/BasilicaTecho.PNG" alt="Techo">
-                <div class="h-label"><span>Arquitectura</span>Arte Colonial</div>
-            </div>
-
+            <div class="av-glow"></div>
         </div>
-    </section>
 
-    <!-- MAPA -->
-    <div class="sec-div"><h2>Geolocalización</h2></div>
-    <section class="mapa-section" style="padding-top:50px;">
-        <div class="mapa-wrap">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+        <div class="aventura-card av-comprar" onclick="irA('comercio')">
+            <div class="av-icon-wrap">🛒</div>
+            <div class="av-content">
+                <h3>Comprar local</h3>
+                <p>Artesanías, tiendas y servicios del comercio de nuestro municipio.</p>
+                <span class="av-link">Ver comercio →</span>
+            </div>
+            <div class="av-glow"></div>
+        </div>
+
+        <div class="aventura-card av-moverme" onclick="irA('transporte')">
+            <div class="av-icon-wrap">🚌</div>
+            <div class="av-content">
+                <h3>Moverme</h3>
+                <p>Buses intermunicipales, mototaxis y domicilios para llegar a donde quieras.</p>
+                <span class="av-link">Ver transporte →</span>
+            </div>
+            <div class="av-glow"></div>
+        </div>
+
+        <div class="aventura-card av-conocer" onclick="irA('entidades')">
+            <div class="av-icon-wrap">🎉</div>
+            <div class="av-content">
+                <h3>Conocer la cultura</h3>
+                <p>Eventos, fechas especiales e historia del municipio de Sopetrán.</p>
+                <span class="av-link">Ver galería cultural →</span>
+            </div>
+            <div class="av-glow"></div>
+        </div>
+
+    </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<div class="sec-div"><h2>Rincones que enamoran</h2></div>
+<section class="highlights-section" style="padding-top:40px;">
+    <div class="highlights-grid">
+
+        <div class="h-item h-span" onclick="irA('ecoturismo')">
+            <!-- th:src corrige la ruta para Spring Boot -->
+            <img th:src="@{/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png}" alt="Naturaleza">
+            <div class="h-label"><span>Naturaleza</span>Senderos y Horizontes</div>
+        </div>
+
+        <div class="h-item" onclick="irA('alojamiento')">
+            <img th:src="@{/img/PRINCI/BasilicaCuadro.PNG}" alt="Basílica">
+            <div class="h-label"><span>Patrimonio</span>Basílica</div>
+        </div>
+
+        <div class="h-item" onclick="irA('comercio')">
+            <img th:src="@{/img/PRINCI/VentaDeFrutas.PNG}" alt="Frutas">
+            <div class="h-label"><span>Gastronomía</span>Sabores Locales</div>
+        </div>
+
+        <div class="h-item" onclick="irA('ecoturismo')">
+            <img th:src="@{/img/PRINCI/carrusel1.jpg}" alt="Paisaje">
+            <div class="h-label"><span>Paisajes</span>Occidente Antioqueño</div>
+        </div>
+
+        <div class="h-item" onclick="irA('alojamiento')">
+            <img th:src="@{/img/PRINCI/BasilicaTecho.PNG}" alt="Techo">
+            <div class="h-label"><span>Arquitectura</span>Arte Colonial</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- MAPA -->
+<div class="sec-div"><h2>Geolocalización</h2></div>
+<section class="mapa-section" style="padding-top:50px;">
+    <div class="mapa-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
                 allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <div class="mapa-info">
-            <h3>¿Cómo llegar?</h3>
-            <p>Sopetrán está a 62 km de Medellín por la vía a Santa Fe de Antioquia. Aproximadamente 1h 15min en carro.</p>
-            <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia','_blank')">
-                🗺️ Planifica tu Ruta
-            </button>
-        </div>
-    </section>
+    </div>
+    <div class="mapa-info">
+        <h3>¿Cómo llegar?</h3>
+        <p>Sopetrán está a 62 km de Medellín por la vía a Santa Fe de Antioquia. Aproximadamente 1h 15min en carro.</p>
+        <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia','_blank')">
+            🗺️ Planifica tu Ruta
+        </button>
+    </div>
+</section>
 
-    <script>
-    // Navega al módulo en el padre (Index.html SPA)
+<script>
+    /*
+        irA() navega al módulo en el SPA del Index.
+        Antes usaba window.parent.navegarA() porque estaba en un iframe.
+        Ahora es una vista standalone con su propia ruta /exploracion —
+        si se llama directamente, redirige con window.location.
+        Si se llama desde el Index (window.navegarA existe), usa el SPA router.
+    */
     function irA(modulo) {
-        try {
-            if (window.parent && window.parent.navegarA) {
-                window.parent.navegarA(modulo);
-            }
-        } catch(e) {}
+        if (typeof window.navegarA === 'function') {
+            window.navegarA(modulo);
+        } else {
+            window.location.href = '/' + modulo;
+        }
     }
-    </script>
+</script>
+
 </body>
 </html>

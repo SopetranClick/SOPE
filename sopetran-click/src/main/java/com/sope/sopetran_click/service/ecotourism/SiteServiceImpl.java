@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,7 @@ public class SiteServiceImpl implements SiteService {
         newSite.setIdEcotourism(ecoturism); // Asegúrate de que el nombre del setter coincida con tu entidad
         newSite.setName(site.getNombreVereda());
         newSite.setDescription(site.getDescripcion());
+        newSite.setTags(site.getTags());
 
         Site savedSite = siteRepository.save(newSite);
         return convertToSiteResponseDTO(savedSite);
@@ -64,6 +66,7 @@ public class SiteServiceImpl implements SiteService {
 
         existingSite.setName(dto.getNombreVereda());
         existingSite.setDescription(dto.getDescripcion());
+        existingSite.setTags(dto.getTags());
 
         Site updatedSite = siteRepository.save(existingSite);
         return convertToSiteResponseDTO(updatedSite);
@@ -84,6 +87,18 @@ public class SiteServiceImpl implements SiteService {
         dto.setIdVereda(site.getIdSite()); // Asegúrate que sea el nombre correcto del ID
         dto.setNombreVereda(site.getName());
         dto.setDescripcion(site.getDescription());
+        dto.setTags(site.getTags());
+        dto.setCoverUrl(site.getCoverUrl());
+        if (site.getImagenes() != null && !site.getImagenes().isEmpty()) {
+            dto.setGallery(
+                    site.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            dto.setGallery(Collections.emptyList());
+        }
         return dto;
     }
 }

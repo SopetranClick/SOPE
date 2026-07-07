@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "buses")
 @Data
@@ -38,5 +40,20 @@ public class Buses {
 
     @Column(name = "schedule", nullable = false)
     private String schedule;
+
+    @Column(name = "origen")
+    private String origen;
+
+    @Column(name = "destino")
+    private String destino;
+
+    @Column(name = "precio")
+    private BigDecimal precio;
+
+    @Column(name = "duracion")
+    private String duracion;
+
+    @Column(name = "asientos")
+    private Integer asientos;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -113,6 +114,22 @@ public class GlobalExceptionHandler {
         body.put("error", status.getReasonPhrase());
 
         return new ResponseEntity<>(body, status);
+    }
+
+    /**
+     * Captura los 404 de recursos estáticos (imágenes, css, js) que no existen en disco,
+     * como los placeholders de portada que aún no se han subido (ej. placeholder-lugar.jpg).
+     * Sin este handler, el catch-all de abajo los convertía en 500 en vez de 404.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNoResourceFound(NoResourceFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("estado", HttpStatus.NOT_FOUND.value());
+        body.put("error", "Recurso no encontrado");
+        body.put("mensaje", "No existe el recurso solicitado: " + ex.getResourcePath());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
     /**

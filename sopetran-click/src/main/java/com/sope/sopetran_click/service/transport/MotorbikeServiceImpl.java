@@ -81,8 +81,7 @@ public class MotorbikeServiceImpl implements MotorbikeService{
 
     private void mapearDtoAEntidad(MotorbikeRequestDTO dto, Motorbike moto, Transports transporte) {
         moto.setName(dto.getAsociacionNombre());
-        // Ajuste: asumo que la zona de cobertura se mapea a un campo similar o se extiende en la entidad
-        // Si no tienes el campo zonaCobertura en la entidad, agrégalo.
+        moto.setZonaCobertura(dto.getZonaCobertura());
         moto.setContact(dto.getContacto());
         moto.setIdTransports(transporte);
     }
@@ -92,7 +91,7 @@ public class MotorbikeServiceImpl implements MotorbikeService{
         dto.setIdMoto(moto.getIdMotorbike());
         dto.setAsociacionNombre(moto.getName());
         dto.setContacto(moto.getContact());
-        // dto.setZonaCobertura(...); // Mapear si añades el campo en la entidad
+        dto.setZonaCobertura(moto.getZonaCobertura());
         return dto;
     }
 }

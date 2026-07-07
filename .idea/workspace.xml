@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9a3fce21-5a17-4d8d-a349-44425e36ed22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/accomodation/EstateController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/accomodation/HotelsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/accomodation/RoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/ecotourism/Iconic_placeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/ecotourism/SiteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/public_Entities/EventController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/public_Entities/MayoraltyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/public_Entities/NewsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/trade/DishController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/trade/LocalController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/trade/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/trade/RestaurantController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/transport/BusesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/transport/MotorbikeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/user/BookingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/user/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/user/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/controller/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/category/CategoryRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/category/CategoryResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/category/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/category/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crudzaso-db-manager.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/EstateRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/EstateRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/HotelRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/HotelRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/RoomRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/accommodation/RoomRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/ecotourism/IconicPlaceRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/ecotourism/IconicPlaceRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/ecotourism/SiteRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/ecotourism/SiteRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/EventsRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/EventsRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/MayoraltyRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/MayoraltyRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/NewsRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/NewsRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/PublicEntitieRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/public_Entities/PublicEntitieRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/DishRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/DishRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/DishResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/DishResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/LocalRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/LocalRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/ProductRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/ProductRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/ProductResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/ProductResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/RestaurantRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/trade/RestaurantRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/transport/BusesRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/transport/BusesRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/transport/MotorbikeRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/transport/MotorbikeRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/BookingRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/BookingRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/PaymentsRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/PaymentsRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/ReviewsRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/ReviewsRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/UserLoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/UserLoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/UserRegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/dto/users/UserRegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/public_Entities/News.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/public_Entities/News.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/trade/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/trade/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/trade/Trades.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/category/trade/Trades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/user/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/user/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/user/Payments.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/model/user/Payments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/BookingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/CategorysRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/CategorysRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/EstateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/EstateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/PaymentsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/PaymentsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/repository/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/accommodation/EstateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/accommodation/EstateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/accommodation/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/accommodation/RoomServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/ecotourism/Iconic_placeSerivceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/ecotourism/Iconic_placeSerivceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/ecotourism/Iconic_placeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/ecotourism/Iconic_placeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/public_Entities/NewsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/public_Entities/NewsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/DishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/DishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/DishServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/DishServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/LocalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/LocalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/LocalServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/LocalServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/RestaurantServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/trade/RestaurantServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/user/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/user/BookingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/user/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/java/com/sope/sopetran_click/service/user/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/exploracion.css" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/exploracion.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/quienessomos.css" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/css/quienessomos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/js/MennuEcoturismo.js" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/static/js/MennuEcoturismo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/Exploracion.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/Exploracion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/Index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/Index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/QuienesSomos.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/QuienesSomos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MennuComercio.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MennuComercio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MennuEcoturismo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MennuEcoturismo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MenuAlojamiento.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/MenuAlojamiento.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/vista-galeria-cultural.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/vista-galeria-cultural.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/vista-transporte.html" beforeDir="false" afterPath="$PROJECT_DIR$/sopetran-click/src/main/resources/templates/mennu/vista-transporte.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="472" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3Ftqeyu6DZIbxzz35zRKICnsY6n" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
+      <option name="appName" />
+      <option name="appServicePlanName" />
+      <option name="appServicePlanResourceGroup" />
+      <option name="appSettingsKey" value="fcb3e317-e861-461b-92ff-7b7ad88e4df1" />
+      <option name="artifact" />
+      <option name="debugOptions" />
+      <option name="deployment" />
+      <option name="deploymentStagingDirectoryPath" />
+      <option name="funcPath" />
+      <option name="functionHostArguments" />
+      <option name="hostJsonPath" />
+      <option name="insightsName" />
+      <option name="instrumentationKey" />
+      <option name="javaVersion" />
+      <option name="localSettingsJsonPath" />
+      <option name="moduleName" />
+      <option name="os" />
+      <option name="pricingTier" />
+      <option name="providerMap">
+        <map />
+      </option>
+      <option name="region" />
+      <option name="resourceGroup" />
+      <option name="stagingFolder" />
+      <option name="subscription" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a3fce21-5a17-4d8d-a349-44425e36ed22" name="Changes" comment="" />
+      <created>1782904866290</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1782904866290</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

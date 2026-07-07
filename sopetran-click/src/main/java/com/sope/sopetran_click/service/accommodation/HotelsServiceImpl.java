@@ -26,15 +26,15 @@ public class HotelsServiceImpl implements HotelsService {
     @Transactional
     public HotelResponseDTO crearHotel(HotelRequestDTO dto) {
         // 1. Buscar el alojamiento padre en la BD
-        Accommodations alojamiento = accommodationsRepository.findById(dto.getIdAlojamiento())
+        Accommodations alojamiento = accommodationsRepository.findById(dto.getIdAccommodation())
                 .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada."));
 
         // 2. Mapear DTO a la Entidad Hotels
         Hotels hotel = new Hotels();
-        hotel.setName(dto.getNombre());
-        hotel.setAddress(dto.getDireccion());
-        hotel.setPrice(dto.getPrecioNoche());
-        hotel.setContact(dto.getContacto());
+        hotel.setName(dto.getName());
+        hotel.setAddress(dto.getAddress());
+        hotel.setPrice(dto.getPricePerNight());
+        hotel.setContact(dto.getContact());
         hotel.setIdAccommodation(alojamiento); // Asignación de la FK como objeto completo
 
         // 3. Guardar en base de datos
@@ -50,13 +50,13 @@ public class HotelsServiceImpl implements HotelsService {
         Hotels hotelExistente = hotelsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hotel no encontrado con ID: " + id));
 
-        Accommodations alojamiento = accommodationsRepository.findById(dto.getIdAlojamiento())
+        Accommodations alojamiento = accommodationsRepository.findById(dto.getIdAccommodation())
                 .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada."));
 
-        hotelExistente.setName(dto.getNombre());
-        hotelExistente.setAddress(dto.getDireccion());
-        hotelExistente.setPrice(dto.getPrecioNoche());
-        hotelExistente.setContact(dto.getContacto());
+        hotelExistente.setName(dto.getName());
+        hotelExistente.setAddress(dto.getAddress());
+        hotelExistente.setPrice(dto.getPricePerNight());
+        hotelExistente.setContact(dto.getContact());
         hotelExistente.setIdAccommodation(alojamiento);
 
         Hotels hotelActualizado = hotelsRepository.save(hotelExistente);
@@ -92,14 +92,35 @@ public class HotelsServiceImpl implements HotelsService {
     private HotelResponseDTO convertToResponseDTO(Hotels hotel) {
         HotelResponseDTO response = new HotelResponseDTO();
         response.setIdHotel(hotel.getIdHotel());
-        response.setNombre(hotel.getName());
-        response.setDireccion(hotel.getAddress());
-        response.setPrecioNoche(hotel.getPrice());
-        response.setContacto(hotel.getContact());
+        response.setName(hotel.getName());
+        response.setAddress(hotel.getAddress());
+        response.setPricePerNight(hotel.getPrice());
+        response.setContact(hotel.getContact());
+        response.setDescription(hotel.getDescription());
 
         // Obtenemos de forma segura la información de la categoría padre
         if (hotel.getIdAccommodation() != null) {
-            response.setNombreAlojamiento(hotel.getIdAccommodation().getName());
+            response.setAccommodationType(hotel.getIdAccommodation().getName());
+        }
+
+        // Mapear imágenes desde la relación @OneToMany
+        if (hotel.getImagenes() != null && !hotel.getImagenes().isEmpty()) {
+            response.setCoverUrl(
+                    hotel.getImagenes().stream()
+                            .filter(i -> i.getOrden() == 0)
+                            .map(i -> i.getUrl())
+                            .findFirst()
+                            .orElse("/img/placeholder-hotel.jpg")
+            );
+            response.setGallery(
+                    hotel.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            response.setCoverUrl("/img/placeholder-hotel.jpg");
+            response.setGallery(List.of());
         }
         return response;
     }

@@ -1,0 +1,220 @@
+:root {
+    --rojo:        #8b0000;
+    --rojo-vivo:   #cc0000;
+    --rojo-glow:   rgba(139,0,0,0.45);
+    --oscuro:      #0a0a0a;
+    --card-bg:     rgba(18,18,18,0.85);
+    --borde:       rgba(139,0,0,0.35);
+    --texto:       #e8e0d5;
+    --gris:        #aaa;
+    --glass:       rgba(255,255,255,0.04);
+}
+
+#vista-marketing {
+    background: var(--oscuro);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+.marketing-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+}
+
+.marketing-wrapper .btn-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: none; border: 1px solid var(--borde);
+    color: var(--gris); padding: 9px 20px; border-radius: 30px;
+    font-family: 'Inter', sans-serif; font-size: .82rem; cursor: pointer;
+    transition: all .25s; margin-bottom: 36px;
+}
+.marketing-wrapper .btn-back:hover { border-color: var(--rojo-vivo); color: #fff; }
+
+.marketing-hero { text-align: center; max-width: 700px; margin: 0 auto 40px; }
+.marketing-hero .tag {
+    display: inline-block; padding: 6px 16px; border-radius: 20px;
+    border: 1px solid var(--borde); background: var(--card-bg);
+    font-size: .78rem; color: var(--rojo-vivo); margin-bottom: 18px;
+    text-transform: uppercase; letter-spacing: .05em;
+}
+.marketing-hero h1 { font-size: 2.4rem; font-family: 'Playfair Display', serif; margin-bottom: 14px; }
+.marketing-hero h1 span { color: var(--rojo-vivo); }
+.marketing-hero p { color: var(--gris); font-size: 1rem; margin-bottom: 24px; }
+
+.btn-cta {
+    background: var(--rojo);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 32px;
+    font-size: .95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .25s, box-shadow .25s;
+}
+.btn-cta:hover { background: var(--rojo-vivo); box-shadow: 0 0 20px var(--rojo-glow); }
+
+.pasos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+.paso-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 28px 22px;
+    text-align: center;
+}
+.paso-icon { font-size: 1.6rem; color: var(--rojo-vivo); margin-bottom: 12px; }
+.paso-num {
+    position: absolute; top: 14px; right: 18px;
+    font-size: .8rem; color: var(--gris); font-weight: 700;
+}
+.paso-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.paso-card p { font-size: .85rem; color: var(--gris); }
+
+.planes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+.plan-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 32px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.plan-destacado {
+    border-color: var(--rojo-vivo);
+    box-shadow: 0 0 30px var(--rojo-glow);
+    transform: scale(1.03);
+}
+.plan-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--rojo-vivo); color: #fff;
+    font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+    padding: 5px 14px; border-radius: 20px; text-transform: uppercase;
+}
+.plan-card h3 { font-size: 1.2rem; font-family: 'Playfair Display', serif; }
+.plan-precio { font-size: 1.8rem; font-weight: 700; color: #fff; }
+.plan-precio span { font-size: .85rem; color: var(--gris); font-weight: 400; }
+.plan-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.plan-card ul li { font-size: .88rem; color: var(--texto); display: flex; align-items: center; gap: 8px; }
+.plan-card ul li i { color: var(--rojo-vivo); }
+
+.btn-plan {
+    background: none;
+    border: 1px solid var(--borde);
+    color: var(--texto);
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: all .25s;
+}
+.btn-plan:hover { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.plan-destacado .btn-plan { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.plan-destacado .btn-plan:hover { background: var(--rojo-vivo); }
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+.beneficio-item {
+    background: var(--card-bg);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 28px 22px;
+    text-align: center;
+}
+.beneficio-icon { font-size: 1.8rem; margin-bottom: 10px; }
+.beneficio-item h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.beneficio-item p { font-size: .85rem; color: var(--gris); }
+
+.asesoria-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+}
+.asesoria-form {
+    background: var(--card-bg);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.asesoria-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: .85rem;
+    color: var(--gris);
+}
+.asesoria-form input,
+.asesoria-form textarea {
+    background: var(--glass);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    font-size: .92rem;
+    outline: none;
+    transition: border-color .2s;
+}
+.asesoria-form input:focus,
+.asesoria-form textarea:focus { border-color: var(--rojo-vivo); }
+.asesoria-form textarea { resize: vertical; }
+
+.mkt-feedback { font-size: .88rem; min-height: 20px; }
+.mkt-feedback.ok { color: #6fcf97; }
+.mkt-feedback.error { color: #eb5757; }
+
+#vista-marketing .contacto-box {
+    background: var(--card-bg);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: fit-content;
+}
+#vista-marketing .contacto-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px; }
+#vista-marketing .contacto-item {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--texto); text-decoration: none;
+    font-size: .9rem; padding: 10px 0;
+    border-bottom: 1px solid var(--borde);
+    transition: color .2s;
+}
+#vista-marketing .contacto-item:hover { color: var(--rojo-vivo); }
+#vista-marketing .contacto-item i { width: 18px; text-align: center; color: var(--rojo-vivo); }
+
+@media (max-width: 900px) {
+    .pasos-grid { grid-template-columns: repeat(2, 1fr); }
+    .planes-grid { grid-template-columns: 1fr; }
+    .plan-destacado { transform: none; }
+    .beneficios-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .asesoria-grid { grid-template-columns: 1fr; }
+    .marketing-hero h1 { font-size: 1.8rem; }
+}
+
+@media (max-width: 560px) {
+    .pasos-grid { grid-template-columns: 1fr; }
+}

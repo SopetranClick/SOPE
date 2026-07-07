@@ -245,7 +245,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin: 16px 20px;
+    margin: 160px 20px 16px;
     background: #8b0000;
     border: none;
     color: white;
@@ -305,7 +305,7 @@
         /* — Hero del directorio — */
         .dir-hero {
             position: relative;
-            padding: 70px 0 50px;
+            padding: 100px 0 50px;
             text-align: center;
             overflow: hidden;
         }
@@ -496,7 +496,7 @@
             transform: scale(1.07);
         }
 
-        /* Badge de categoría encima de la imagen */
+        /* Badge de categoría encima de la imagen.txt */
         .badge-categoria {
             position: absolute;
             top: 12px;
@@ -721,7 +721,7 @@
         .btn-volver-dir:hover { border-color: var(--rojo); color: #fff; }
 
         /* — Menú Orbital — */
-        #local-menu { display: none; padding: 40px 20px 80px; }
+        #local-menu { display: none; padding: 100px 20px 80px; }
 
         .menu-header {
             display: grid; grid-template-columns: 1fr auto;

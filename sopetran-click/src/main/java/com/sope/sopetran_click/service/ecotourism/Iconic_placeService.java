@@ -16,4 +16,6 @@ public interface Iconic_placeService {
 
 
     List<IconicPlaceResponseDTO> getAllIconicPlaces();
+
+    List<IconicPlaceResponseDTO> listarPorSite(Long idSite);
 }

@@ -14,4 +14,5 @@ public class NewsResponseDTO {
     private String contenido;
     private LocalDateTime fechaPublicacion;
     private String publicEntitieDescription;
+    private String imageUrl;
 }

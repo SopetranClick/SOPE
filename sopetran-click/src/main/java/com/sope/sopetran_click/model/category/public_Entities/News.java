@@ -24,7 +24,7 @@ public class News {
     @JoinColumn(name = "id_public_entitie", referencedColumnName = "id_public_entitie")
     private Public_Entitie idPublicEntitie;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "date", nullable = false)
@@ -33,7 +33,7 @@ public class News {
     @Column(name = "title", nullable = false)
     private String title;
 
-
-
+    @Column(name = "image_url", length = 255)
+    private String imageUrl;
 
 }

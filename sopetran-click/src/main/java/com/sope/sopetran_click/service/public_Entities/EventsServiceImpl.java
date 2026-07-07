@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,9 @@ public class EventsServiceImpl implements EventsService {
         entity.setDescription(dto.getNombreEvento());
         entity.setDate(dto.getFechaEvento());
         entity.setVenues(dto.getLugar());
+        entity.setCategoria(dto.getCategoria());
+        entity.setFeatured(dto.getFeatured() != null ? dto.getFeatured() : false);
+        entity.setDescripcionLarga(dto.getDescripcionLarga());
 
         return mapToResponse(eventsRepository.save(entity));
     }
@@ -48,6 +52,9 @@ public class EventsServiceImpl implements EventsService {
         event.setDescription(dto.getNombreEvento());
         event.setDate(dto.getFechaEvento());
         event.setVenues(dto.getLugar());
+        event.setCategoria(dto.getCategoria());
+        event.setFeatured(dto.getFeatured() != null ? dto.getFeatured() : false);
+        event.setDescripcionLarga(dto.getDescripcionLarga());
 
         return mapToResponse(eventsRepository.save(event));
     }
@@ -79,12 +86,26 @@ public class EventsServiceImpl implements EventsService {
     }
 
     private EventsResponseDTO mapToResponse(Events event) {
-        return new EventsResponseDTO(
-                event.getIdEvent(),
-                event.getDescription(),
-                event.getDate(),
-                event.getVenues(),
-                event.getIdPublicEntitie().getDescription() // Ajusta según el campo real en tu modelo Public_Entitie
-        );
+        EventsResponseDTO dto = new EventsResponseDTO();
+        dto.setIdEvent(event.getIdEvent());
+        dto.setNombreEvento(event.getDescription());
+        dto.setFechaEvento(event.getDate());
+        dto.setLugar(event.getVenues());
+        dto.setPublicEntitieDescription(event.getIdPublicEntitie().getDescription());
+        dto.setCategoria(event.getCategoria());
+        dto.setFeatured(event.getFeatured());
+        dto.setDescripcionLarga(event.getDescripcionLarga());
+        dto.setCoverUrl(event.getCoverUrl());
+        if (event.getImagenes() != null && !event.getImagenes().isEmpty()) {
+            dto.setGallery(
+                    event.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            dto.setGallery(Collections.emptyList());
+        }
+        return dto;
     }
 }

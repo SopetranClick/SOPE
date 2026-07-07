@@ -23,4 +23,6 @@ public class NewsRequestDTO {
 
     @NotBlank(message = "The date can not be empty.")
     private String fechaPublicacion;
+
+    private String imageUrl;
 }

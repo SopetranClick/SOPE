@@ -66,7 +66,7 @@
     const div = document.createElement('div');
     div.className = 'srv-item';
 
-    // Ícono: imagen si existe, si no primer emoji del primer ingrediente
+    // Ícono: imagen.txt si existe, si no primer emoji del primer ingrediente
     const iconoHtml = item.img
     ? `<div class="srv-item-icon"><img src="${item.img}" alt="${item.nombre}"></div>`
     : `<div class="srv-item-icon">${item.ingredientes[0]?.split(' ')[0] || '📦'}</div>`;
@@ -115,179 +115,78 @@
 
 
 /* ====================================================
-   BASE DE DATOS DE LOCALES
-   Agrega, edita o quita objetos de este array.
+   DATOS DE LOCALES — cargados desde la API real
    Cada local tiene:
      - id, nombre, categoria, descripcion, rating,
        abierto, horario, fotos[], platos[]
    Los platos tienen: nombre, desc, precio, img, ingredientes[]
 ==================================================== */
-const LOCALES = [
-    {
-        id: 1,
-        nombre: "Restaurante La Tradición",
-        categoria: "restaurante",
-        descripcion: "Cocina antioqueña auténtica desde 1985. Bandeja paisa y sancocho de gallina.",
-        rating: "4.8",
-        abierto: true,
-        horario: "Lun–Dom · 7am – 9pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80",
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
-            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80",
-            "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Bandeja Paisa", desc: "Fríjoles, arroz, chicharrón, carne molida, chorizo, morcilla, huevo y aguacate.", precio: "$28.000", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80", ingredientes: ["🥚 Huevo","🍚 Arroz","🥑 Aguacate","🫘 Fríjoles","🥩 Carne","🍌 Plátano"] },
-            { nombre: "Sancocho Antioqueño", desc: "Gallina criolla con papa, yuca y mazorca. El sabor del hogar.", precio: "$22.000", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&q=80", ingredientes: ["🍗 Gallina","🥔 Papa","🌽 Mazorca","🧅 Yuca","🌿 Cilantro","🧄 Ajo"] },
-            { nombre: "Cazuela de Fríjoles", desc: "Fríjoles cargamanto con tocino ahumado y plátano maduro.", precio: "$18.000", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80", ingredientes: ["🫘 Fríjoles","🥓 Tocino","🌭 Chorizo","🍌 Plátano","🧅 Cebolla","🌿 Cilantro"] }
-        ]
-    },
-    {
-        id: 2,
-        nombre: "Trucha del Río",
-        categoria: "restaurante",
-        descripcion: "Especialistas en trucha arco iris fresca, criada en aguas limpias del Cauca.",
-        rating: "4.6",
-        abierto: true,
-        horario: "Mar–Dom · 11am – 8pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
-            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80",
-            "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Trucha al Ajillo", desc: "Trucha fresca en salsa de ajo dorado con limón y ensalada.", precio: "$32.000", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80", ingredientes: ["🐟 Trucha","🧄 Ajo","🍋 Limón","🫒 Aceite","🌿 Perejil","🥗 Ensalada"] },
-            { nombre: "Trucha en Salsa", desc: "Trucha en salsa criolla con arroz y patacones.", precio: "$30.000", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80", ingredientes: ["🐟 Trucha","🍅 Tomate","🧅 Cebolla","🌿 Hierbas","🍚 Arroz","🍌 Patacón"] }
-        ]
-    },
-    {
-        id: 3,
-        nombre: "Tienda El Paisa",
-        categoria: "tienda",
-        descripcion: "Abarrotes, frutas frescas y productos regionales de la mejor calidad.",
-        rating: "4.3",
-        abierto: true,
-        horario: "Lun–Sáb · 6am – 8pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80",
-            "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&q=80",
-            "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=80",
-            "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&q=80",
-            "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Canasta de Frutas", desc: "Selección de frutas frescas de temporada del occidente antioqueño.", precio: "$12.000", img: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500&q=80", ingredientes: ["🍌 Banano","🥭 Mango","🍍 Piña","🍊 Mandarina","🫐 Mora","🍇 Uvas"] },
-            { nombre: "Arroz por Kilo", desc: "Arroz blanco de primera calidad empacado al vacío.", precio: "$4.500", img: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&q=80", ingredientes: ["🌾 Arroz","📦 Empaque","✅ Certificado","🏔 Local","🌿 Natural","⚖️ 1 Kilo"] }
-        ]
-    },
-    {
-        id: 4,
-        nombre: "Peluquería Estilo",
-        categoria: "servicio",
-        descripcion: "Cortes modernos y clásicos para toda la familia. Barbería incluida.",
-        rating: "4.5",
-        abierto: false,
-        horario: "Mar–Dom · 9am – 6pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80",
-            "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=400&q=80",
-            "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&q=80",
-            "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80",
-            "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Corte Clásico", desc: "Corte de cabello y arreglo de barba con productos premium.", precio: "$20.000", img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80", ingredientes: ["✂️ Corte","🪒 Barba","💆 Masaje","💧 Lavado","🧴 Productos","💈 Acabado"] },
-            { nombre: "Tinte y Corte", desc: "Servicio completo de coloración y corte personalizado.", precio: "$45.000", img: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=500&q=80", ingredientes: ["🎨 Tinte","✂️ Corte","💧 Lavado","🧴 Mascarilla","💆 Tratamiento","✨ Secado"] }
-        ]
-    },
-    {
-        id: 5,
-        nombre: "Panadería La Abuela",
-        categoria: "tienda",
-        descripcion: "Pan artesanal horneado cada mañana. Pandeyuca, almojábanas y más.",
-        rating: "4.9",
-        abierto: true,
-        horario: "Todos los días · 5am – 12pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80",
-            "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400&q=80",
-            "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=400&q=80",
-            "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80",
-            "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Pandeyuca", desc: "Pandeyuca recién horneado, suave por dentro y dorado por fuera.", precio: "$1.500", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80", ingredientes: ["🧀 Queso","🌾 Almidón","🥚 Huevo","🧈 Mantequilla","🧂 Sal","🔥 Horneado"] },
-            { nombre: "Almojábana", desc: "Clásica almojábana con queso costeño, suave y esponjosa.", precio: "$2.000", img: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&q=80", ingredientes: ["🧀 Queso","🌾 Maíz","🥚 Huevo","🧈 Manteca","🧂 Sal","✨ Artesanal"] }
-        ]
-    },
-    {
-        id: 6,
-        nombre: "Farmacia San Rafael",
-        categoria: "servicio",
-        descripcion: "Medicamentos, vitaminas y atención farmacéutica personalizada.",
-        rating: "4.4",
-        abierto: true,
-        horario: "Lun–Sáb · 8am – 7pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80",
-            "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=400&q=80",
-            "https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?w=400&q=80",
-            "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=400&q=80",
-            "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Consulta Farmacéutica", desc: "Orientación profesional sobre medicamentos y tratamientos.", precio: "Gratis", img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=500&q=80", ingredientes: ["💊 Medicamentos","🩺 Asesoría","📋 Receta","🧪 Análisis","💉 Vacunas","❤️ Cuidado"] }
-        ]
-    },
-    {
-        id: 7,
-        nombre: "Asadero El Rincón",
-        categoria: "restaurante",
-        descripcion: "Pollos y carnes a la brasa con sazón casera. El favorito del barrio.",
-        rating: "4.7",
-        abierto: true,
-        horario: "Miér–Dom · 12pm – 9pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
-            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80",
-            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
-            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Pollo a la Brasa", desc: "Pollo entero marinado 12 horas y asado a la leña. Incluye papa y ensalada.", precio: "$38.000", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80", ingredientes: ["🍗 Pollo","🥔 Papa","🥗 Ensalada","🧄 Ajo","🌿 Hierbas","🔥 Brasa"] },
-            { nombre: "Costilla BBQ", desc: "Costilla de cerdo en salsa barbacoa ahumada con yuca frita.", precio: "$35.000", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80", ingredientes: ["🥩 Costilla","🍖 Cerdo","🫙 BBQ","🌽 Yuca","🥗 Ensalada","🔥 Ahumado"] }
-        ]
-    },
-    {
-        id: 8,
-        nombre: "Ferretería Central",
-        categoria: "tienda",
-        descripcion: "Materiales de construcción, herramientas y artículos para el hogar.",
-        rating: "4.1",
-        abierto: false,
-        horario: "Lun–Sáb · 7am – 5pm",
-        fotos: [
-            "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80",
-            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
-            "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80",
-            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
-            "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80"
-        ],
-        platos: [
-            { nombre: "Kit Básico Herramientas", desc: "Martillo, destornilladores, alicates y cinta métrica.", precio: "$85.000", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500&q=80", ingredientes: ["🔨 Martillo","🪛 Destornillador","🔧 Alicates","📏 Cinta","⚙️ Tornillos","🧰 Estuche"] }
-        ]
+let LOCALES = [];
+
+function formatCOP(precio) {
+    if (precio === null || precio === undefined) return '—';
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(precio);
+}
+
+/** Trae los platos/productos de un local o restaurante y los normaliza */
+async function cargarPlatosDe(item, esRestaurante) {
+    const url = esRestaurante
+        ? `/api/dishes/restaurant/${item.idRestaurant}`
+        : `/api/product/local/${item.idLocal}`;
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const items = await res.json();
+        return items.map(p => ({
+            nombre: p.name,
+            desc: p.description,
+            precio: formatCOP(p.price),
+            img: p.imageUrl || '/img/logo-servicio/asado.png',
+            ingredientes: []
+        }));
+    } catch (e) {
+        console.error('Error cargando platos/productos de', url, e);
+        return [];
     }
-    /*
-        ← AGREGA MÁS LOCALES AQUÍ
-        Copia un bloque completo y edita los campos.
-        La búsqueda y filtros funcionan automáticamente.
-    */
-];
+}
+
+/** Carga restaurantes + locales desde la API y arma el array LOCALES */
+async function cargarLocales() {
+    const [resRestaurantes, resLocales] = await Promise.all([
+        fetch('/api/restaurant'),
+        fetch('/api/local')
+    ]);
+    if (!resRestaurantes.ok || !resLocales.ok) throw new Error('No se pudo cargar el directorio de comercio.');
+
+    const restaurantes = await resRestaurantes.json();
+    const locales = await resLocales.json();
+
+    const restaurantesNormalizados = await Promise.all(restaurantes.map(async r => ({
+        id: r.idRestaurant,
+        nombre: r.nombre,
+        categoria: (r.categoria || 'restaurante').toLowerCase(),
+        descripcion: r.description,
+        rating: r.rating != null ? r.rating : '—',
+        abierto: r.abierto !== false,
+        horario: r.horario || 'Horario no disponible',
+        fotos: [r.coverUrl, ...(r.gallery || [])].filter(Boolean),
+        platos: await cargarPlatosDe(r, true)
+    })));
+
+    const localesNormalizados = await Promise.all(locales.map(async l => ({
+        id: l.idLocal,
+        nombre: l.nombre,
+        categoria: (l.categoria || l.tipoLocal || 'servicio').toLowerCase(),
+        descripcion: l.description,
+        rating: l.rating != null ? l.rating : '—',
+        abierto: l.abierto !== false,
+        horario: l.horario || 'Horario no disponible',
+        fotos: [l.coverUrl, ...(l.gallery || [])].filter(Boolean),
+        platos: await cargarPlatosDe(l, false)
+    })));
+
+    LOCALES = [...restaurantesNormalizados, ...localesNormalizados];
+}
 
 /* ====================================================
    ESTADO DE LA APP
@@ -499,13 +398,19 @@ function seleccionarPlato(indice) {
     document.getElementById('titulo-plato').textContent  = plato.nombre;
     document.getElementById('precio-orbital').textContent = plato.precio + ' COP';
 
-    // Burbujas de ingredientes
-    plato.ingredientes.forEach((ing, i) => {
-        const lbl = document.getElementById(`burbuja-lbl-${i+1}`);
-        const img = document.getElementById(`burbuja-img-${i+1}`);
-        if (lbl) lbl.textContent = ing;
-        if (img) img.textContent = ing.split(' ')[0]; // el emoji
+    // Burbujas de ingredientes (solo si el plato trae datos reales)
+    const tieneIngredientes = plato.ingredientes && plato.ingredientes.length > 0;
+    document.querySelectorAll('.burbuja').forEach(b => {
+        b.style.display = tieneIngredientes ? '' : 'none';
     });
+    if (tieneIngredientes) {
+        plato.ingredientes.forEach((ing, i) => {
+            const lbl = document.getElementById(`burbuja-lbl-${i+1}`);
+            const img = document.getElementById(`burbuja-img-${i+1}`);
+            if (lbl) lbl.textContent = ing;
+            if (img) img.textContent = ing.split(' ')[0]; // el emoji
+        });
+    }
 
     // Panel de detalle inferior
     document.getElementById('detalle-nombre').textContent = plato.nombre;
@@ -522,5 +427,16 @@ function seleccionarPlato(indice) {
    ARRANQUE
 ==================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    renderizarDirectorio();
+    cargarLocales()
+        .then(renderizarDirectorio)
+        .catch(e => {
+            console.error('Error cargando el directorio de comercio:', e);
+            const grid = document.getElementById('grid-locales');
+            if (grid) {
+                const msg = document.createElement('p');
+                msg.className = 'sin-resultados';
+                msg.textContent = 'No se pudo cargar el directorio de comercio.';
+                grid.appendChild(msg);
+            }
+        });
 });

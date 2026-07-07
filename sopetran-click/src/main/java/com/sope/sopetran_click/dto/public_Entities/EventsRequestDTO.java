@@ -25,4 +25,8 @@ public class EventsRequestDTO {
     @NotBlank(message = "You need to add the event place.")
     @Size(max = 150, message = "The place can not have more than 150 letters.")
     private String lugar;
+
+    private String categoria;
+    private Boolean featured;
+    private String descripcionLarga;
 }

@@ -29,13 +29,13 @@ public class EstateServiceImpl implements EstateService{
                 .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada."));
 
         Estate  estate = new Estate();
-        estate.setName(dto.getNombre());
-        estate.setAddress(dto.getUbicacion());
-        estate.setPrice(dto.getPrecioPorNoche());
-        estate.setContact(dto.getContacto());
-        estate.setDescription(dto.getDescripcion());
+        estate.setName(dto.getName());
+        estate.setAddress(dto.getLocation());
+        estate.setPrice(dto.getPricePerNight());
+        estate.setContact(dto.getContact());
+        estate.setDescription(dto.getDescription());
         estate.setIdAccommodation(alojamiento);
-        estate.setTypeEstate(dto.getTipoFinca());
+        estate.setTypeEstate(dto.getFarmType());
         Estate estateGuardado = estateRepository.save(estate);
 
         return convertToResponseDTO(estateGuardado);
@@ -51,11 +51,12 @@ public class EstateServiceImpl implements EstateService{
         Accommodations alojamiento = accommodationsRepository.findById(dto.getIdAccommodation())
                 .orElseThrow(() -> new RuntimeException("Categoría de alojamiento base no encontrada."));
 
-        estateExistente.setName(dto.getNombre());
-        estateExistente.setAddress(dto.getUbicacion());
-        estateExistente.setDescription(dto.getDescripcion());
-        estateExistente.setPrice(dto.getPrecioPorNoche());
-        estateExistente.setContact(dto.getContacto());
+        estateExistente.setName(dto.getName());
+        estateExistente.setAddress(dto.getLocation());
+        estateExistente.setDescription(dto.getDescription());
+        estateExistente.setPrice(dto.getPricePerNight());
+        estateExistente.setContact(dto.getContact());
+        estateExistente.setTypeEstate(dto.getFarmType());
 
         Estate estateActualizado = estateRepository.save(estateExistente);
 
@@ -90,11 +91,33 @@ public class EstateServiceImpl implements EstateService{
     private EstateResponseDTO convertToResponseDTO(Estate estate) {
         EstateResponseDTO dto = new EstateResponseDTO();
         dto.setIdEstate(estate.getIdEstate());
-        dto.setNombre(estate.getName());
-        dto.setUbicacion(estate.getAddress());
-        dto.setPrecioPorNoche(estate.getPrice());
-        dto.setContacto(estate.getContact());
-        // Mapea aquí los demás campos que tengas en tu DTO
+        dto.setName(estate.getName());
+        dto.setLocation(estate.getAddress());
+        dto.setPricePerNight(estate.getPrice());
+        dto.setContact(estate.getContact());
+        dto.setDescription(estate.getDescription());
+        dto.setFarmType(estate.getTypeEstate());
+
+        // Mapear imágenes desde la relación @OneToMany
+        if (estate.getImagenes() != null && !estate.getImagenes().isEmpty()) {
+            dto.setCoverUrl(
+                    estate.getImagenes().stream()
+                            .filter(i -> i.getOrden() == 0)
+                            .map(i -> i.getUrl())
+                            .findFirst()
+                            .orElse("/img/placeholder-finca.jpg")
+            );
+            dto.setGallery(
+                    estate.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            dto.setCoverUrl("/img/placeholder-finca.jpg");
+            dto.setGallery(List.of());
+        }
+
         return dto;
     }
 }

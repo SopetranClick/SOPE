@@ -8,6 +8,7 @@ import com.sope.sopetran_click.repository.RestaurantRepository;
 import com.sope.sopetran_click.repository.TradesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setDescription(dto.getDescription());
         restaurant.setContact(dto.getContacto());
         restaurant.setIdTrades(trade);
+        restaurant.setRating(dto.getRating());
+        restaurant.setHorario(dto.getHorario());
+        restaurant.setAbierto(dto.getAbierto() != null ? dto.getAbierto() : true);
 
         Restaurant restaurantGuardado = restaurantRepository.save(restaurant);
 
@@ -47,6 +51,10 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantexiste.setName(dto.getNombre());
         restaurantexiste.setDescription(dto.getDescription());
         restaurantexiste.setContact(dto.getContacto());
+        restaurantexiste.setIdTrades(trade);
+        restaurantexiste.setRating(dto.getRating());
+        restaurantexiste.setHorario(dto.getHorario());
+        restaurantexiste.setAbierto(dto.getAbierto() != null ? dto.getAbierto() : true);
 
         Restaurant restaurantActualizado = restaurantRepository.save(restaurantexiste);
 
@@ -82,10 +90,26 @@ public class RestaurantServiceImpl implements RestaurantService{
         response.setNombre(restaurant.getName());
         response.setDescription(restaurant.getDescription());
         response.setContacto(restaurant.getContact());
+        response.setCategoria("restaurante");
+        response.setRating(restaurant.getRating());
+        response.setHorario(restaurant.getHorario());
+        response.setAbierto(restaurant.getAbierto());
 
-        // Obtenemos de forma segura la información de la categoría padre
         if (restaurant.getIdTrades() != null) {
-            response.setNombre(restaurant.getIdTrades().getDescription());
+            response.setIdTrade(restaurant.getIdTrades().getIdTrades());
+        }
+
+        if (restaurant.getImagenes() != null && !restaurant.getImagenes().isEmpty()) {
+            response.setCoverUrl(restaurant.getCoverUrl());
+            response.setGallery(
+                    restaurant.getImagenes().stream()
+                            .filter(i -> i.getOrden() > 0)
+                            .map(i -> i.getUrl())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            response.setCoverUrl(restaurant.getCoverUrl());
+            response.setGallery(Collections.emptyList());
         }
         return response;
     }

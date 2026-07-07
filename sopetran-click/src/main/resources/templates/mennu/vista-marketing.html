@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+    FRAGMENTO: vista-marketing
+    Uso en Index.html:
+        <div th:insert="~{mennu/vista-marketing :: vista-marketing}"></div>
+-->
+
+<section th:fragment="vista-marketing" id="vista-marketing" class="spa-view">
+  <div class="marketing-wrapper">
+    <button class="btn-back" onclick="navegarA('inicio')">
+      <i class="fas fa-arrow-left"></i> SopetranClick
+    </button>
+
+    <!-- Hero -->
+    <header class="marketing-hero">
+      <div class="tag">Para Comerciantes y Anunciantes</div>
+      <h1>Haz crecer tu negocio en <span>Sopetrán</span></h1>
+      <p>Miles de turistas y locales usan SopetranClick para encontrar dónde comer, dormir y explorar. Súmate y llega a ellos.</p>
+      <button class="btn-cta" onclick="document.getElementById('marketing-asesoria').scrollIntoView({behavior:'smooth'})">
+        Solicita asesoría
+      </button>
+    </header>
+
+    <!-- Cómo funciona -->
+    <div class="section-divider"><h2>Cómo funciona</h2></div>
+    <section class="pasos-grid">
+      <div class="paso-card">
+        <div class="paso-icon"><i class="fas fa-user-plus"></i></div>
+        <div class="paso-num">1</div>
+        <h3>Regístrate</h3>
+        <p>Crea tu cuenta de comerciante y cuéntanos sobre tu negocio.</p>
+      </div>
+      <div class="paso-card">
+        <div class="paso-icon"><i class="fas fa-store"></i></div>
+        <div class="paso-num">2</div>
+        <h3>Publica tu negocio</h3>
+        <p>Sube fotos, ubicación, horarios y todo lo que te hace único.</p>
+      </div>
+      <div class="paso-card">
+        <div class="paso-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="paso-num">3</div>
+        <h3>Recibe reservas</h3>
+        <p>Los visitantes te encuentran, reservan y te contactan directamente.</p>
+      </div>
+      <div class="paso-card">
+        <div class="paso-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="paso-num">4</div>
+        <h3>Mide resultados</h3>
+        <p>Consulta cuántas personas vieron y contactaron tu negocio.</p>
+      </div>
+    </section>
+
+    <!-- Planes -->
+    <div class="section-divider"><h2>Planes de publicidad</h2></div>
+    <section class="planes-grid">
+      <div class="plan-card">
+        <h3>Básico</h3>
+        <div class="plan-precio">$50.000<span>/mes</span></div>
+        <ul>
+          <li><i class="fas fa-check"></i> Ficha en el directorio</li>
+          <li><i class="fas fa-check"></i> 1 foto de portada</li>
+          <li><i class="fas fa-check"></i> Datos de contacto</li>
+        </ul>
+        <button class="btn-plan" onclick="document.getElementById('marketing-asesoria').scrollIntoView({behavior:'smooth'})">Elegir plan</button>
+      </div>
+      <div class="plan-card plan-destacado">
+        <div class="plan-badge">Recomendado</div>
+        <h3>Destacado</h3>
+        <div class="plan-precio">$120.000<span>/mes</span></div>
+        <ul>
+          <li><i class="fas fa-check"></i> Todo lo del plan Básico</li>
+          <li><i class="fas fa-check"></i> Galería de hasta 8 fotos</li>
+          <li><i class="fas fa-check"></i> Prioridad en resultados</li>
+          <li><i class="fas fa-check"></i> Integración con reservas</li>
+        </ul>
+        <button class="btn-plan" onclick="document.getElementById('marketing-asesoria').scrollIntoView({behavior:'smooth'})">Elegir plan</button>
+      </div>
+      <div class="plan-card">
+        <h3>Premium</h3>
+        <div class="plan-precio">$200.000<span>/mes</span></div>
+        <ul>
+          <li><i class="fas fa-check"></i> Todo lo del plan Destacado</li>
+          <li><i class="fas fa-check"></i> Banner en la página de inicio</li>
+          <li><i class="fas fa-check"></i> Reporte mensual de visitas</li>
+        </ul>
+        <button class="btn-plan" onclick="document.getElementById('marketing-asesoria').scrollIntoView({behavior:'smooth'})">Elegir plan</button>
+      </div>
+    </section>
+
+    <!-- Beneficios -->
+    <div class="section-divider"><h2>Beneficios</h2></div>
+    <section class="beneficios-grid">
+      <div class="beneficio-item">
+        <div class="beneficio-icon">👁️</div>
+        <h3>Visibilidad</h3>
+        <p>Tu negocio frente a quienes ya están buscando qué hacer en Sopetrán.</p>
+      </div>
+      <div class="beneficio-item">
+        <div class="beneficio-icon">📍</div>
+        <h3>Geolocalización</h3>
+        <p>Apareces en el mapa junto a los demás atractivos del municipio.</p>
+      </div>
+      <div class="beneficio-item">
+        <div class="beneficio-icon">🔗</div>
+        <h3>Integración con reservas</h3>
+        <p>Recibe solicitudes directas sin intermediarios ni comisiones ocultas.</p>
+      </div>
+    </section>
+
+    <!-- Asesoría personalizada -->
+    <div class="section-divider"><h2>Asesoría personalizada</h2></div>
+    <section class="asesoria-grid" id="marketing-asesoria">
+      <form class="asesoria-form" id="marketing-form" onsubmit="return enviarLeadMarketing(event)">
+        <label>Nombre completo <input type="text" id="mkt-nombre" required></label>
+        <label>Correo electrónico <input type="email" id="mkt-email" required></label>
+        <label>Teléfono (opcional) <input type="tel" id="mkt-tel"></label>
+        <label>Nombre de tu negocio <input type="text" id="mkt-negocio" required></label>
+        <label>Cuéntanos qué necesitas <textarea id="mkt-mensaje" rows="4" required></textarea></label>
+        <button type="submit" class="btn-enviar">Solicitar asesoría</button>
+        <p class="mkt-feedback" id="mkt-feedback"></p>
+      </form>
+
+      <aside class="contacto-box">
+        <h3>Contacto comercial</h3>
+        <a class="contacto-item" href="https://wa.me/57XXXXXXXXXX" target="_blank">
+          <i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a class="contacto-item" href="mailto:comercial@sopetranclick.com">
+          <i class="fas fa-envelope"></i> comercial@sopetranclick.com</a>
+        <a class="contacto-item" href="tel:+57XXXXXXXXXX">
+          <i class="fas fa-phone"></i> +57 XXX XXX XXXX</a>
+      </aside>
+    </section>
+  </div>
+</section>
+
+</body>
+</html>

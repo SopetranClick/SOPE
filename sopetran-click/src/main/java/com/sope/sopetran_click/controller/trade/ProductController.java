@@ -33,6 +33,12 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @GetMapping("/local/{id}")
+    public ResponseEntity<List<ProductResponseDTO>> getProductsByLocal(@PathVariable Long id) {
+        List<ProductResponseDTO> products = productService.listarProductosPorLocal(id);
+        return ResponseEntity.ok(products);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequestDTO dto) {
         ProductResponseDTO product = productService.actualizarProducto(id, dto);

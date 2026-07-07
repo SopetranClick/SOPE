@@ -1,272 +1,424 @@
-        :root {
-            --primary-bg: #000000;
-            --accent-color: #ffffff;
-            --glass-bg: rgba(0, 0, 0, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --transition-speed: 0.5s;
-        }
+:root {
+    --primary-bg: #000000;
+    --accent-color: #ffffff;
+    --glass-bg: rgba(0, 0, 0, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --rojo: #8b0000;
+    --rojo-vivo: #cc0000;
+    --transition-speed: 0.5s;
+    /* El diseño viejo era una página standalone sin navbar.
+       Ahora vive como fragmento dentro de Index.html, que sí
+       tiene navbar arriba. Este valor descuenta esa altura para
+       que no aparezca franja negra ni scroll. Si tu navbar mide
+       distinto, ajusta SOLO este número. */
+    --nav-clearance: 90px;
+}
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--primary-bg);
-            color: white;
-            overflow: hidden;
-        }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--primary-bg);
+    color: white;
+    /* No usar overflow:hidden global: este CSS ahora se comparte
+       con otras vistas de la SPA (comercio, ecoturismo...) que sí
+       necesitan scroll. El scroll de Alojamiento ya se bloquea a
+       nivel del #vista-alojamiento de arriba. */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
-        /* Fondo principal */
-        .main-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: background-image var(--transition-speed) ease-in-out;
-            z-index: 1;
-        }
+/* Fondo principal */
+.main-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image var(--transition-speed) ease-in-out;
+    z-index: 1;
+}
 
-        .overlay-vignette {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%);
-            z-index: 2;
-            pointer-events: none;
-        }
+.overlay-vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
 
-        /* Contenedor de Contenido */
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+/* Contenedor de Contenido */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-        /* Galería Izquierda (Grid) */
-        .gallery-section {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
+/* El section mide el viewport MENOS el navbar del Index, para que
+   el total no supere 100vh (eso era lo que causaba la franja
+   negra y el scroll de más). Necesita !important porque la regla
+   global ".spa-view { height:auto !important }" (index.css, para
+   las vistas largas con scroll como comercio/ecoturismo) le gana
+   por !important a cualquier declaración normal, sin importar que
+   el ID sea más específico. También lleva margin-top del tamaño
+   del nav: sin eso la sección arranca en y=0 (tapada por el nav
+   fijo) y le sobran esos mismos px como franja negra al final. */
+#vista-alojamiento {
+    height: calc(100vh - var(--nav-clearance)) !important;
+    margin-top: var(--nav-clearance);
+    overflow: hidden !important;
+    position: relative;
+}
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 480px;
-        }
+/* responsive.css trae ".spa-view .content-wrapper { height:auto }"
+   para las vistas con scroll. El selector con #id le gana en
+   especificidad sin importar el orden de carga de los CSS. */
+#vista-alojamiento .content-wrapper {
+    height: 100% !important;
+    overflow: hidden !important;
+}
 
-        .gallery-item {
-            width: 100%;
-            aspect-ratio: 4/3;
-            border-radius: 12px;
-            background-size: cover;
-            background-position: center;
-            border: 2px solid rgba(255,255,255,0.25);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
-        }
+/* Pasos del módulo: categorías (paso 0) → galería (paso 1).
+   Solo el paso con .activo se muestra; el otro queda display:none,
+   así que ambos comparten la altura fija de #vista-alojamiento
+   sin generar scroll. */
+.aloj-step {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+}
+.aloj-step.activo {
+    display: flex;
+    flex-direction: column;
+}
 
-        .gallery-item:hover {
-            transform: scale(1.04);
-            border-color: white;
-        }
+/* Paso 0: Selección de categoría */
+#aloj-categorias.activo {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 3rem;
+    gap: 2.2rem;
+    overflow: hidden;
+}
 
-        /* Panel de Información (Derecha) */
-        .info-section {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3rem;
-            text-align: right;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
+.aloj-cat-header .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    font-size: 0.78rem;
+    color: var(--rojo-vivo);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 18px;
+}
+.aloj-cat-header h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.aloj-cat-header h1 span { color: var(--rojo-vivo); }
+.aloj-cat-header p { color: #bbb; font-size: 0.95rem; }
 
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
+.aloj-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+}
+.aloj-cat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.aloj-cat-card:hover {
+    border-color: var(--rojo-vivo);
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(139,0,0,0.25);
+}
+.aloj-cat-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--rojo-vivo);
+}
+.aloj-cat-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.aloj-cat-card p {
+    font-size: 0.82rem;
+    color: #bbb;
+    line-height: 1.5;
+}
 
-        /* Cabecera del Panel: Logo Izquierda, Ojo Derecha */
-        .panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            width: 100%;
-        }
+/* Botón "Categorías" del paso 1 — vuelve al selector sin salir del módulo.
+   top se calcula para caer SIEMPRE debajo de #btn-volver-global (index.css:
+   fixed, top:90px, ~40px de alto): la sección ya arranca en top:90px por
+   --nav-clearance, así que 60px extra deja un margen limpio bajo ese botón. */
+.aloj-btn-volver-cat {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.aloj-btn-volver-cat:hover { border-color: var(--rojo-vivo); }
 
-        .brand-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-align: left;
-        }
+/* Galería Izquierda (Grid) */
+.gallery-section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
 
-        .brand-logo {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            filter: invert(1);
-        }
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 480px;
+}
 
-        .btn-hide-eye {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255,255,255,0.25);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
 
-        .btn-hide-eye:hover {
-            background: white;
-            color: black;
-        }
+.gallery-item:hover {
+    transform: scale(1.04);
+    border-color: white;
+}
 
-        .title-display {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
+/* Panel de Información (Derecha) */
+.info-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    text-align: right;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
 
-        .description-display {
-            color: #ddd;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            max-width: 420px;
-            margin-left: auto;
-            margin-bottom: 2rem;
-        }
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
 
-        /* Clases de Ocultación */
-        .hidden-ui {
-            opacity: 0 !important;
-            transform: scale(0.95) !important;
-            pointer-events: none !important;
-        }
+/* Cabecera del Panel: Logo Izquierda, Ojo Derecha */
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    width: 100%;
+}
 
-        /* Catálogo de Alojamientos (Stack - Carrusel de 5) */
-        .stack-footer {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 100;
-            width: auto;
-            max-width: 600px;
-            overflow: hidden; /* Para que el carrusel no se salga */
-            padding: 20px 10px;
-        }
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+}
 
-        .stack-container {
-            display: flex;
-            gap: 15px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+.brand-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    filter: invert(1);
+}
 
-        .stack-card {
-            flex: 0 0 100px; /* Tamaño fijo solicitado */
-            width: 100px;
-            height: 130px;
-            border-radius: 14px;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid rgba(255,255,255,0.2);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
+.btn-hide-eye {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .stack-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255,255,255,0.5);
-        }
+.btn-hide-eye:hover {
+    background: white;
+    color: black;
+}
 
-        .stack-card.active {
-            border-color: white;
-            transform: scale(1.1) translateY(-15px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
-        }
+.title-display {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
 
-        /* Barra Inferior (Solo cuando UI oculta) */
-        .nav-bar-bottom {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translate(-50%, 150%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 8px 15px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+.description-display {
+    color: #ddd;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 420px;
+    margin-left: auto;
+    margin-bottom: 2rem;
+}
 
-        .nav-bar-bottom.is-visible {
-            transform: translate(-50%, 0);
-        }
+/* Clases de Ocultación */
+.hidden-ui {
+    opacity: 0 !important;
+    transform: scale(0.95) !important;
+    pointer-events: none !important;
+}
 
-        .nav-control {
-            background: transparent;
-            border: none;
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+/* Catálogo de Alojamientos (Stack - Carrusel de 5) */
+.stack-footer {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 100;
+    width: auto;
+    max-width: 600px;
+    overflow: hidden; /* Para que el carrusel no se salga */
+    padding: 20px 10px;
+}
 
-        .nav-control:hover {
-            background: rgba(255,255,255,0.1);
-        }
+.stack-container {
+    display: flex;
+    gap: 15px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .btn-toggle-view {
-            background: white !important;
-            color: black !important;
-            width: 58px !important;
-            height: 58px !important;
-            font-size: 1.2rem;
-        }
+.stack-card {
+    flex: 0 0 100px; /* Tamaño fijo solicitado */
+    width: 100px;
+    height: 130px;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
 
-        @media (max-width: 992px) {
-            .gallery-section { display: none; }
-            .info-section { width: 100%; text-align: center; padding: 1.5rem; }
-            .description-display { margin-left: auto; margin-right: auto; }
-            .stack-footer { left: 50%; right: auto; transform: translateX(-50%); bottom: 120px; }
-            .panel-header { flex-direction: row-reverse; }
-        }
+.stack-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.stack-card.active {
+    border-color: white;
+    transform: scale(1.1) translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+}
+
+/* Barra Inferior (Solo cuando UI oculta) */
+.nav-bar-bottom {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translate(-50%, 150%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-bar-bottom.is-visible {
+    transform: translate(-50%, 0);
+}
+
+.nav-control {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-control:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-toggle-view {
+    background: white !important;
+    color: black !important;
+    width: 58px !important;
+    height: 58px !important;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 992px) {
+    .gallery-section { display: none; }
+    .info-section { width: 100%; text-align: center; padding: 1.5rem; }
+    .description-display { margin-left: auto; margin-right: auto; }
+    .stack-footer { left: 50%; right: auto; transform: translateX(-50%); bottom: 120px; }
+    .panel-header { flex-direction: row-reverse; }
+    .aloj-cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .aloj-cat-header h1 { font-size: 1.9rem; }
+}
+
+@media (max-width: 560px) {
+    .aloj-cat-grid { grid-template-columns: 1fr; }
+}

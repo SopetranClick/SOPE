@@ -115,14 +115,14 @@ public class RoomServiceImpl implements RoomService{
     private HotelResponseDTO convertToHotelResponseDTO(Hotels hotel) {
         HotelResponseDTO dto = new HotelResponseDTO();
         dto.setIdHotel(hotel.getIdHotel()); // Ajusta según el nombre real del getter en tu entidad
-        dto.setNombre(hotel.getName());
-        dto.setDireccion(hotel.getAddress());
-        dto.setPrecioNoche(hotel.getPrice());
-        dto.setContacto(hotel.getContact());
-        dto.setNombreAlojamiento(hotel.getIdAccommodation().getName());
-        // Si tu DTO tiene el nombre de la categoría, lo seteamos aquí:
-        if (hotel.getIdHotel() != null) {
-            dto.setNombreAlojamiento(hotel.getIdAccommodation().getName());
+        dto.setName(hotel.getName());
+        dto.setAddress(hotel.getAddress());
+        dto.setPricePerNight(hotel.getPrice());
+        dto.setContact(hotel.getContact());
+        dto.setDescription(hotel.getDescription());
+        dto.setCoverUrl(hotel.getCoverUrl());
+        if (hotel.getIdAccommodation() != null) {
+            dto.setAccommodationType(hotel.getIdAccommodation().getName());
         }
         return dto;
     }

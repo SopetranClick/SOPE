@@ -24,6 +24,6 @@ public class Public_Entitie {
     @JoinColumn(name = "id_category", referencedColumnName = "id_category")
     private Categorys idCategory;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 }

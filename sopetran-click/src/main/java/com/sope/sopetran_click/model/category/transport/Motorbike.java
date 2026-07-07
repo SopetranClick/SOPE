@@ -28,5 +28,8 @@ public class Motorbike {
 
     @Column(name = "contact", nullable = false)
     private String contact;
-    
+
+    @Column(name = "zona_cobertura")
+    private String zonaCobertura;
+
 }

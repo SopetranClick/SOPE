@@ -1,37 +1,98 @@
 
-    const rutasPorEmpresa = {
-    sotrauraba: [
-{ id: 1, origen: 'Sopetrán', destino: 'San Jerónimo', horarios: ['07:00', '11:00', '14:30'], precio: '$5,000', duracion: '25 min', asientos: 16 },
-{ id: 2, origen: 'Sopetrán', destino: 'Vereda El Guayabo', horarios: ['08:00', '13:00', '17:00'], precio: '$3,500', duracion: '20 min', asientos: 14 },
-    ],
-    rapidoochoa: [
-{ id: 3, origen: 'Sopetrán', destino: 'Medellín', horarios: ['05:00', '07:30', '10:00', '13:00', '16:00'], precio: '$18,000', duracion: '1h 45min', asientos: 32 },
-{ id: 4, origen: 'Sopetrán', destino: 'Santa Fe de Antioquia', horarios: ['06:00', '09:00', '12:00', '15:00'], precio: '$8,500', duracion: '40 min', asientos: 20 },
-    ]
-};
-
-    const empresaInfo = {
-    sotrauraba:   { nombre: 'Sotrauraba',    tag: 'Transporte · Sotrauraba' },
-    rapidoochoa:  { nombre: 'Rápido Ochoa',  tag: 'Transporte · Rápido Ochoa' }
-};
-
-    const driversPorTipo = {
-    moto: [
-{ nombre: 'Carlos Muñoz', placa: 'ABC-123', marca: 'Honda CB190', año: 2022, tel: '3001234567', disponible: true },
-{ nombre: 'Andrés López', placa: 'XYZ-456', marca: 'Yamaha FZ2.0', año: 2021, tel: '3109876543', disponible: true },
-{ nombre: 'Diego Ríos', placa: 'KLM-789', marca: 'Suzuki GS150', año: 2023, tel: '3204561234', disponible: false },
-    ],
-    carro: [
-{ nombre: 'Jhon Taborda', placa: 'PAL-345', marca: 'Renault Logan', año: 2020, tel: '3151112233', disponible: true },
-{ nombre: 'Martha Giraldo', placa: 'SOB-112', marca: 'Chevrolet Sail', año: 2021, tel: '3006667788', disponible: true },
-{ nombre: 'Luis Bermúdez', placa: 'ANT-990', marca: 'Toyota Hilux', año: 2019, tel: '3145556677', disponible: false },
-    ]
-};
+    // Datos de rutas/empresas y conductores — cargados desde la API real
+    let rutasPorEmpresa = {};
+    let empresaInfo = {};
+    let driversPorTipo = { moto: [], carro: [] };
 
     const tipoDomicilioInfo = {
     moto:  { nombre: 'Moto Taxi', tag: 'Domicilio · Moto Taxi', icon: 'fa-motorcycle' },
     carro: { nombre: 'Carro',     tag: 'Domicilio · Carro',     icon: 'fa-car' }
 };
+
+    function slugify(texto) {
+        return (texto || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[^a-z0-9]+/g, '');
+    }
+
+    /** Carga las rutas de bus desde la API y las agrupa por empresa */
+    async function cargarBuses() {
+        const res = await fetch('/api/buses');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const buses = await res.json();
+
+        rutasPorEmpresa = {};
+        empresaInfo = {};
+
+        buses.forEach(b => {
+            const key = slugify(b.empresa);
+            if (!rutasPorEmpresa[key]) {
+                rutasPorEmpresa[key] = [];
+                empresaInfo[key] = { nombre: b.empresa, tag: `Transporte · ${b.empresa}` };
+            }
+            rutasPorEmpresa[key].push({
+                id: b.idBus,
+                origen: b.origen || b.ruta,
+                destino: b.destino || '',
+                horarios: (b.horarios || '').split(',').map(h => h.trim()).filter(Boolean),
+                precio: b.precio != null ? formatCOP(b.precio) : '—',
+                duracion: b.duracion || '—',
+                asientos: b.asientos || 0
+            });
+        });
+
+        renderEmpresas();
+    }
+
+    /** Carga los conductores de moto y carro desde la API */
+    async function cargarDrivers() {
+        const [resMoto, resCarro] = await Promise.all([
+            fetch('/api/drivers/tipo/MOTO'),
+            fetch('/api/drivers/tipo/CARRO')
+        ]);
+        driversPorTipo.moto  = resMoto.ok  ? (await resMoto.json()).map(mapDriver)  : [];
+        driversPorTipo.carro = resCarro.ok ? (await resCarro.json()).map(mapDriver) : [];
+    }
+
+    function mapDriver(d) {
+        return {
+            nombre: d.nombre,
+            placa: d.placa,
+            marca: d.marca,
+            año: d.anio,
+            tel: d.telefono,
+            disponible: d.disponible !== false
+        };
+    }
+
+    function formatCOP(precio) {
+        return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(precio);
+    }
+
+    /** Genera dinámicamente las tarjetas de selección de empresa */
+    function renderEmpresas() {
+        const grid = document.getElementById('empresa-grid');
+        if (!grid) return;
+        const empresas = Object.keys(empresaInfo);
+        if (empresas.length === 0) {
+            grid.innerHTML = '<p class="sin-resultados">No hay empresas de transporte disponibles.</p>';
+            return;
+        }
+        grid.innerHTML = empresas.map(key => {
+            const info = empresaInfo[key];
+            const numRutas = rutasPorEmpresa[key].length;
+            return `
+                <div class="sub-choice-card" onclick="irA('bus-${key}')">
+                    <div class="sub-choice-logo"><i class="fas fa-bus"></i></div>
+                    <div class="sub-choice-title">${info.nombre}</div>
+                    <div class="sub-choice-desc">Consulta las rutas y horarios disponibles.</div>
+                    <div class="sub-choice-meta">
+                        <span class="sc-chip"><i class="fas fa-route"></i> ${numRutas} ruta${numRutas !== 1 ? 's' : ''}</span>
+                    </div>
+                </div>`;
+        }).join('');
+    }
 
     let asientosSeleccionados = {};
     let historialPasos = [{ key: 'inicio', label: 'Inicio' }];
@@ -40,8 +101,6 @@
     'inicio':           'step-1',
     'transporte':       'step-2-transporte',
     'domicilio':        'step-2-domicilio',
-    'bus-sotrauraba':   'step-bus',
-    'bus-rapidoochoa':  'step-bus',
     'moto':             'step-driver',
     'carro':            'step-driver',
 };
@@ -51,12 +110,12 @@
     historialPasos = [{key:'inicio',label:'Inicio'}, {key:'transporte',label:'Transporte'}];
 } else if (destino === 'domicilio') {
     historialPasos = [{key:'inicio',label:'Inicio'}, {key:'domicilio',label:'Domicilio'}];
-} else if (destino === 'bus-sotrauraba' || destino === 'bus-rapidoochoa') {
-    const empresaKey = destino === 'bus-sotrauraba' ? 'sotrauraba' : 'rapidoochoa';
+} else if (destino.startsWith('bus-')) {
+    const empresaKey = destino.substring(4);
     historialPasos = [
 {key:'inicio',label:'Inicio'},
 {key:'transporte',label:'Transporte'},
-{key:destino,label:empresaInfo[empresaKey].nombre}
+{key:destino,label:empresaInfo[empresaKey] ? empresaInfo[empresaKey].nombre : ''}
     ];
     renderBuses(empresaKey);
 } else if (destino === 'moto' || destino === 'carro') {
@@ -68,7 +127,7 @@
     renderDrivers(destino);
 }
 
-    mostrarStep(stepsMap[destino]);
+    mostrarStep(destino.startsWith('bus-') ? 'step-bus' : stepsMap[destino]);
     renderBreadcrumb();
     window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -79,7 +138,7 @@
 }
 
     function renderBreadcrumb() {
-    const bc = document.getElementById('breadcrumb');
+    const bc = document.getElementById('breadcrumb-transporte');
     if (historialPasos.length <= 1) { bc.innerHTML = ''; return; }
     bc.innerHTML = historialPasos.map((p, i) => {
     const esUltimo = i === historialPasos.length - 1;
@@ -94,6 +153,18 @@
     mostrarStep(stepsMap[paso.key] || 'step-1');
     renderBreadcrumb();
     window.scrollTo({top:0, behavior:'smooth'});
+}
+
+    /** Retrocede UN paso dentro del módulo de transporte (sin salir al index).
+     *  Lo usan los botones "Volver" de cada pantalla: desde las rutas de una
+     *  empresa vuelve a la lista de empresas, y desde moto/carro vuelve a la
+     *  elección moto/carro, etc. Si ya estamos en el primer paso, va a inicio. */
+    function volverAtras() {
+    if (historialPasos.length <= 1) {
+    navegarA('inicio');
+    return;
+}
+    volverA(historialPasos.length - 2);
 }
 
     function renderBuses(empresaKey) {
@@ -204,4 +275,10 @@
   `).join('');
 }
 
+    cargarBuses().catch(e => {
+        console.error('Error cargando buses:', e);
+        const grid = document.getElementById('empresa-grid');
+        if (grid) grid.innerHTML = '<p class="sin-resultados">No se pudieron cargar las empresas de transporte.</p>';
+    });
+    cargarDrivers().catch(e => console.error('Error cargando conductores:', e));
     renderBreadcrumb();

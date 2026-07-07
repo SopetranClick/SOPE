@@ -1,12 +1,14 @@
 package com.sope.sopetran_click.model.user;
 
 import com.sope.sopetran_click.model.Users;
-import com.sope.sopetran_click.model.user.Payments;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
+
+// CORREGIDO: eliminado `import org.apache.catalina.User;` (import basura de autocompletado)
+// También eliminado `import com.sope.sopetran_click.model.user.Payments;` redundante
+// (Payments está en el mismo paquete, no necesita import)
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,11 +29,11 @@ public class Booking {
     @JoinColumn(name = "id_users", nullable = false)
     private Users user;
 
-    // Aquí guardamos el ID del objeto reservado (Hotel, Restaurante, etc.)
+    // ID del objeto reservado (Hotel, Restaurante, etc.)
     @Column(name = "target_id", nullable = false)
     private Long targetId;
 
-    // Aquí guardamos qué tipo de categoría es para saber qué tabla consultar
+    // Tipo de categoría para saber qué tabla consultar
     // Ejemplo: "HOTEL", "RESTAURANT", "LOCAL", "TRANSPORT"
     @Column(name = "target_type", nullable = false, length = 50)
     private String targetType;
@@ -43,7 +45,7 @@ public class Booking {
     @Column(name = "fecha_reserva", nullable = false)
     private LocalDateTime fechaReserva;
 
-    @Column(name = "description", length = 255)
+    @Column(name = "description", length = 235)
     private String description;
 
     @Enumerated(EnumType.STRING)

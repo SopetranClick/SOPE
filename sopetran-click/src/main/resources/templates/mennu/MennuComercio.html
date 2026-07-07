@@ -1,163 +1,140 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comercio — SopetranClick</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/index.css">
-
-    <link rel="stylesheet" href="/static/css/comercio.css">
-
-
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<!-- ======================================================== 
-     PANTALLA A: DIRECTORIO DE LOCALES
-======================================================== -->
-<div id="pantalla-directorio">
-    <div class="dir-hero">
-        <p class="etiqueta">Sopetrán, Antioquia</p>
-        <h1>Comercio <em>Local</em></h1>
-        <p>Restaurantes, tiendas y servicios de nuestro municipio</p>
-        <div class="barra-busqueda">
-            <input type="text" id="input-buscar" placeholder="Busca un local, producto o servicio…" oninput="filtrarLocales()">
-            <span class="icono-buscar">🔍</span>
+<!--
+    FRAGMENTO: vista-comercio
+    Uso en Index.html:
+        <div th:insert.md="~{mennu/MennuComercio :: vista-comercio}"></div>
+-->
+
+<section th:fragment="vista-comercio" id="vista-comercio" class="spa-view">
+
+    <!-- PANTALLA A: DIRECTORIO DE LOCALES -->
+    <div id="pantalla-directorio">
+        <div class="dir-hero">
+            <p class="etiqueta">Sopetrán, Antioquia</p>
+            <h1>Comercio <em>Local</em></h1>
+            <p>Restaurantes, tiendas y servicios de nuestro municipio</p>
+            <div class="barra-busqueda">
+                <input type="text" id="input-buscar" placeholder="Busca un local, producto o servicio…" oninput="filtrarLocales()">
+                <span class="icono-buscar">🔍</span>
+            </div>
+        </div>
+        <div class="filtros">
+            <button class="filtro-btn activo" onclick="setFiltro('todos', this)">Todos</button>
+            <button class="filtro-btn" onclick="setFiltro('restaurante', this)">🍽 Restaurantes</button>
+            <button class="filtro-btn" onclick="setFiltro('tienda', this)">🛍 Tiendas</button>
+            <button class="filtro-btn" onclick="setFiltro('servicio', this)">⚙️ Servicios</button>
+            <button class="filtro-btn" onclick="setFiltro('abierto', this)">🟢 Abiertos ahora</button>
+        </div>
+        <p class="contador-resultados" id="contador">
+            Mostrando <span id="num-resultados">0</span> locales
+        </p>
+        <div class="locales-grid" id="grid-locales">
+            <div class="sin-resultados" id="sin-resultados">
+                <p style="font-size:2rem">🔍</p>
+                <p>No encontramos locales con esa búsqueda.</p>
+            </div>
         </div>
     </div>
-    <div class="filtros">
-        <button class="filtro-btn activo" onclick="setFiltro('todos', this)">Todos</button>
-        <button class="filtro-btn" onclick="setFiltro('restaurante', this)">🍽 Restaurantes</button>
-        <button class="filtro-btn" onclick="setFiltro('tienda', this)">🛍 Tiendas</button>
-        <button class="filtro-btn" onclick="setFiltro('servicio', this)">⚙️ Servicios</button>
-        <button class="filtro-btn" onclick="setFiltro('abierto', this)">🟢 Abiertos ahora</button>
-    </div>
-    <p class="contador-resultados" id="contador">
-        Mostrando <span id="num-resultados">0</span> locales
-    </p>
-    <div class="locales-grid" id="grid-locales">
-        <div class="sin-resultados" id="sin-resultados">
-            <p style="font-size:2rem">🔍</p>
-            <p>No encontramos locales con esa búsqueda.</p>
-        </div>
-    </div>
-</div>
 
 
-<!-- ======================================================== 
-     PANTALLA B: LOCAL FOOD (restaurantes, panaderías)
-     Portada + menú orbital (diseño original)
-======================================================== -->
-<div id="pantalla-local">
-    <div id="local-portada">
-        <button class="btn-volver-dir" onclick="volverDirectorio()" style="position:relative;z-index:50;margin:16px 20px 0;display:inline-flex;align-items:center;gap:6px;background:#8b0000;color:white;border:none;border-radius:50px;padding:10px 20px;font-family:Inter,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(139,0,0,0.4);">← Directorio</button>
-        <div class="portada-grid" id="portada-fotos"></div>
-        <div class="portada-info">
-            <p class="etiqueta-local" id="portada-etiqueta">Categoría · Sopetrán</p>
-            <h1 id="portada-nombre">Nombre del local</h1>
-            <p id="portada-horario">Horario aquí</p>
-            <button class="btn-ver-menu" onclick="mostrarMenuLocal()">
-                <span>Ver Menú</span><span>→</span>
+    <!-- PANTALLA B: LOCAL FOOD (restaurantes, panaderías) -->
+    <div id="pantalla-local">
+        <div id="local-portada">
+            <button class="btn-volver-dir" onclick="volverDirectorio()"
+                    style="position:absolute;top:160px;left:20px;z-index:50;display:inline-flex;align-items:center;gap:6px;background:#8b0000;color:white;border:none;border-radius:50px;padding:10px 20px;font-family:Inter,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(139,0,0,0.4);">
+                ← Directorio
             </button>
-        </div>
-    </div>
-    <div id="local-menu">
-        <div class="menu-header">
-            <div>
-                <p class="sub" id="menu-sub">Local · Menú</p>
-                <h2 id="menu-titulo">Orbital Bento</h2>
-            </div>
-            <button class="btn-volver-portada" onclick="mostrarPortadaLocal()">← Portada</button>
-        </div>
-        <div class="menu-grid">
-            <div class="celda-orbital">
-                <img class="foto-plato" id="img-plato" src="" alt="Plato seleccionado">
-                <div class="burbuja burbuja-1"><div class="burbuja-img" id="burbuja-img-1">🥚</div><span class="burbuja-label" id="burbuja-lbl-1">—</span></div>
-                <div class="burbuja burbuja-2"><div class="burbuja-img" id="burbuja-img-2">🍚</div><span class="burbuja-label" id="burbuja-lbl-2">—</span></div>
-                <div class="burbuja burbuja-3"><div class="burbuja-img" id="burbuja-img-3">🥑</div><span class="burbuja-label" id="burbuja-lbl-3">—</span></div>
-                <div class="burbuja burbuja-4"><div class="burbuja-img" id="burbuja-img-4">🫘</div><span class="burbuja-label" id="burbuja-lbl-4">—</span></div>
-                <div class="burbuja burbuja-5"><div class="burbuja-img" id="burbuja-img-5">🥩</div><span class="burbuja-label" id="burbuja-lbl-5">—</span></div>
-                <div class="burbuja burbuja-6"><div class="burbuja-img" id="burbuja-img-6">🍌</div><span class="burbuja-label" id="burbuja-lbl-6">—</span></div>
-                <div class="nombre-plato">
-                    <h3 id="titulo-plato">—</h3>
-                    <p class="precio-plato" id="precio-orbital">—</p>
-                </div>
-            </div>
-            <div class="celda-catalogo">
-                <p class="catalogo-titulo">Platos disponibles</p>
-                <div id="lista-catalogo"></div>
-            </div>
-            <div class="celda-detalle">
-                <div class="detalle-nombre">
-                    <h3 id="detalle-nombre">—</h3>
-                    <p id="detalle-desc">—</p>
-                </div>
-                <div class="detalle-precio">
-                    <p class="moneda">COP</p>
-                    <p class="monto" id="detalle-precio">—</p>
-                    <p style="font-size:0.68rem; color:var(--texto-dim); margin-top:4px;">Incluye bebida</p>
-                </div>
-                <div class="detalle-accion">
-                    <button class="btn-ordenar">Ordenar ahora</button>
-                    <button class="btn-compartir">Compartir</button>
-                </div>
+            <div class="portada-grid" id="portada-fotos"></div>
+            <div class="portada-info">
+                <p class="etiqueta-local" id="portada-etiqueta">Categoría · Sopetrán</p>
+                <h1 id="portada-nombre">Nombre del local</h1>
+                <p id="portada-horario">Horario aquí</p>
+                <button class="btn-ver-menu" onclick="mostrarMenuLocal()">
+                    <span>Ver Menú</span><span>→</span>
+                </button>
             </div>
         </div>
-    </div>
-</div>
-
-
-<!-- ======================================================== 
-     PANTALLA C: LOCAL NO-FOOD (barbería, ferretería, farmacia…)
-     Presentación minimalista tipo ficha de negocio
-======================================================== -->
-<div id="pantalla-servicio">
-
-    <button class="srv-volver-btn" onclick="volverDirectorio()">← Directorio</button>
-
-    <!-- HERO BIFURCADO -->
-    <div class="srv-hero">
-        <div class="srv-hero-imgs">
-            <img id="srv-hero-img" src="" alt="Local">
-            <div class="img-overlay"></div>
-            <span class="srv-categoria-badge" id="srv-cat-badge">Servicio</span>
-        </div>
-        <div class="srv-hero-info">
-            <p class="srv-tipo" id="srv-tipo-label">Tipo · Sopetrán</p>
-            <h1 id="srv-nombre">Nombre del negocio</h1>
-            <p class="srv-desc" id="srv-desc-txt">Descripción del negocio.</p>
-            <div class="srv-status-row">
-                <span class="srv-dot" id="srv-dot"></span>
-                <span class="srv-status-text" id="srv-status-txt">Abierto · —</span>
-                <span class="srv-rating-pill" id="srv-rating">★ —</span>
+        <div id="local-menu">
+            <div class="menu-header">
+                <div>
+                    <p class="sub" id="menu-sub">Local · Menú</p>
+                    <h2 id="menu-titulo">Orbital Bento</h2>
+                </div>
+                <button class="btn-volver-portada" onclick="mostrarPortadaLocal()">← Portada</button>
             </div>
-            <div class="srv-btn-row">
-                <button class="srv-btn-primary" onclick="alert('Función de contacto próximamente')">📞 Contactar</button>
-                <button class="srv-btn-ghost" onclick="alert('¡Guardado!')">♥ Guardar</button>
+            <div class="menu-grid">
+                <div class="celda-orbital">
+                    <img class="foto-plato" id="img-plato" src="" alt="Plato seleccionado">
+                    <div class="burbuja burbuja-1"><div class="burbuja-img" id="burbuja-img-1">🥚</div><span class="burbuja-label" id="burbuja-lbl-1">—</span></div>
+                    <div class="burbuja burbuja-2"><div class="burbuja-img" id="burbuja-img-2">🍚</div><span class="burbuja-label" id="burbuja-lbl-2">—</span></div>
+                    <div class="burbuja burbuja-3"><div class="burbuja-img" id="burbuja-img-3">🥑</div><span class="burbuja-label" id="burbuja-lbl-3">—</span></div>
+                    <div class="burbuja burbuja-4"><div class="burbuja-img" id="burbuja-img-4">🫘</div><span class="burbuja-label" id="burbuja-lbl-4">—</span></div>
+                    <div class="burbuja burbuja-5"><div class="burbuja-img" id="burbuja-img-5">🥩</div><span class="burbuja-label" id="burbuja-lbl-5">—</span></div>
+                    <div class="burbuja burbuja-6"><div class="burbuja-img" id="burbuja-img-6">🍌</div><span class="burbuja-label" id="burbuja-lbl-6">—</span></div>
+                    <div class="nombre-plato">
+                        <h3 id="titulo-plato">—</h3>
+                        <p class="precio-plato" id="precio-orbital">—</p>
+                    </div>
+                </div>
+                <div class="celda-catalogo">
+                    <p class="catalogo-titulo">Platos disponibles</p>
+                    <div id="lista-catalogo"></div>
+                </div>
+                <div class="celda-detalle">
+                    <div class="detalle-nombre">
+                        <h3 id="detalle-nombre">—</h3>
+                        <p id="detalle-desc">—</p>
+                    </div>
+                    <div class="detalle-precio">
+                        <p class="moneda">COP</p>
+                        <p class="monto" id="detalle-precio">—</p>
+                        <p style="font-size:0.68rem; color:var(--texto-dim); margin-top:4px;">Incluye bebida</p>
+                    </div>
+                    <div class="detalle-accion">
+                        <button class="btn-ordenar">Ordenar ahora</button>
+                        <button class="btn-compartir">Compartir</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- CATÁLOGO -->
-    <div class="srv-catalogo">
-        <p class="srv-catalogo-titulo" id="srv-catalogo-titulo">Productos & Servicios</p>
 
-        <!-- Fotos grid -->
-        <div class="srv-fotos-grid" id="srv-fotos-grid"></div>
-
-        <!-- Lista de items -->
-        <div id="srv-items-lista"></div>
+    <!-- PANTALLA C: LOCAL NO-FOOD (barbería, ferretería, farmacia…) -->
+    <div id="pantalla-servicio">
+        <button class="srv-volver-btn" onclick="volverDirectorio()">← Directorio</button>
+        <div class="srv-hero">
+            <div class="srv-hero-imgs">
+                <img id="srv-hero-img" src="" alt="Local">
+                <div class="img-overlay"></div>
+                <span class="srv-categoria-badge" id="srv-cat-badge">Servicio</span>
+            </div>
+            <div class="srv-hero-info">
+                <p class="srv-tipo" id="srv-tipo-label">Tipo · Sopetrán</p>
+                <h1 id="srv-nombre">Nombre del negocio</h1>
+                <p class="srv-desc" id="srv-desc-txt">Descripción del negocio.</p>
+                <div class="srv-status-row">
+                    <span class="srv-dot" id="srv-dot"></span>
+                    <span class="srv-status-text" id="srv-status-txt">Abierto · —</span>
+                    <span class="srv-rating-pill" id="srv-rating">★ —</span>
+                </div>
+                <div class="srv-btn-row">
+                    <button class="srv-btn-primary" onclick="alert('Función de contacto próximamente')">📞 Contactar</button>
+                    <button class="srv-btn-ghost"   onclick="alert('¡Guardado!')">♥ Guardar</button>
+                </div>
+            </div>
+        </div>
+        <div class="srv-catalogo">
+            <p class="srv-catalogo-titulo" id="srv-catalogo-titulo">Productos & Servicios</p>
+            <div class="srv-fotos-grid" id="srv-fotos-grid"></div>
+            <div id="srv-items-lista"></div>
+        </div>
     </div>
 
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/static/js/MennuComercio.js"></script>
-
+</section>
 
 </body>
 </html>

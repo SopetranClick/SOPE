@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "hotel")
@@ -39,5 +41,23 @@ public class Hotels {
 
     @Column(name = "contact", nullable = false)
     private String Contact;
+
+    // NUEVO — galería de imágenes, ordenadas por el campo "orden"
+    // cascade=ALL: al guardar/borrar el hotel, sus imágenes se gestionan automáticamente
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("orden ASC")
+    private List<HotelImage> imagenes = new ArrayList<>();
+
+    // Helper: devuelve la URL de la portada (imagen.txt con orden=0)
+    // Útil en Thymeleaf: ${hotel.coverUrl}
+    @Transient
+    public String getCoverUrl() {
+        return imagenes.stream()
+                .filter(i -> i.getOrden() == 0)
+                .map(HotelImage::getUrl)
+                .findFirst()
+                .orElse("/img/placeholder-hotel.jpg");
+    }
 
 }

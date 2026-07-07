@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,8 @@ public class NewsServiceImpl implements NewsService {
         news.setIdPublicEntitie(publicEntitie);
         news.setTitle(dto.getTitulo());
         news.setDescription(dto.getContenido());
-        news.setFechaPublicacion(LocalDateTime.now()); // Asignar fecha actual al crear
+        news.setFechaPublicacion(parseFecha(dto.getFechaPublicacion()));
+        news.setImageUrl(dto.getImageUrl());
 
         News saved = newsRepository.save(news);
         return mapearAResponse(saved);
@@ -51,6 +53,7 @@ public class NewsServiceImpl implements NewsService {
         news.setIdPublicEntitie(publicEntitie);
         news.setTitle(dto.getTitulo());
         news.setDescription(dto.getContenido());
+        news.setImageUrl(dto.getImageUrl());
         // Se mantiene la fecha original o se actualiza si fuera necesario
 
         News updated = newsRepository.save(news);
@@ -82,13 +85,22 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
+    private LocalDateTime parseFecha(String fecha) {
+        try {
+            return LocalDateTime.parse(fecha);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Formato de fecha inválido, use ISO-8601 (ej. 2026-01-15T10:00:00)");
+        }
+    }
+
     private NewsResponseDTO mapearAResponse(News n) {
         return new NewsResponseDTO(
                 n.getIdNews(),
                 n.getTitle(),
                 n.getDescription(),
                 n.getFechaPublicacion(),
-                n.getIdPublicEntitie() != null ? n.getIdPublicEntitie().getDescription() : null
+                n.getIdPublicEntitie() != null ? n.getIdPublicEntitie().getDescription() : null,
+                n.getImageUrl()
         );
     }
 }

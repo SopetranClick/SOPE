@@ -1,88 +1,131 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sopetrán Click - Catálogo Premium</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="/static/css/alojamiento.css">
-    
-    
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-    <!-- Fondo de Pantalla Completa -->
+<!--
+    FRAGMENTO: vista-alojamiento
+    Uso en Index.html:
+        <div th:insert.md="~{mennu/MenuAlojamiento :: vista-alojamiento}"></div>
+    El <head> con CSS/JS lo gestiona Index.html — este archivo NO tiene <head>.
+    La lógica JS vive en /js/MenuAlojamiento.js (fetch a /api/hotels y /api/estates).
+    Este fragmento solo tiene el markup; nada de datos ni scripts inline.
+-->
+
+<section th:fragment="vista-alojamiento" id="vista-alojamiento" class="spa-view">
+
     <div id="mainBg" class="main-background"></div>
     <div class="overlay-vignette"></div>
 
-    <div class="container-fluid content-wrapper">
-        <div class="row h-100 g-0">
-            
-            <!-- Grid de Galería (Izquierda) -->
-            <div id="gridGallery" class="col-lg-5 gallery-section">
-                <div id="galleryGridItems" class="gallery-grid"></div>
+    <!-- PASO 0: Selección de categoría -->
+    <div id="aloj-categorias" class="aloj-step activo">
+        <div class="aloj-cat-header">
+            <div class="tag">Alojamiento en Sopetrán</div>
+            <h1>¿Qué tipo de <span>alojamiento</span> buscas?</h1>
+            <p>Elige una categoría para ver las opciones disponibles.</p>
+        </div>
+        <div class="aloj-cat-grid">
+            <div class="aloj-cat-card" onclick="elegirCategoriaAlojamiento('hoteles')">
+                <div class="aloj-cat-icon"><i class="fa-solid fa-hotel"></i></div>
+                <h3>Hoteles</h3>
+                <p>Hospedaje urbano con todos los servicios.</p>
             </div>
+            <div class="aloj-cat-card" onclick="elegirCategoriaAlojamiento('fincas')">
+                <div class="aloj-cat-icon"><i class="fa-solid fa-tree"></i></div>
+                <h3>Fincas</h3>
+                <p>Descanso campestre rodeado de naturaleza.</p>
+            </div>
+            <div class="aloj-cat-card" onclick="elegirCategoriaAlojamiento('recreativas')">
+                <div class="aloj-cat-icon"><i class="fa-solid fa-person-swimming"></i></div>
+                <h3>Fincas Recreativas</h3>
+                <p>Piscina, zonas comunes y planes para grupos.</p>
+            </div>
+            <div class="aloj-cat-card" onclick="elegirCategoriaAlojamiento('casas')">
+                <div class="aloj-cat-icon"><i class="fa-solid fa-house"></i></div>
+                <h3>Casas Campestres</h3>
+                <p>Casas completas para disfrutar en familia.</p>
+            </div>
+        </div>
+    </div>
 
-            <!-- Panel de Texto (Derecha) -->
-            <div id="textPanel" class="col-lg-7 info-section">
-                <div class="glass-panel">
-                    
-                    <!-- Nueva Cabecera: Logo Izquierda, Ojo Derecha -->
-                    <div class="panel-header">
-                        <div class="brand-group">
-                            <img src="https://i.imgur.com/8QO9I5R.png" alt="Logo" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3009/3009489.png'">
-                            <div>
-                                <h6 class="mb-0 fw-bold">Sopetrán Click</h6>
-                                <small class="text-white-50">GUÍA DE RECREO</small>
+    <!-- PASO 1: Galería + panel de información (oculto hasta elegir categoría) -->
+    <div id="aloj-galeria" class="aloj-step">
+
+        <button class="aloj-btn-volver-cat" onclick="volverCategoriasAlojamiento()">
+            <i class="fas fa-arrow-left"></i> Categorías
+        </button>
+
+        <div class="container-fluid content-wrapper">
+            <div class="row h-100 g-0">
+
+                <!-- Grid de Galería (Izquierda) -->
+                <div id="gridGallery" class="col-lg-5 gallery-section">
+                    <div id="galleryGridItems" class="gallery-grid"></div>
+                </div>
+
+                <!-- Panel de Texto (Derecha) -->
+                <div id="textPanel" class="col-lg-7 info-section">
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <div class="brand-group">
+                                <!-- th:src corrige la ruta para Spring Boot -->
+                                <img th:src="@{/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png}"
+                                     alt="Logo SopetranClick" class="brand-logo"
+                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/3009/3009489.png'">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Sopetrán Click</h6>
+                                    <small class="text-white-50">GUÍA DE ALOJAMIENTO</small>
+                                </div>
                             </div>
+                            <button class="btn-hide-eye" onclick="toggleInterface(false)" title="Ocultar Interfaz">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
                         </div>
-                        <button class="btn-hide-eye" onclick="toggleInterface(false)" title="Ocultar Interfaz">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
 
-                    <h1 id="nodeTitle" class="title-display"></h1>
-                    <p id="nodeDesc" class="description-display"></p>
+                        <h1 id="nodeTitle" class="title-display"></h1>
+                        <p id="nodeDesc" class="description-display"></p>
 
-                    <div class="d-flex flex-column align-items-end mb-2">
-                        <div class="d-flex align-items-center gap-2 mb-2 text-white-50">
-                            <span id="nodeLoc" class="small"></span>
-                            <i class="fa-solid fa-map-pin"></i>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span id="nodePhone" class="fw-bold text-white"></span>
-                            <i class="fa-brands fa-whatsapp text-success fs-5"></i>
+                        <div class="d-flex flex-column align-items-end mb-2">
+                            <div class="d-flex align-items-center gap-2 mb-2 text-white-50">
+                                <span id="nodeLoc" class="small"></span>
+                                <i class="fa-solid fa-map-pin"></i>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span id="nodePhone" class="fw-bold text-white"></span>
+                                <i class="fa-brands fa-whatsapp text-success fs-5"></i>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mt-2">
+                                <span id="nodePrice" class="fw-bold text-warning small"></span>
+                                <i class="fa-solid fa-tag text-warning"></i>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <span id="nodeTipo" class="small text-white-50 fst-italic"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Catálogo inferior -->
+        <div class="stack-footer">
+            <div id="accommodationStack" class="stack-container"></div>
+        </div>
+
+        <!-- Nav inferior -->
+        <div id="bottomNav" class="nav-bar-bottom">
+            <button class="nav-control" onclick="moveGallery(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="nav-control btn-toggle-view" onclick="toggleInterface(true)">
+                <i class="fa-solid fa-eye-slash"></i>
+            </button>
+            <button class="nav-control" onclick="moveGallery(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 
-    <!-- Catálogo de Alojamientos (Carrusel de 5) -->
-    <div class="stack-footer">
-        <div id="accommodationStack" class="stack-container"></div>
-    </div>
+</section>
 
-    <!-- Barra de Navegación Inferior -->
-    <div id="bottomNav" class="nav-bar-bottom">
-        <button class="nav-control" onclick="moveGallery(-1)">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="nav-control btn-toggle-view" onclick="toggleInterface(true)">
-            <i class="fa-solid fa-eye-slash"></i>
-        </button>
-        <button class="nav-control" onclick="moveGallery(1)">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    </div>
-
-    <script src="/static/js/MennuAlojamiento.js"></script>
 </body>
 </html>

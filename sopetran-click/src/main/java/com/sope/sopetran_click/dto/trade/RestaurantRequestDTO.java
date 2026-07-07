@@ -24,4 +24,8 @@ public class RestaurantRequestDTO {
     @NotBlank(message = "The description can not be empty.")
     @Size(max = 1000, message = "The description can not have more than 1000 letters.")
     private String description;
+
+    private Double rating;
+    private String horario;
+    private Boolean abierto;
 }

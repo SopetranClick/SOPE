@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "iconic_place")
 @Data
@@ -28,5 +31,28 @@ public class Iconic_place {
 
     @Column(name = "description" , nullable = false)
     private String description;
+
+    @Column(name = "tipo")
+    private String tipo;
+
+    @Column(name = "acceso")
+    private String acceso;
+
+    @Column(name = "tags")
+    private String tags;
+
+    @OneToMany(mappedBy = "iconicPlace", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("orden ASC")
+    private List<IconicPlaceImage> imagenes = new ArrayList<>();
+
+    @Transient
+    public String getCoverUrl() {
+        return imagenes.stream()
+                .filter(i -> i.getOrden() == 0)
+                .map(IconicPlaceImage::getUrl)
+                .findFirst()
+                .orElse("/img/placeholder-lugar.jpg");
+    }
 
 }

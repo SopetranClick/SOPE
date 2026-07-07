@@ -194,261 +194,60 @@
 
 
 /* ================================================================
-   DATOS — Veredas y sus lugares icónicos de Sopetrán, Antioquia
-   Agrega, edita o quita veredas y lugares aquí fácilmente.
-   Para usar imágenes reales: cambia 'img' por la ruta de tu archivo.
+   DATOS — Veredas y sus lugares icónicos, cargados desde la API real
 ================================================================ */
-const VEREDAS = [
-    {
-        id: 'santa-rita',
-        nombre: 'Santa Rita',
-        icono: '🌿',
-        tags: ['Cascadas', 'Café', 'Senderismo'],
-        cantidad: 5,
-        img: null, // Pon aquí tu ruta: '/Img/Veredas/santa-rita.jpg'
-        lugares: [
-            {
-                nombre: 'Cascada del Gallinaso',
-                tipo: 'Cascada',
-                subtipo: 'Atractivo Natural',
-                desc: 'Caída de agua rodeada de selva nativa, ideal para baños naturales y fotografía.',
-                tags: ['🥾 Senderismo', '📸 Foto'],
-                icono: '💧',
-                img: "/Img/PRINCI/carrosaFrutas.PNG"
-            },
-            {
-                nombre: 'Mirador Las Águilas',
-                tipo: 'Mirador',
-                subtipo: 'Vista Panorámica',
-                desc: 'Punto más alto de la vereda con vista al Cañón del Cauca y las montañas circundantes.',
-                tags: ['🦅 Avistamiento', '🌅 Amanecer'],
-                icono: '🦅',
-                img: null
-            },
-            {
-                nombre: 'Sendero del Café',
-                tipo: 'Ruta Agrícola',
-                subtipo: 'Agricultura Local',
-                desc: 'Recorrido entre fincas cafeteras donde puedes aprender el proceso del café de la mano de campesinos.',
-                tags: ['☕ Café', '🌱 Agroturismo'],
-                icono: '☕',
-                img: null
-            },
-            {
-                nombre: 'Capilla Santa Rita',
-                tipo: 'Patrimonio',
-                subtipo: 'Cultura y Fe',
-                desc: 'Pequeña capilla colonial con más de 150 años de historia en el corazón de la vereda.',
-                tags: ['⛪ Historia', '📸 Foto'],
-                icono: '⛪',
-                img: null
-            },
-            {
-                nombre: 'Posada Santa Rita',
-                tipo: 'Hospedaje',
-                subtipo: 'Alojamiento Rural',
-                desc: 'Cabaña campesina con desayuno típico antioqueño, zona de hamacas y vista a la montaña.',
-                tags: ['🏡 Hospedaje', '❤️ Favorito'],
-                icono: '🏡',
-                img: null
-            }
-        ]
-    },
-    {
-        id: 'hidalgo',
-        nombre: 'Vereda Hidalgo',
-        icono: '💦',
-        tags: ['Cascadas', 'Piscinas'],
-        cantidad: 3,
-        img: null,
-        lugares: [
-            {
-                nombre: 'Salto de Agua Hidalgo',
-                tipo: 'Cascada',
-                subtipo: 'Cascada Principal',
-                desc: 'La cascada más grande del municipio, con más de 30 metros de caída libre sobre rocas naturales.',
-                tags: ['💧 Cascada', '🏊 Baño', '📸 Foto'],
-                icono: '🌊',
-                img: null
-            },
-            {
-                nombre: 'Quebrada La Honda',
-                tipo: 'Río',
-                subtipo: 'Cuerpo de Agua',
-                desc: 'Quebrada de aguas cristalinas con pozos naturales perfectos para refrescarse en verano.',
-                tags: ['🥾 Senderismo', '🏊 Baño'],
-                icono: '🏞️',
-                img: null
-            },
-            {
-                nombre: 'Reserva Forestal El Bosque',
-                tipo: 'Naturaleza',
-                subtipo: 'Reserva Natural',
-                desc: 'Zona de bosque primario con gran variedad de aves y flora endémica del occidente antioqueño.',
-                tags: ['🦜 Aves', '🌳 Flora'],
-                icono: '🌳',
-                img: null
-            }
-        ]
-    },
-    {
-        id: 'duende',
-        nombre: 'El Duende',
-        icono: '🌲',
-        tags: ['Cascadas', 'Fauna', 'Leyendas'],
-        cantidad: 4,
-        img: null,
-        lugares: [
-            {
-                nombre: 'Salto El Duende',
-                tipo: 'Cascada',
-                subtipo: 'Cascada Mítica',
-                desc: 'Cascada rodeada de mitos y leyendas del folklore antioqueño. El sonido del agua crea un ambiente mágico.',
-                tags: ['💧 Cascada', '🌙 Leyenda', '📸 Foto'],
-                icono: '✨',
-                img: null
-            },
-            {
-                nombre: 'Sendero de los Colibríes',
-                tipo: 'Ruta',
-                subtipo: 'Avistamiento de Aves',
-                desc: 'Camino rural donde se pueden observar más de 12 especies de colibríes en su hábitat natural.',
-                tags: ['🦜 Aves', '🥾 Senderismo'],
-                icono: '🐦',
-                img: null
-            },
-            {
-                nombre: 'Finca El Paraíso',
-                tipo: 'Agroturismo',
-                subtipo: 'Turismo Rural',
-                desc: 'Finca familiar con cultivos de cacao, plátano y café. Ofrecen tours y productos artesanales.',
-                tags: ['🌱 Agro', '🍫 Cacao'],
-                icono: '🌱',
-                img: null
-            },
-            {
-                nombre: 'Mirador Cerro Azul',
-                tipo: 'Mirador',
-                subtipo: 'Vista Panorámica',
-                desc: 'En días despejados se divisa el embalse del Río Grande y la cordillera occidental.',
-                tags: ['🌄 Vista', '📸 Foto'],
-                icono: '⛰️',
-                img: null
-            }
-        ]
-    },
-    {
-        id: 'guayabal',
-        nombre: 'Guayabal',
-        icono: '🏞️',
-        tags: ['Río', 'Pesca', 'Camping'],
-        cantidad: 3,
-        img: null,
-        lugares: [
-            {
-                nombre: 'Playa del Río Cauca',
-                tipo: 'Playa Fluvial',
-                subtipo: 'Recreación Acuática',
-                desc: 'Playas de arena fina a orillas del Cauca, perfectas para picnic y baños familiares en temporada seca.',
-                tags: ['🏖️ Playa', '🏊 Baño', '🎣 Pesca'],
-                icono: '🏖️',
-                img: null
-            },
-            {
-                nombre: 'Puerto El Guayabal',
-                tipo: 'Puerto',
-                subtipo: 'Patrimonio Cultural',
-                desc: 'Antiguo puerto fluvial con balsas artesanales. Historia viva del comercio en el Cauca.',
-                tags: ['⛵ Bote', '📜 Historia'],
-                icono: '⛵',
-                img: null
-            },
-            {
-                nombre: 'Zona de Camping La Ceiba',
-                tipo: 'Camping',
-                subtipo: 'Ecoturismo Nocturno',
-                desc: 'Zona habilitada bajo una ceiba centenaria para acampar, con fogata y observación de estrellas.',
-                tags: ['⛺ Camping', '🌟 Estrellas'],
-                icono: '⛺',
-                img: null
-            }
-        ]
-    },
-    {
-        id: 'santa-barbara',
-        nombre: 'Santa Bárbara',
-        icono: '🌺',
-        tags: ['Flores', 'Cultivos', 'Miradores'],
-        cantidad: 3,
-        img: null,
-        lugares: [
-            {
-                nombre: 'Finca Floristería Andina',
-                tipo: 'Agroturismo',
-                subtipo: 'Floricultura',
-                desc: 'Cultivos de flores tropicales y orquídeas endémicas. Experiencia guiada de arreglos florales.',
-                tags: ['🌸 Flores', '🌿 Orquídeas'],
-                icono: '🌺',
-                img: null
-            },
-            {
-                nombre: 'Mirador El Paraíso',
-                tipo: 'Mirador',
-                subtipo: 'Vista Panorámica',
-                desc: 'Vista 360° del municipio de Sopetrán, la cuenca del Cauca y los municipios vecinos.',
-                tags: ['🌄 Vista', '📸 Foto'],
-                icono: '🗻',
-                img: null
-            },
-            {
-                nombre: 'Laguna del Encanto',
-                tipo: 'Laguna',
-                subtipo: 'Ecosistema Acuático',
-                desc: 'Pequeña laguna natural con aves acuáticas y vegetación de humedal. Lugar tranquilo para picnic.',
-                tags: ['🦢 Aves', '🌿 Natura'],
-                icono: '🌊',
-                img: null
-            }
-        ]
-    },
-    {
-        id: 'amorro',
-        nombre: 'La Amorro',
-        icono: '☕',
-        tags: ['Café', 'Artesanías', 'Historia'],
-        cantidad: 3,
-        img: null,
-        lugares: [
-            {
-                nombre: 'Beneficiadero Tradicional de Café',
-                tipo: 'Patrimonio',
-                subtipo: 'Cultura Cafetera',
-                desc: 'Antiguo beneficiadero en piedra donde se procesa café de manera artesanal como hace 100 años.',
-                tags: ['☕ Café', '📜 Historia'],
-                icono: '☕',
-                img: null
-            },
-            {
-                nombre: 'Taller de Artesanías en Guadua',
-                tipo: 'Artesanía',
-                subtipo: 'Arte Local',
-                desc: 'Artesanos locales fabrican muebles, canastos y decoraciones en guadua. Taller abierto al público.',
-                tags: ['🎍 Guadua', '🛒 Tienda'],
-                icono: '🎍',
-                img: null
-            },
-            {
-                nombre: 'Sendero El Balcón',
-                tipo: 'Senderismo',
-                subtipo: 'Ruta Interpretativa',
-                desc: 'Sendero de 3 km con letreros de flora nativa. Termina en un mirador con vista al casco urbano.',
-                tags: ['🥾 Senderismo', '🌿 Flora'],
-                icono: '🌿',
-                img: null
-            }
-        ]
-    }
-];
+let VEREDAS = [];
+
+function parseTags(s) {
+    return (s || '').split(',').map(t => t.trim()).filter(Boolean);
+}
+
+const ICONOS_POR_TIPO = {
+    'cascada': '💧', 'mirador': '🦅', 'rio': '🏞️', 'río': '🏞️', 'laguna': '🌊',
+    'patrimonio': '⛪', 'agroturismo': '🌱', 'artesanía': '🎍', 'artesania': '🎍',
+    'senderismo': '🥾', 'hospedaje': '🏡', 'camping': '⛺', 'puerto': '⛵', 'naturaleza': '🌳'
+};
+function derivarIcono(valor) {
+    if (!valor) return '📍';
+    return ICONOS_POR_TIPO[valor.toLowerCase().trim()] || '📍';
+}
+
+/** Carga veredas (Site) y sus lugares icónicos desde la API */
+async function cargarVeredas() {
+    const res = await fetch('/api/sites');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const sites = await res.json();
+
+    VEREDAS = await Promise.all(sites.map(async site => {
+        let lugares = [];
+        try {
+            const resLugares = await fetch(`/api/sites/${site.idVereda}/iconic-places`);
+            if (resLugares.ok) lugares = await resLugares.json();
+        } catch (e) {
+            console.error('Error cargando lugares de la vereda', site.idVereda, e);
+        }
+        const tagsVereda = parseTags(site.tags);
+        return {
+            id: site.idVereda,
+            nombre: site.nombreVereda,
+            icono: derivarIcono(tagsVereda[0]),
+            tags: tagsVereda,
+            cantidad: lugares.length,
+            img: site.coverUrl,
+            lugares: lugares.map(l => ({
+                nombre: l.nombreLugar,
+                tipo: l.tipo || '—',
+                subtipo: l.tipo || '—',
+                desc: l.indicaciones,
+                tags: parseTags(l.tags),
+                icono: derivarIcono(l.tipo),
+                img: l.coverUrl,
+                galeria: l.gallery || [],
+                acceso: l.acceso
+            }))
+        };
+    }));
+}
 
 /* ================================================================
    RENDER — PANTALLA A: VEREDAS
@@ -572,7 +371,13 @@ function volverAVeredas() {
 }
 
 /* ---- INIT ---- */
-renderVeredas();
+cargarVeredas()
+    .then(renderVeredas)
+    .catch(e => {
+        console.error('Error cargando veredas:', e);
+        const grid = document.getElementById('veredas-grid');
+        if (grid) grid.innerHTML = '<p class="sin-resultados">No se pudieron cargar las veredas.</p>';
+    });
 
 /* ================================================================
    NOTA PARA INTEGRACIÓN EN Index.html

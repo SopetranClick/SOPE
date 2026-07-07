@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +17,10 @@ public class LocalResponseDTO {
     private String contacto;
     private Long idTrade;
     private String description;
+    private String categoria;
+    private Double rating;
+    private String horario;
+    private Boolean abierto;
+    private String coverUrl;
+    private List<String> gallery;
 }

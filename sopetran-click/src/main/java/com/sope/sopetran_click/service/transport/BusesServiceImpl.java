@@ -33,8 +33,11 @@ public class BusesServiceImpl implements BuseService {
         bus.setRoute(dto.getRuta());
         bus.setSchedule(dto.getHorarios());
         bus.setIdTransports(transporte);
-        // Opcional si el DTO tuviera descripción, lo añadirías aquí
-        // bus.setDescription("");
+        bus.setOrigen(dto.getOrigen());
+        bus.setDestino(dto.getDestino());
+        bus.setPrecio(dto.getPrecio());
+        bus.setDuracion(dto.getDuracion());
+        bus.setAsientos(dto.getAsientos());
 
         Buses busGuardado = busesRepository.save(bus);
 
@@ -54,6 +57,11 @@ public class BusesServiceImpl implements BuseService {
         busExistente.setRoute(dto.getRuta());
         busExistente.setSchedule(dto.getHorarios());
         busExistente.setIdTransports(transporte);
+        busExistente.setOrigen(dto.getOrigen());
+        busExistente.setDestino(dto.getDestino());
+        busExistente.setPrecio(dto.getPrecio());
+        busExistente.setDuracion(dto.getDuracion());
+        busExistente.setAsientos(dto.getAsientos());
 
         Buses busActualizado = busesRepository.save(busExistente);
 
@@ -91,6 +99,11 @@ public class BusesServiceImpl implements BuseService {
         dto.setEmpresa(bus.getName());
         dto.setRuta(bus.getRoute());
         dto.setHorarios(bus.getSchedule());
+        dto.setOrigen(bus.getOrigen());
+        dto.setDestino(bus.getDestino());
+        dto.setPrecio(bus.getPrecio());
+        dto.setDuracion(bus.getDuracion());
+        dto.setAsientos(bus.getAsientos());
         return dto;
     }
 }

@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "local")
 @Data
@@ -36,5 +39,28 @@ public class Local {
 
     @Column(name = "type_local")
     private String type_local;
+
+    @Column(name = "rating")
+    private Double rating;
+
+    @Column(name = "horario")
+    private String horario;
+
+    @Column(name = "abierto")
+    private Boolean abierto = true;
+
+    @OneToMany(mappedBy = "local", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("orden ASC")
+    private List<LocalImage> imagenes = new ArrayList<>();
+
+    @Transient
+    public String getCoverUrl() {
+        return imagenes.stream()
+                .filter(i -> i.getOrden() == 0)
+                .map(LocalImage::getUrl)
+                .findFirst()
+                .orElse("/img/placeholder-local.jpg");
+    }
 
 }

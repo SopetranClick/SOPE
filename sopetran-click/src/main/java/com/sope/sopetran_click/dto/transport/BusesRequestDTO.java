@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +26,10 @@ public class BusesRequestDTO {
     @NotBlank(message = "You need to add the schedule.")
     @Size(max = 150, message = "The schedule can not have more than 150 letters.")
     private String horarios;
+
+    private String origen;
+    private String destino;
+    private BigDecimal precio;
+    private String duracion;
+    private Integer asientos;
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,4 +15,9 @@ public class EventsResponseDTO {
     private LocalDateTime fechaEvento;
     private String lugar;
     private String publicEntitieDescription;
+    private String categoria;
+    private Boolean featured;
+    private String descripcionLarga;
+    private String coverUrl;
+    private List<String> gallery;
 }

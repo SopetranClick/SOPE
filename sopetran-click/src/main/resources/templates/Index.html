@@ -1,635 +1,519 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SopetranClick .</title>
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 — UNA sola vez para toda la app -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/index.css">
 
-    <link rel="stylesheet" href="/static/css/quienessomos.css">
+    <!-- Bootstrap Icons (ecoturismo) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
+    <!-- Font Awesome (alojamiento, transporte, cultural) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
+    <!-- CSS propios — cada módulo carga el suyo -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/quienessomos.css}">
+    <link rel="stylesheet" th:href="@{/css/alojamiento.css}">
+    <link rel="stylesheet" th:href="@{/css/comercio.css}">
+    <link rel="stylesheet" th:href="@{/css/ecoturismo.css}">
+    <link rel="stylesheet" th:href="@{/css/transport.css}">
+    <link rel="stylesheet" th:href="@{/css/cultural.css}">
+    <link rel="stylesheet" th:href="@{/css/exploracion.css}">
+    <link rel="stylesheet" th:href="@{/css/soporte.css}">
+    <link rel="stylesheet" th:href="@{/css/marketing.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 <body>
 
-    <!-- Intro Animada -->
-    <div id="Welcomed">
-        <img src="/static/img/PRINCI/escena1.jpg" alt="Escena 1" class="active">
-        <img src="/static/img/PRINCI/Principal-Iglesia.png" alt="Iglesia">
-        <article>
-            <h1 id="welcome-text">Sopetran Antioquia<br>
-                <span style="font-size: 1.5rem; font-weight: 300; font-family: 'Inter';">Descubre el corazón verde de Colombia</span>
-            </h1>
+<!-- Intro Animada -->
+<div id="Welcomed">
+    <img th:src="@{/img/PRINCI/escena1.jpg}" alt="Escena 1" class="active">
+    <img th:src="@{/img/PRINCI/Principal-Iglesia.png}" alt="Iglesia">
+    <article>
+        <h1 id="welcome-text">Sopetran Antioquia<br>
+            <span style="font-size: 1.5rem; font-weight: 300; font-family: 'Inter';">Descubre el corazón verde de Colombia</span>
+        </h1>
+    </article>
+</div>
+
+<!-- BOTÓN VOLVER GLOBAL -->
+<button id="btn-volver-global" class="btn-volver-fijo" onclick="navegarA('inicio')">← Volver</button>
+
+<div id="content-wrapper">
+
+    <!-- NAV -->
+    <nav class="nav" id="main-nav">
+        <article class="d-flex align-items-center gap-2">
+            <img th:src="@{/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png}" alt="Logo" class="LogoPrincipal">
+            <h2 class="Name">SopetranClick <b>.</b></h2>
         </article>
-    </div>
+        <article>
+            <button onclick="navegarA('inicio')"      class="inicionav nav-activo">Inicio</button>
+            <button onclick="navegarA('exploracion')" class="Exploracionnav">Exploración</button>
+            <button onclick="navegarA('quienes')"     class="Quienesnav">Quiénes Somos</button>
+        </article>
+        <article>
+            <img th:src="@{/img/Logo/apoyo.png}" alt="Soporte" style="width: 35px; cursor: pointer;"
+                 onclick="navegarA('soporte')" title="Soporte y PQRS">
+        </article>
+    </nav>
 
-    <!-- BOTÓN VOLVER GLOBAL (se activa por JS según la vista) -->
-    <button id="btn-volver-global" class="btn-volver-fijo" onclick="navegarA('inicio')">← Volver</button>
+    <main id="main-content">
 
-    <div id="content-wrapper">
+        <!-- ══════════════════════════════════════════
+             VISTA 1: INICIO
+        ══════════════════════════════════════════ -->
+        <section id="vista-inicio" class="spa-view active">
 
-        <!-- NAV -->
-        <nav class="nav" id="main-nav">
-            <article class="d-flex align-items-center gap-2">
-                <img src="/static/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png" alt="Logo" class="LogoPrincipal">
-                <h2 class="Name">SopetranClick <b>.</b></h2>
-            </article>
-            <article>
-                <button onclick="navegarA('inicio')"      class="inicionav nav-activo">Inicio</button>
-                <button onclick="navegarA('exploracion')" class="Exploracionnav">Exploración</button>
-                <button onclick="navegarA('quienes')"     class="Quienesnav">Quiénes Somos</button>
-            </article>
-            <article>
-                <img src="/static/img/Logo/apoyo.png" alt="Apoyo" style="width: 35px;">
-            </article>
-        </nav>
-
-        <main id="main-content">
-
-            <!-- ==========================================
-                 VISTA 1: INICIO
-            ========================================== -->
-            <section id="vista-inicio" class="spa-view active">
-
-                <!-- CARRUSEL — interval: 5000ms, cada slide lleva a su categoría -->
-                <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-                    </div>
-                    <div class="carousel-inner">
-
-                        <!-- SLIDE 1 → Ecoturismo -->
-                        <div class="carousel-item active">
-                            <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/Carrusel3.PNG');"></div>
-                                <div class="overlay-vignette"></div>
-                                <img src="/static/img/PRINCI/Carrusel3.PNG" alt="Sopetran">
-                            </div>
-                            <!-- Área clicable que lleva a Ecoturismo -->
-                            <div class="carousel-item-link" onclick="abrirModulo('ecoturismo')"></div>
-                            <div class="carousel-caption">
-                                <h2>Paisajes Únicos</h2>
-                                <p>Toda la belleza de Sopetrán sin recortes.</p>
-                                <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('ecoturismo')">EXPLORAR</button>
-                            </div>
-                        </div>
-
-                        <!-- SLIDE 2 → Comercio -->
-                        <div class="carousel-item">
-                            <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/carrusel2.jpg');"></div>
-                                <div class="overlay-vignette"></div>
-                                <img src="/static/img/PRINCI/necesito-poner-estas-imagenes-a-un-tamaño-de-1600x (1).png" alt="Cultura">
-                            </div>
-                            <div class="carousel-item-link" onclick="abrirModulo('comercio')"></div>
-                            <div class="carousel-caption">
-                                <h2>Cultura Local</h2>
-                                <p>Historias que cobran vida en cada rincón.</p>
-                                <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('comercio')">CONOCER</button>
-                            </div>
-                        </div>
-
-                        <!-- SLIDE 3 → Alojamiento -->
-                        <div class="carousel-item">
-                            <div class="img-container">
-                                <div class="bg-blur" style="background-image: url('/static/img/PRINCI/IMG-20250830-WA0069.jpg');"></div>
-                                <div class="overlay-vignette"></div>
-                                <img src="/static/img/PRINCI/upscalemedia-transformed.png" alt="Gastronomía">
-                            </div>
-                            <div class="carousel-item-link" onclick="abrirModulo('alojamiento')"></div>
-                            <div class="carousel-caption">
-                                <h2>Sabor y Tradición</h2>
-                                <p>La mejor cocina del occidente antioqueño.</p>
-                                <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('alojamiento')">VER MENÚ</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+            <!-- CARRUSEL -->
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
                 </div>
-
-                <!-- Divisor + Botones de Servicios -->
-                <div class="section-divider"><h2>Explora en sopetran</h2></div>
-
-                <section class="services-grid">
-                    <button class="btn-forma-base" id="btn-alojamiento" onclick="abrirModulo('alojamiento')" title="Alojamiento"></button>
-                    <button class="btn-forma-base" id="btn-transporte"  onclick="abrirModulo('transporte')"  title="Transporte"></button>
-                    <button class="btn-forma-base" id="btn-ecoturismo"  onclick="abrirModulo('ecoturismo')"  title="Ecoturismo"></button>
-                    <button class="btn-forma-base" id="btn-comercio"    onclick="abrirModulo('comercio')"    title="Comercio"></button>
-                    <button class="btn-forma-base" id="btn-entidades"   onclick="abrirModulo('entidades')"   title="Entidades"></button>
-                </section>
-
-                <!-- ==========================================
-                     NUEVA SECCIÓN: PRÓXIMOS EVENTOS
-                ========================================== -->
-                <div class="section-divider"><h2>Próximos Eventos</h2></div>
-                <section class="eventos-section">
-                    <div class="eventos-grid">
-
-                        <div class="evento-card" onclick="alert('Más info próximamente')">
-                            <div class="evento-fecha-badge">
-                                <div class="evento-dia">14</div>
-                                <div class="evento-mes-año">
-                                    <span class="evento-mes">Junio</span>
-                                    <span class="evento-año">2026</span>
-                                </div>
-                            </div>
-                            <div class="evento-body">
-                                <div class="evento-tipo">🎉 Festival</div>
-                                <div class="evento-titulo">Festival del Río Cauca</div>
-                                <div class="evento-desc">Celebración anual con música, gastronomía típica y actividades acuáticas en las orillas del río.</div>
-                                <div class="evento-lugar">Parque Principal, Sopetrán</div>
-                            </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="img-container">
+                            <div class="bg-blur" style="background-image: url('/img/PRINCI/Carrusel3.PNG');"></div>
+                            <div class="overlay-vignette"></div>
+                            <img th:src="@{/img/PRINCI/Carrusel3.PNG}" alt="Sopetran">
                         </div>
-
-                        <div class="evento-card" onclick="alert('Más info próximamente')">
-                            <div class="evento-fecha-badge">
-                                <div class="evento-dia">29</div>
-                                <div class="evento-mes-año">
-                                    <span class="evento-mes">Junio</span>
-                                    <span class="evento-año">2026</span>
-                                </div>
-                            </div>
-                            <div class="evento-body">
-                                <div class="evento-tipo">⛪ Religioso</div>
-                                <div class="evento-titulo">Fiestas de San Pedro y San Pablo</div>
-                                <div class="evento-desc">Procesión tradicional, misa solemne y feria artesanal en la plaza principal del municipio.</div>
-                                <div class="evento-lugar">Basílica de Sopetrán</div>
-                            </div>
-                        </div>
-
-                        <div class="evento-card" onclick="alert('Más info próximamente')">
-                            <div class="evento-fecha-badge">
-                                <div class="evento-dia">12</div>
-                                <div class="evento-mes-año">
-                                    <span class="evento-mes">Julio</span>
-                                    <span class="evento-año">2026</span>
-                                </div>
-                            </div>
-                            <div class="evento-body">
-                                <div class="evento-tipo">🌿 Ecoturismo</div>
-                                <div class="evento-titulo">Senderismo Nocturno — Vereda La Amoladora</div>
-                                <div class="evento-desc">Recorrido guiado al atardecer por senderos rurales con avistamiento de fauna local.</div>
-                                <div class="evento-lugar">Vereda La Amoladora</div>
-                            </div>
-                        </div>
-
-                        <div class="evento-card" onclick="alert('Más info próximamente')">
-                            <div class="evento-fecha-badge">
-                                <div class="evento-dia">20</div>
-                                <div class="evento-mes-año">
-                                    <span class="evento-mes">Julio</span>
-                                    <span class="evento-año">2026</span>
-                                </div>
-                            </div>
-                            <div class="evento-body">
-                                <div class="evento-tipo">🎭 Cultural</div>
-                                <div class="evento-titulo">Feria de las Flores — Delegación Sopetrán</div>
-                                <div class="evento-desc">Participación del municipio en la tradicional feria antioqueña con silleteros locales.</div>
-                                <div class="evento-lugar">Centro Cultural Municipal</div>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- ==========================================
-                     NUEVA SECCIÓN: GALERÍA HIGHLIGHT
-                ========================================== -->
-                <div class="section-divider"><h2>Rincones que Enamoran</h2></div>
-                <section class="highlight-section">
-                    <div class="highlight-grid">
-                        <div class="highlight-item span-2" onclick="abrirModulo('ecoturismo')">
-                            <img src="/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png" alt="Paisaje principal">
-                            <div class="highlight-label"><span>Naturaleza</span>Senderos y Horizontes</div>
-                        </div>
-                        <div class="highlight-item" onclick="abrirModulo('alojamiento')">
-                            <img src="/static/img/PRINCI/BasilicaCuadro.PNG" alt="Basílica">
-                            <div class="highlight-label"><span>Patrimonio</span>Basílica</div>
-                        </div>
-                        <div class="highlight-item" onclick="abrirModulo('comercio')">
-                            <img src="/static/img/PRINCI/VentaDeFrutas.PNG" alt="Frutas">
-                            <div class="highlight-label"><span>Gastronomía</span>Sabores Locales</div>
-                        </div>
-                        <div class="highlight-item" onclick="abrirModulo('ecoturismo')">
-                            <img src="/static/img/PRINCI/carrusel1.jpg" alt="Paisaje">
-                            <div class="highlight-label"><span>Paisajes</span>Occidente Antioqueño</div>
-                        </div>
-                        <div class="highlight-item" onclick="abrirModulo('alojamiento')">
-                            <img src="/static/img/PRINCI/BasilicaTecho.PNG" alt="Basílica Techo">
-                            <div class="highlight-label"><span>Arquitectura</span>Arte Colonial</div>
+                        <div class="carousel-item-link" onclick="abrirModulo('ecoturismo')"></div>
+                        <div class="carousel-caption">
+                            <h2>Paisajes Únicos</h2>
+                            <p>Toda la belleza de Sopetrán sin recortes.</p>
+                            <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('ecoturismo')">EXPLORAR</button>
                         </div>
                     </div>
-                </section>
-
-                <!-- ==========================================
-                     NUEVA SECCIÓN: RESEÑAS
-                ========================================== -->
-                <div class="section-divider"><h2>Lo Que Dicen Nuestros Visitantes</h2></div>
-                <section class="resenas-section">
-                    <div class="resenas-inner">
-                        <div class="resenas-track" id="resenas-track">
-
-                            <div class="resena-card">
-                                <div class="resena-estrellas">
-                                    <span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span>
-                                </div>
-                                <p class="resena-texto">Sopetrán superó todas mis expectativas. Los paisajes son increíbles, la gente cálida y la comida… simplemente no tiene comparación. Volveré sin dudarlo.</p>
-                                <div class="resena-autor">
-                                    <div class="resena-avatar">CM</div>
-                                    <div>
-                                        <div class="resena-nombre">Camila Morales</div>
-                                        <div class="resena-origen">Medellín, Antioquia</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="resena-card">
-                                <div class="resena-estrellas">
-                                    <span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span>
-                                </div>
-                                <p class="resena-texto">El senderismo por las veredas es una experiencia única. SopetranClick me ayudó a planear todo con facilidad. Una herramienta increíble para conocer el municipio.</p>
-                                <div class="resena-autor">
-                                    <div class="resena-avatar">JR</div>
-                                    <div>
-                                        <div class="resena-nombre">Julián Restrepo</div>
-                                        <div class="resena-origen">Bogotá, Colombia</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="resena-card">
-                                <div class="resena-estrellas">
-                                    <span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span>
-                                </div>
-                                <p class="resena-texto">La basílica es imponente. Llegué sin saber qué esperar y me fui con el corazón lleno. Sopetrán es un destino que todos los colombianos deben conocer al menos una vez.</p>
-                                <div class="resena-autor">
-                                    <div class="resena-avatar">PV</div>
-                                    <div>
-                                        <div class="resena-nombre">Patricia Valencia</div>
-                                        <div class="resena-origen">Cali, Valle del Cauca</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="resena-card">
-                                <div class="resena-estrellas">
-                                    <span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella" style="color:#333;">★</span>
-                                </div>
-                                <p class="resena-texto">El alojamiento que encontré gracias a esta plataforma fue perfecto: vistas al río, atención personalizada y mucha tranquilidad. Ideal para desconectarse del ruido de la ciudad.</p>
-                                <div class="resena-autor">
-                                    <div class="resena-avatar">AG</div>
-                                    <div>
-                                        <div class="resena-nombre">Andrés Gómez</div>
-                                        <div class="resena-origen">Manizales, Caldas</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="resena-card">
-                                <div class="resena-estrellas">
-                                    <span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span>
-                                </div>
-                                <p class="resena-texto">Vine por el festival del río y me quedé enamorada del pueblo. La plataforma SopetranClick tiene toda la información que necesité. ¡Muy completa y fácil de usar!</p>
-                                <div class="resena-autor">
-                                    <div class="resena-avatar">LH</div>
-                                    <div>
-                                        <div class="resena-nombre">Laura Herrera</div>
-                                        <div class="resena-origen">Pereira, Risaralda</div>
-                                    </div>
-                                </div>
-                            </div>
-
+                    <div class="carousel-item">
+                        <div class="img-container">
+                            <div class="bg-blur" style="background-image: url('/img/PRINCI/carrusel2.jpg');"></div>
+                            <div class="overlay-vignette"></div>
+                            <img th:src="@{/img/PRINCI/necesito-poner-estas-imagenes-a-un-tamano-de-1600x (1).png}" alt="Cultura">
                         </div>
-                        <div class="resenas-nav">
-                            <button onclick="scrollResenas(-1)">‹</button>
-                            <button onclick="scrollResenas(1)">›</button>
+                        <div class="carousel-item-link" onclick="abrirModulo('comercio')"></div>
+                        <div class="carousel-caption">
+                            <h2>Cultura Local</h2>
+                            <p>Historias que cobran vida en cada rincón.</p>
+                            <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('comercio')">CONOCER</button>
                         </div>
                     </div>
-                </section>
+                    <div class="carousel-item">
+                        <div class="img-container">
+                            <div class="bg-blur" style="background-image: url('/img/PRINCI/IMG-20250830-WA0069.jpg');"></div>
+                            <div class="overlay-vignette"></div>
+                            <img th:src="@{/img/PRINCI/upscalemedia-transformed.png}" alt="Gastronomía">
+                        </div>
+                        <div class="carousel-item-link" onclick="abrirModulo('alojamiento')"></div>
+                        <div class="carousel-caption">
+                            <h2>Sabor y Tradición</h2>
+                            <p>La mejor cocina del occidente antioqueño.</p>
+                            <button class="btn btn-danger rounded-pill px-5" onclick="event.stopPropagation(); abrirModulo('alojamiento')">VER MENÚ</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
 
-                <!-- ==========================================
-                     NUEVA SECCIÓN: INFO RÁPIDA DEL MUNICIPIO
-                ========================================== -->
+            <!-- Botones de Servicios -->
+            <div class="section-divider"><h2>Explora en sopetran</h2></div>
+            <section class="services-grid">
+                <button class="btn-forma-base" id="btn-alojamiento" onclick="abrirModulo('alojamiento')" title="Alojamiento"></button>
+                <button class="btn-forma-base" id="btn-transporte"  onclick="abrirModulo('transporte')"  title="Transporte"></button>
+                <button class="btn-forma-base" id="btn-ecoturismo"  onclick="abrirModulo('ecoturismo')"  title="Ecoturismo"></button>
+                <button class="btn-forma-base" id="btn-comercio"    onclick="abrirModulo('comercio')"    title="Comercio"></button>
+                <button class="btn-forma-base" id="btn-entidades"   onclick="abrirModulo('entidades')"   title="Entidades"></button>
+            </section>
 
-                <!-- Mapa -->
-                <div class="section-divider"><h2>Geolocalización</h2></div>
-                <section class="map-section" id="seccion-mapa-ref">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+            <!-- Próximos Eventos — datos reales de la BD -->
+            <div class="section-divider"><h2>Próximos Eventos</h2></div>
+            <section class="eventos-section">
+                <div class="eventos-grid">
+                    <div th:each="evento : ${eventos}" class="evento-card"
+                         onclick="navegarA('entidades')">
+                        <div class="evento-fecha-badge">
+                            <div class="evento-dia"
+                                 th:text="${evento.fechaEvento != null ? #temporals.format(evento.fechaEvento, 'dd') : '—'}">14</div>
+                            <div class="evento-mes-año">
+                                <span class="evento-mes"
+                                      th:text="${evento.fechaEvento != null ? #temporals.format(evento.fechaEvento, 'MMM') : '—'}">Jun</span>
+                                <span class="evento-año"
+                                      th:text="${evento.fechaEvento != null ? #temporals.format(evento.fechaEvento, 'yyyy') : '—'}">2026</span>
+                            </div>
+                        </div>
+                        <div class="evento-body">
+                            <div class="evento-tipo">🎉 Evento</div>
+                            <div class="evento-titulo"
+                                 th:text="${#strings.abbreviate(evento.nombreEvento, 60)}">Título</div>
+                            <div class="evento-lugar"
+                                 th:text="${evento.lugar}">Lugar</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galería Highlight -->
+            <div class="section-divider"><h2>Rincones que Enamoran</h2></div>
+            <section class="highlight-section">
+                <div class="highlight-grid">
+                    <div class="highlight-item span-2" onclick="abrirModulo('ecoturismo')">
+                        <img th:src="@{/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png}" alt="Paisaje principal">
+                        <div class="highlight-label"><span>Naturaleza</span>Senderos y Horizontes</div>
+                    </div>
+                    <div class="highlight-item" onclick="abrirModulo('alojamiento')">
+                        <img th:src="@{/img/PRINCI/BasilicaCuadro.PNG}" alt="Basílica">
+                        <div class="highlight-label"><span>Patrimonio</span>Basílica</div>
+                    </div>
+                    <div class="highlight-item" onclick="abrirModulo('comercio')">
+                        <img th:src="@{/img/PRINCI/VentaDeFrutas.PNG}" alt="Frutas">
+                        <div class="highlight-label"><span>Gastronomía</span>Sabores Locales</div>
+                    </div>
+                    <div class="highlight-item" onclick="abrirModulo('ecoturismo')">
+                        <img th:src="@{/img/PRINCI/carrusel1.jpg}" alt="Paisaje">
+                        <div class="highlight-label"><span>Paisajes</span>Occidente Antioqueño</div>
+                    </div>
+                    <div class="highlight-item" onclick="abrirModulo('alojamiento')">
+                        <img th:src="@{/img/PRINCI/BasilicaTecho.PNG}" alt="Basílica Techo">
+                        <div class="highlight-label"><span>Arquitectura</span>Arte Colonial</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reseñas -->
+            <div class="section-divider"><h2>Lo Que Dicen Nuestros Visitantes</h2></div>
+            <section class="resenas-section">
+                <div class="resenas-inner">
+                    <div class="resenas-track" id="resenas-track">
+                        <div class="resena-card">
+                            <div class="resena-estrellas"><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span></div>
+                            <p class="resena-texto">Sopetrán superó todas mis expectativas. Los paisajes son increíbles, la gente cálida y la comida… simplemente no tiene comparación. Volveré sin dudarlo.</p>
+                            <div class="resena-autor">
+                                <div class="resena-avatar">CM</div>
+                                <div><div class="resena-nombre">Camila Morales</div><div class="resena-origen">Medellín, Antioquia</div></div>
+                            </div>
+                        </div>
+                        <div class="resena-card">
+                            <div class="resena-estrellas"><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span></div>
+                            <p class="resena-texto">El senderismo por las veredas es una experiencia única. SopetranClick me ayudó a planear todo con facilidad.</p>
+                            <div class="resena-autor">
+                                <div class="resena-avatar">JR</div>
+                                <div><div class="resena-nombre">Julián Restrepo</div><div class="resena-origen">Bogotá, Colombia</div></div>
+                            </div>
+                        </div>
+                        <div class="resena-card">
+                            <div class="resena-estrellas"><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span></div>
+                            <p class="resena-texto">La basílica es imponente. Llegué sin saber qué esperar y me fui con el corazón lleno. Un destino que todos los colombianos deben conocer.</p>
+                            <div class="resena-autor">
+                                <div class="resena-avatar">PV</div>
+                                <div><div class="resena-nombre">Patricia Valencia</div><div class="resena-origen">Cali, Valle del Cauca</div></div>
+                            </div>
+                        </div>
+                        <div class="resena-card">
+                            <div class="resena-estrellas"><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella" style="color:#333;">★</span></div>
+                            <p class="resena-texto">El alojamiento fue perfecto: vistas al río, atención personalizada y mucha tranquilidad. Ideal para desconectarse.</p>
+                            <div class="resena-autor">
+                                <div class="resena-avatar">AG</div>
+                                <div><div class="resena-nombre">Andrés Gómez</div><div class="resena-origen">Manizales, Caldas</div></div>
+                            </div>
+                        </div>
+                        <div class="resena-card">
+                            <div class="resena-estrellas"><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span><span class="estrella">★</span></div>
+                            <p class="resena-texto">Vine por el festival del río y me quedé enamorada del pueblo. SopetranClick tiene toda la información que necesité.</p>
+                            <div class="resena-autor">
+                                <div class="resena-avatar">LH</div>
+                                <div><div class="resena-nombre">Laura Herrera</div><div class="resena-origen">Pereira, Risaralda</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resenas-nav">
+                        <button onclick="scrollResenas(-1)">‹</button>
+                        <button onclick="scrollResenas(1)">›</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mapa -->
+            <div class="section-divider"><h2>Geolocalización</h2></div>
+            <section class="map-section" id="seccion-mapa-ref">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                    <div class="map-info">
-                        <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia', '_blank')">
-                            ¡Planifica tu Ruta!
-                        </button>
-                    </div>
-                </section>
-
-                <!-- NEWSLETTER -->
-                <div class="newsletter-strip">
-                    <h3>Mantente al día con Sopetrán</h3>
-                    <p>Recibe avisos de eventos, nuevos alojamientos y novedades del municipio</p>
-                    <div class="newsletter-form">
-                        <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
-                        <button class="newsletter-btn" onclick="alert('¡Gracias por suscribirte!')">Suscribirme</button>
-                    </div>
                 </div>
-
-            </section>
-            <!-- FIN vista-inicio -->
-
-
-            <!-- VISTA 2: ALOJAMIENTO -->
-            <section id="vista-alojamiento" class="spa-view">
-                <div style="position: relative;">
-                    <iframe 
-                        src="/mennu/MenuAlojamiento.html"
-                        style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
-                        title="Módulo Alojamiento"
-                    ></iframe>
+                <div class="map-info">
+                    <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia', '_blank')">¡Planifica tu Ruta!</button>
                 </div>
             </section>
 
-            <!-- VISTA 3: TRANSPORTE -->
-            <section id="vista-transporte" class="spa-view">
-                <iframe 
-                    src="/mennu/vista-transporte.html"
-                    style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
-                    title="Módulo Transporte"
-                ></iframe>
-            </section>
+            <!-- Newsletter -->
+            <div class="newsletter-strip">
+                <h3>Mantente al día con Sopetrán</h3>
+                <p>Recibe avisos de eventos, nuevos alojamientos y novedades del municipio</p>
+                <div class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+                    <button class="newsletter-btn" onclick="alert('¡Gracias por suscribirte!')">Suscribirme</button>
+                </div>
+            </div>
 
-            <!-- VISTA 4: ECOTURISMO -->
-            <section id="vista-ecoturismo" class="spa-view">
-                <iframe 
-                    src="/mennu/MennuEcoturismo.html"
-                    style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
-                    title="Módulo Ecoturismo"
-                ></iframe>
-            </section>
+        </section>
+        <!-- FIN vista-inicio -->
 
-            <!-- VISTA 5: COMERCIO -->
-            <section id="vista-comercio" class="spa-view">
-                <iframe 
-                    src="/mennu/MennuComercio.html"
-                    style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
-                    title="Módulo Comercio"
-                ></iframe>
-            </section>
 
-            <!-- VISTA 6: ENTIDADES -->
-            <section id="vista-entidades" class="spa-view">
-                <iframe
-                        src="/mennu/vista-galeria-cultural.html"
-                        style="width:100%; height:calc(100vh - 70px); margin-top:70px; border:none; display:block;"
-                        title="Módulo Entidades Publicas"
-                ></iframe>
-            </section>
+        <!-- ══════════════════════════════════════════
+             VISTA 2: ALOJAMIENTO — fragmento Thymeleaf
+             Reemplaza el iframe anterior.
+             El contenido se incluye directo en el DOM.
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/MenuAlojamiento :: vista-alojamiento}"></div>
 
-            <!-- VISTA 7: EXPLORACIÓN -->
-            <section id="vista-exploracion" class="spa-view">
-                <!-- HERO EXPLORACION -->
-                <div class="exp-hero">
-                    <div class="exp-hero-bg"></div>
-                    <div class="exp-hero-overlay"></div>
-                    <div class="exp-hero-content">
-                        <p class="exp-eyebrow">Sopetrán · Antioquia</p>
-                        <h1 class="exp-titulo">Exploración</h1>
-                        <p class="exp-subtitulo">Todo lo que Sopetrán tiene para vivir, sentir y descubrir</p>
+
+        <!-- ══════════════════════════════════════════
+             VISTA 3: TRANSPORTE
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/vista-transporte :: vista-transporte}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA 4: ECOTURISMO
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/MennuEcoturismo :: vista-ecoturismo}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA 5: COMERCIO
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/MennuComercio :: vista-comercio}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA 6: ENTIDADES PÚBLICAS / CULTURAL
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/vista-galeria-cultural :: vista-entidades}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA SOPORTE: PQRS Y CONTÁCTANOS
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/vista-soporte :: vista-soporte}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA MARKETING: PLANES PARA COMERCIANTES
+        ══════════════════════════════════════════ -->
+        <div th:insert="~{mennu/vista-marketing :: vista-marketing}"></div>
+
+
+        <!-- ══════════════════════════════════════════
+             VISTA 7: EXPLORACIÓN (inline — sin cambios)
+        ══════════════════════════════════════════ -->
+        <section id="vista-exploracion" class="spa-view">
+            <div class="exp-hero">
+                <div class="exp-hero-bg"></div>
+                <div class="exp-hero-overlay"></div>
+                <div class="exp-hero-content">
+                    <p class="exp-eyebrow">Sopetrán · Antioquia</p>
+                    <h1 class="exp-titulo">Exploración</h1>
+                    <p class="exp-subtitulo">Todo lo que Sopetrán tiene para vivir, sentir y descubrir</p>
+                </div>
+            </div>
+            <div class="section-divider"><h2>¿Qué quieres hacer hoy?</h2></div>
+            <section class="aventura-section">
+                <p class="aventura-sub">Elige el tipo de experiencia y te llevamos directo</p>
+                <div class="aventura-grid">
+                    <div class="aventura-card av-descanso" onclick="abrirModulo('alojamiento')">
+                        <div class="av-icon-wrap">🛌</div>
+                        <div class="av-content"><h3>Descansar</h3><p>Fincas, cabañas y alojamientos para desconectarte.</p><span class="av-link">Ver alojamientos →</span></div>
+                        <div class="av-glow"></div>
+                    </div>
+                    <div class="aventura-card av-aventura" onclick="abrirModulo('ecoturismo')">
+                        <div class="av-icon-wrap">🥾</div>
+                        <div class="av-content"><h3>Aventurarme</h3><p>Cascadas, senderos y miradores en la naturaleza.</p><span class="av-link">Ver rutas →</span></div>
+                        <div class="av-glow"></div>
+                    </div>
+                    <div class="aventura-card av-comer" onclick="abrirModulo('comercio')">
+                        <div class="av-icon-wrap">🍽️</div>
+                        <div class="av-content"><h3>Comer bien</h3><p>Bandeja paisa, trucha del río y cocina campesina.</p><span class="av-link">Ver restaurantes →</span></div>
+                        <div class="av-glow"></div>
+                    </div>
+                    <div class="aventura-card av-comprar" onclick="abrirModulo('comercio')">
+                        <div class="av-icon-wrap">🛒</div>
+                        <div class="av-content"><h3>Comprar local</h3><p>Artesanías, tiendas y servicios del municipio.</p><span class="av-link">Ver comercio →</span></div>
+                        <div class="av-glow"></div>
+                    </div>
+                    <div class="aventura-card av-moverme" onclick="abrirModulo('transporte')">
+                        <div class="av-icon-wrap">🚌</div>
+                        <div class="av-content"><h3>Moverme</h3><p>Buses intermunicipales, mototaxis y domicilios.</p><span class="av-link">Ver transporte →</span></div>
+                        <div class="av-glow"></div>
+                    </div>
+                    <div class="aventura-card av-conocer" onclick="abrirModulo('entidades')">
+                        <div class="av-icon-wrap">🎉</div>
+                        <div class="av-content"><h3>Conocer la cultura</h3><p>Eventos, fechas especiales e historia del municipio.</p><span class="av-link">Ver galería cultural →</span></div>
+                        <div class="av-glow"></div>
                     </div>
                 </div>
-
-                <!-- ¿QUÉ BUSCAS HOY? — movido desde index -->
-                <div class="section-divider"><h2>¿Qué quieres hacer hoy?</h2></div>
-                <section class="aventura-section">
-                    <p class="aventura-sub">Elige el tipo de experiencia y te llevamos directo</p>
-                    <div class="aventura-grid">
-                        <div class="aventura-card av-descanso" onclick="abrirModulo('alojamiento')">
-                            <div class="av-icon-wrap">🛌</div>
-                            <div class="av-content">
-                                <h3>Descansar</h3>
-                                <p>Fincas, cabañas y alojamientos para desconectarte del ruido de la ciudad.</p>
-                                <span class="av-link">Ver alojamientos →</span>
-                            </div>
-                            <div class="av-glow"></div>
-                        </div>
-                        <div class="aventura-card av-aventura" onclick="abrirModulo('ecoturismo')">
-                            <div class="av-icon-wrap">🥾</div>
-                            <div class="av-content">
-                                <h3>Aventurarme</h3>
-                                <p>Cascadas, senderos y miradores para los que aman la naturaleza salvaje.</p>
-                                <span class="av-link">Ver rutas →</span>
-                            </div>
-                            <div class="av-glow"></div>
-                        </div>
-                        <div class="aventura-card av-comer" onclick="abrirModulo('comercio')">
-                            <div class="av-icon-wrap">🍽️</div>
-                            <div class="av-content">
-                                <h3>Comer bien</h3>
-                                <p>Bandeja paisa, trucha del río y cocina campesina que no olvidarás.</p>
-                                <span class="av-link">Ver restaurantes →</span>
-                            </div>
-                            <div class="av-glow"></div>
-                        </div>
-                        <div class="aventura-card av-comprar" onclick="abrirModulo('comercio')">
-                            <div class="av-icon-wrap">🛒</div>
-                            <div class="av-content">
-                                <h3>Comprar local</h3>
-                                <p>Artesanías, tiendas y servicios del comercio de nuestro municipio.</p>
-                                <span class="av-link">Ver comercio →</span>
-                            </div>
-                            <div class="av-glow"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- MAPA TEMÁTICO -->
-                <div class="section-divider"><h2>Geolocalización</h2></div>
-                <section class="map-section">
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+            </section>
+            <div class="section-divider"><h2>Geolocalización</h2></div>
+            <section class="map-section">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31711.02678627376!2d-75.76189512398681!3d6.505436657960309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44161b3924712f%3A0xc665c589b96e57a5!2sSopetr%C3%A1n%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                    <div class="map-info">
-                        <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia', '_blank')">¡Planifica tu Ruta!</button>
-                    </div>
-                </section>
-
+                </div>
+                <div class="map-info">
+                    <button class="btn-ruta" onclick="window.open('https://www.google.com/maps/dir//Sopetr%C3%A1n,+Antioquia', '_blank')">¡Planifica tu Ruta!</button>
+                </div>
             </section>
+        </section>
 
-            <!-- VISTA 8: QUIÉNES SOMOS -->
-            <section id="vista-quienes" class="spa-view">
 
-                <!-- HERO QUIÉNES SOMOS -->
-                <div class="qs-hero">
-                    <div class="qs-hero-bg"></div>
-                    <div class="qs-hero-overlay"></div>
-                    <div class="qs-hero-content">
-                        <p class="qs-eyebrow">El proyecto</p>
-                        <h1 class="qs-titulo">SopetranClick<b>.</b></h1>
-                        <p class="qs-subtitulo">Conectando a Sopetrán con el mundo digital</p>
-                    </div>
+        <!-- ══════════════════════════════════════════
+             VISTA 8: QUIÉNES SOMOS (inline — sin cambios)
+        ══════════════════════════════════════════ -->
+        <section id="vista-quienes" class="spa-view">
+            <div class="qs-hero">
+                <div class="qs-hero-bg"></div>
+                <div class="qs-hero-overlay"></div>
+                <div class="qs-hero-content">
+                    <p class="qs-eyebrow">El proyecto</p>
+                    <h1 class="qs-titulo">SopetranClick<b>.</b></h1>
+                    <p class="qs-subtitulo">Conectando a Sopetrán con el mundo digital, con orgullo antioqueño</p>
                 </div>
-
-                <!-- MISIÓN -->
-                <div class="qs-mision-strip">
-                    <div class="qs-mision-inner">
-                        <p class="qs-mision-txt">"Creamos SopetranClick para que cada visitante, turista y habitante de Sopetrán pudiera acceder fácilmente a los comercios, atractivos y servicios del municipio — todo en un solo lugar, diseñado con orgullo antioqueño."</p>
-                    </div>
+            </div>
+            <div class="qs-mision">
+                <div class="qs-mision-inner">
+                    <blockquote>"Creamos SopetranClick para que cada visitante, turista y habitante de Sopetrán pudiera acceder fácilmente a los comercios, atractivos y servicios del municipio — todo en un solo lugar, diseñado con orgullo antioqueño."</blockquote>
+                    <cite>— Equipo SopetranClick · SENA ADSO 2025</cite>
                 </div>
-
-                <!-- QUÉ ES -->
-                <div class="qs-section">
-                    <div class="qs-section-inner qs-que-es">
-                        <div class="qs-text-block">
-                            <span class="qs-label">¿Qué es?</span>
-                            <h2>Una plataforma hecha para Sopetrán</h2>
-                            <p>SopetranClick es un directorio digital interactivo que reúne los restaurantes, alojamientos, comercios, rutas ecoturísticas y entidades del municipio de Sopetrán, Antioquia. Nació como proyecto académico del programa de Análisis y Desarrollo de Software del SENA, con el objetivo de visibilizar y digitalizar el tejido productivo local.</p>
-                        </div>
-                        <div class="qs-img-block">
-                            <img src="/static/img/PRINCI/Principal-Iglesia.png" alt="Sopetrán">
-                        </div>
-                    </div>
+            </div>
+            <div class="section-divider"><h2>¿Qué es SopetranClick?</h2></div>
+            <div class="qs-que-es">
+                <div>
+                    <span class="qs-label">El proyecto</span>
+                    <h2>Una plataforma hecha para y por Sopetrán</h2>
+                    <p>SopetranClick es un directorio digital interactivo que reúne los restaurantes, alojamientos, comercios, rutas ecoturísticas y entidades del municipio de Sopetrán, Antioquia.</p>
+                    <p style="margin-top:14px;">Nació como proyecto académico del programa de Análisis y Desarrollo de Software del SENA, con el objetivo real de visibilizar y digitalizar el tejido productivo local.</p>
                 </div>
-
-                <!-- VALORES -->
-                <div class="section-divider"><h2>Lo que nos mueve</h2></div>
-                <section class="qs-valores">
-                    <div class="qs-valor-card">
-                        <div class="qs-valor-icon">🌿</div>
-                        <h3>Territorio</h3>
-                        <p>Sopetrán es nuestra inspiración. Cada función del proyecto está pensada para mostrar la riqueza natural y cultural del municipio.</p>
-                    </div>
-                    <div class="qs-valor-card">
-                        <div class="qs-valor-icon">💻</div>
-                        <h3>Tecnología</h3>
-                        <p>Aplicamos herramientas modernas de desarrollo web — HTML, CSS, JavaScript — para crear interfaces elegantes y funcionales.</p>
-                    </div>
-                    <div class="qs-valor-card">
-                        <div class="qs-valor-icon">🤝</div>
-                        <h3>Comunidad</h3>
-                        <p>Apoyamos a los comerciantes locales dándoles visibilidad digital y a los visitantes, la información que necesitan para explorar.</p>
-                    </div>
-                    <div class="qs-valor-card">
-                        <div class="qs-valor-icon">🎓</div>
-                        <h3>Formación</h3>
-                        <p>Proyecto desarrollado como parte del programa ADSO del SENA Medellín. Un ejemplo de cómo la educación genera impacto real.</p>
-                    </div>
-                </section>
-
-                <!-- EQUIPO -->
-                <div class="section-divider"><h2>El equipo</h2></div>
-                <section class="qs-equipo">
-                    <div class="qs-miembro-card">
-                        <div class="qs-miembro-avatar">T</div>
-                        <div class="qs-miembro-info">
-                            <h4>Titos</h4>
-                            <p class="qs-miembro-rol">Diseño & Desarrollo Front-end</p>
-                            <p class="qs-miembro-desc">Responsable de la arquitectura visual, la interfaz de usuario y la experiencia de exploración del proyecto.</p>
-                        </div>
-                    </div>
-                    <div class="qs-miembro-card qs-proyecto-card">
-                        <div class="qs-proyecto-logo">SC<b>.</b></div>
-                        <div class="qs-miembro-info">
-                            <h4>SopetranClick</h4>
-                            <p class="qs-miembro-rol">Proyecto ADSO · SENA · 2025</p>
-                            <p class="qs-miembro-desc">Desarrollado como entregable académico con un enfoque real en el impacto local. Sopetrán, Antioquia, Colombia.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- CIFRAS -->
-                <div class="section-divider"><h2>SopetranClick en cifras</h2></div>
-                <div class="qs-cifras">
-                    <div class="qs-cifra"><span class="qs-n">+100</span><span class="qs-l">Alojamientos</span></div>
-                    <div class="qs-cifra"><span class="qs-n">24</span><span class="qs-l">Veredas</span></div>
-                    <div class="qs-cifra"><span class="qs-n">5</span><span class="qs-l">Módulos</span></div>
-                    <div class="qs-cifra"><span class="qs-n">15</span><span class="qs-l">Eventos/año</span></div>
+                <div class="qs-que-es-img">
+                    <img th:src="@{/img/PRINCI/Principal-Iglesia.png}" alt="Sopetrán">
+                    <span class="qs-img-badge">Sopetrán, Antioquia</span>
                 </div>
-
-                <!-- CONTACTO -->
-                <div class="section-divider"><h2>Contacto</h2></div>
-                <div class="qs-contacto">
-                    <p>¿Tienes un negocio en Sopetrán y quieres aparecer en SopetranClick?</p>
-                    <div class="qs-contacto-btns">
-                        <a href="https://wa.me/573226085549" target="_blank" class="qs-btn-wa">📱 WhatsApp</a>
-                        <a href="https://instagram.com" target="_blank" class="qs-btn-ig">📸 Instagram</a>
-                        <a href="mailto:sopetranclick@gmail.com" class="qs-btn-mail">✉️ Correo</a>
-                    </div>
-                </div>
-
+            </div>
+            <div class="section-divider"><h2>Lo que nos mueve</h2></div>
+            <section class="qs-valores">
+                <div class="qs-valor"><div class="qs-val-icon">🌿</div><h3 class="qs-val-titulo">Territorio</h3><p class="qs-val-desc">Sopetrán es nuestra inspiración. Cada función del proyecto está pensada para mostrar la riqueza natural y cultural del municipio.</p></div>
+                <div class="qs-valor"><div class="qs-val-icon">💻</div><h3 class="qs-val-titulo">Tecnología</h3><p class="qs-val-desc">Aplicamos herramientas modernas de desarrollo web para crear interfaces elegantes, funcionales y accesibles desde cualquier dispositivo.</p></div>
+                <div class="qs-valor"><div class="qs-val-icon">🤝</div><h3 class="qs-val-titulo">Comunidad</h3><p class="qs-val-desc">Apoyamos a los comerciantes locales dándoles visibilidad digital y a los visitantes la información que necesitan para explorar.</p></div>
+                <div class="qs-valor"><div class="qs-val-icon">🎓</div><h3 class="qs-val-titulo">Formación</h3><p class="qs-val-desc">Proyecto desarrollado en el programa ADSO del SENA Medellín — un ejemplo de cómo la educación genera impacto real en la comunidad.</p></div>
             </section>
+            <div class="section-divider"><h2>El equipo</h2></div>
+            <section class="qs-equipo">
+                <div class="qs-miembro">
+                    <div class="qs-avatar">T</div>
+                    <div>
+                        <p class="qs-miembro-nombre">Titos</p>
+                        <p class="qs-miembro-rol">Diseño &amp; Desarrollo Front-end</p>
+                        <p class="qs-miembro-desc">Responsable de la arquitectura visual, la interfaz de usuario y la experiencia de exploración de SopetranClick.</p>
+                    </div>
+                </div>
+                <div class="qs-miembro">
+                    <div class="qs-logo-avatar">SC<b>.</b></div>
+                    <div>
+                        <p class="qs-miembro-nombre">SopetranClick</p>
+                        <p class="qs-miembro-rol">Proyecto ADSO · SENA · 2025</p>
+                        <p class="qs-miembro-desc">Entregable académico con impacto real. Desarrollado en Sopetrán, Antioquia, Colombia, con enfoque en usabilidad y diseño local.</p>
+                    </div>
+                </div>
+            </section>
+            <div class="section-divider"><h2>Tecnologías usadas</h2></div>
+            <section class="qs-tech">
+                <div class="qs-tech-grid">
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">🌐</span> HTML5</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">🎨</span> CSS3</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">⚡</span> JavaScript ES6</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">🅱️</span> Bootstrap 5</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">🍃</span> Thymeleaf</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">☕</span> Spring Boot</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">🗺️</span> Google Maps API</div>
+                    <div class="qs-tech-pill"><span class="qs-tech-icon">📱</span> Diseño Responsive</div>
+                </div>
+            </section>
+            <div class="section-divider"><h2>SopetranClick en cifras</h2></div>
+            <div class="qs-cifras">
+                <div><span class="qs-cifra-n">+100</span><span class="qs-cifra-l">Alojamientos</span></div>
+                <div><span class="qs-cifra-n">24</span><span class="qs-cifra-l">Veredas</span></div>
+                <div><span class="qs-cifra-n">5</span><span class="qs-cifra-l">Módulos</span></div>
+                <div><span class="qs-cifra-n">15</span><span class="qs-cifra-l">Eventos / año</span></div>
+            </div>
+            <div class="qs-contacto">
+                <h3>¿Tienes un negocio en Sopetrán?</h3>
+                <p>Si quieres que tu local, servicio o atractivo aparezca en SopetranClick, escríbenos y con gusto te incluimos.</p>
+                <div class="qs-contacto-btns">
+                    <a href="https://wa.me/573001234567" target="_blank" class="qs-btn qs-btn-wa">📱 WhatsApp</a>
+                    <a href="https://instagram.com"      target="_blank" class="qs-btn qs-btn-ig">📸 Instagram</a>
+                    <a href="mailto:sopetranclick@gmail.com"             class="qs-btn qs-btn-mail">✉️ Correo</a>
+                </div>
+            </div>
+        </section>
 
-        </main>
+    </main>
+</div>
+
+<!-- Botón Saltarín Central -->
+<button id="btn-salto-central" class="animacion-salto" onclick="abrirPanel()">
+    <img th:src="@{/img/Mennu/punta-de-flecha-hacia-arriba (1).png}" alt="Icono Salto" width="60">
+</button>
+
+<!-- PANEL DESPLEGABLE -->
+<div id="panel-desplegable">
+    <div class="header-panel">
+        <button class="btn-panel-link" style="border-radius: 50px; border-color: #8b0000;" onclick="cerrarPanel()">CERRAR ×</button>
     </div>
-
-    <!-- Botón Saltarín Central -->
-    <button id="btn-salto-central" class="animacion-salto" onclick="abrirPanel()">
-        <img src="/static/img/Mennu/punta-de-flecha-hacia-arriba (1).png" alt="Icono Salto" width="60">
-    </button>
-
-    <!-- PANEL DESPLEGABLE -->
-    <div id="panel-desplegable">
-        <div class="header-panel">
-            <button class="btn-panel-link" style="border-radius: 50px; border-color: #8b0000;" onclick="cerrarPanel()">CERRAR ×</button>
-        </div>
-        <div class="grid-experiencias">
-            <div class="pantalla-item p1">
-                <div class="pantalla-info">
-                    <h3>Arquitectura y fe</h3>
-                    <p>Descubre la historia de nuestra basílica</p>
-                </div>
-            </div>
-            <div class="pantalla-item p2">
-                <div class="pantalla-info">
-                    <h3>Rutas y paisajes</h3>
-                    <p>Paisajes y senderismos que recorren nuestro municipio</p>
-                </div>
-            </div>
-            <div class="pantalla-item p3">
-                <div class="pantalla-info">
-                    <h3>Sabores de mi tierra</h3>
-                    <p>Desde la cocina hasta tu paladar</p>
-                </div>
-            </div>
-        </div>
-        <div class="contenedor-ver-mas">
-            <button class="btn-ver-mas">VER MÁS EXPERIENCIAS</button>
-        </div>
-        <div class="section-divider" style="margin-bottom: 30px;"><h2>Sopetran Click en cifras</h2></div>
-        <div class="cifras-section">
-            <div class="cifra-item"><h4>+100</h4><p>Alojamientos</p></div>
-            <div class="cifra-item"><h4>24</h4><p>Zonas Rurales</p></div>
-            <div class="cifra-item"><h4>15</h4><p>Eventos anuales</p></div>
-            <div class="cifra-item"><h4>4.8</h4><p>Valoración promedio</p></div>
-        </div>
-        <footer class="panel-footer">
-            <div class="footer-logo-side">
-                <h2>SopetranClick <b>.</b></h2>
-                <p>El corazón verde de Antioquia</p>
-            </div>
-            <div class="footer-links-side">
-                <button class="btn-panel-link" onclick="irAMapa()">Mapa del Sitio</button>
-                <button class="btn-panel-link">Quiénes Somos</button>
-                <button class="btn-panel-link">Contactos</button>
-            </div>
-        </footer>
+    <div class="grid-experiencias">
+        <div class="pantalla-item p1" onclick="cerrarPanel(); abrirModulo('entidades')"><div class="pantalla-info"><h3>Arquitectura y fe</h3><p>Descubre la historia de nuestra basílica</p></div></div>
+        <div class="pantalla-item p2" onclick="cerrarPanel(); abrirModulo('ecoturismo')"><div class="pantalla-info"><h3>Rutas y paisajes</h3><p>Paisajes y senderismos que recorren nuestro municipio</p></div></div>
+        <div class="pantalla-item p3" onclick="cerrarPanel(); abrirModulo('comercio')"><div class="pantalla-info"><h3>Sabores de mi tierra</h3><p>Desde la cocina hasta tu paladar</p></div></div>
     </div>
+    <div class="contenedor-ver-mas"><button class="btn-ver-mas" onclick="cerrarPanel(); abrirModulo('exploracion')">VER MÁS EXPERIENCIAS</button></div>
+    <div class="section-divider" style="margin-bottom: 30px;"><h2>Sopetran Click en cifras</h2></div>
+    <div class="cifras-section">
+        <div class="cifra-item"><h4>+100</h4><p>Alojamientos</p></div>
+        <div class="cifra-item"><h4>24</h4><p>Zonas Rurales</p></div>
+        <div class="cifra-item"><h4>15</h4><p>Eventos anuales</p></div>
+        <div class="cifra-item"><h4>4.8</h4><p>Valoración promedio</p></div>
+    </div>
+    <footer class="panel-footer">
+        <div class="footer-logo-side"><h2>SopetranClick <b>.</b></h2><p>El corazón verde de Antioquia</p></div>
+        <div class="footer-links-side">
+            <button class="btn-panel-link" onclick="irAMapa()">Mapa del Sitio</button>
+            <button class="btn-panel-link" onclick="cerrarPanel(); abrirModulo('quienes')">Quiénes Somos</button>
+            <button class="btn-panel-link" onclick="cerrarPanel(); abrirModulo('soporte')">Contactos</button>
+            <button class="btn-panel-link" onclick="cerrarPanel(); abrirModulo('marketing')">Publicita tu negocio</button>
+        </div>
+    </footer>
+</div>
 
-    <script src="/static/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+<!-- Scripts — Bootstrap UNA sola vez + JS propios -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/MenuAlojamiento.js}"></script>
+<script th:src="@{/js/MennuComercio.js}"></script>
+<script th:src="@{/js/MennuEcoturismo.js}"></script>
+<script th:src="@{/js/transport.js}"></script>
+<script th:src="@{/js/cultural.js}"></script>
+<script th:src="@{/js/soporte.js}"></script>
+<script th:src="@{/js/marketing.js}"></script>
 
 </body>
 </html>

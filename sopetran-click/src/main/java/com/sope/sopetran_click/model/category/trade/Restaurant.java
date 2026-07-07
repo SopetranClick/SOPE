@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "restaurant")
 @Data
@@ -31,6 +34,29 @@ public class Restaurant {
 
     @Column(name = "contact")
     private String contact;
+
+    @Column(name = "rating")
+    private Double rating;
+
+    @Column(name = "horario")
+    private String horario;
+
+    @Column(name = "abierto")
+    private Boolean abierto = true;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("orden ASC")
+    private List<RestaurantImage> imagenes = new ArrayList<>();
+
+    @Transient
+    public String getCoverUrl() {
+        return imagenes.stream()
+                .filter(i -> i.getOrden() == 0)
+                .map(RestaurantImage::getUrl)
+                .findFirst()
+                .orElse("/img/placeholder-restaurante.jpg");
+    }
 
 
 

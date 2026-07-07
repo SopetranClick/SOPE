@@ -68,6 +68,39 @@
     pointer-events: all;
 }
 
+/* Contenedor de cada imagen.txt del carrusel — SIN esto, la imagen.txt no puede
+   resolver su height:100% (definido en ".carousel-item img" más abajo)
+   y ".overlay-vignette" hereda por error el estilo de página completa
+   de alojamiento.css, tapando la foto. Se aísla todo bajo #heroCarousel. */
+#heroCarousel .img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#heroCarousel .img-container .bg-blur {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(25px) brightness(0.55);
+    transform: scale(1.15);
+    z-index: 0;
+}
+#heroCarousel .img-container img {
+    position: relative;
+    z-index: 1;
+}
+#heroCarousel .img-container .overlay-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.65) 100%);
+    pointer-events: none;
+}
+
 /* ============================================
    SECCIÓN EVENTOS PRÓXIMOS
 ============================================ */
@@ -345,47 +378,6 @@
     margin-bottom: 4px;
 }
 
-/* ============================================
-   WIDGET CLIMA / INFO RÁPIDA
-============================================ */
-.info-rapida-section {
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto 60px;
-}
-.info-rapida-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-.info-widget {
-    background: #161616;
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 18px;
-    padding: 24px 20px;
-    text-align: center;
-    transition: border-color 0.3s ease;
-}
-.info-widget:hover { border-color: rgba(139,0,0,0.4); }
-.info-widget-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-.info-widget-valor {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 4px;
-}
-.info-widget-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
 
 /* ============================================
    NEWSLETTER STRIP
@@ -785,34 +777,34 @@
 /* --- 2. Máscaras Específicas (Individuales) --- */
 
 #btn-alojamiento {
-    -webkit-mask-image: url('/static/img/Mennu/mennu_alojamiento-removebg-preview.png');
-    mask-image: url('/static/img/Mennu/mennu_alojamiento-removebg-preview.png');
+    -webkit-mask-image: url('/img/Mennu/mennu_alojamiento-removebg-preview.png');
+    mask-image: url('/img/Mennu/mennu_alojamiento-removebg-preview.png');
     height: 140px;
     width: 140px;
 }
 
 #btn-transporte {
-    -webkit-mask-image: url('/static/img/Mennu/mennu_trasporte-removebg-preview.png');
-    mask-image: url('/static/img/Mennu/mennu_trasporte-removebg-preview.png');
+    -webkit-mask-image: url('/img/Mennu/mennu_trasporte-removebg-preview.png');
+    mask-image: url('/img/Mennu/mennu_trasporte-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 
 #btn-ecoturismo {
-    -webkit-mask-image: url('/static/img/Mennu/turismo3-removebg-preview.png');
-    mask-image: url('/static/img/Mennu/turismo3-removebg-preview.png');
+    -webkit-mask-image: url('/img/Mennu/turismo3-removebg-preview.png');
+    mask-image: url('/img/Mennu/turismo3-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 #btn-comercio{
-    -webkit-mask-image: url('/static/img/Mennu/Comerciooo-removebg-preview.png');
-    mask-image: url('/static/img/Mennu/Comerciooo-removebg-preview.png');
+    -webkit-mask-image: url('/img/Mennu/Comerciooo-removebg-preview.png');
+    mask-image: url('/img/Mennu/Comerciooo-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
 #btn-entidades{
-    -webkit-mask-image: url('/static/img/Mennu/Entidades-removebg-preview.png');
-    mask-image: url('/static/img/Mennu/Entidades-removebg-preview.png');
+    -webkit-mask-image: url('/img/Mennu/Entidades-removebg-preview.png');
+    mask-image: url('/img/Mennu/Entidades-removebg-preview.png');
         height: 140px;
     width: 140px;
 }
@@ -953,9 +945,9 @@
         }
 
         /* Fondos específicos (ajustar rutas si es necesario) */
-        .p1 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png'); }
-        .p2 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Principal-Iglesia.png'); }
-        .p3 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/static/img/PRINCI/Carrusel3.PNG'); }
+        .p1 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/img/PRINCI/Gemini_Generated_Image_2pqlx62pqlx62pql.png'); }
+        .p2 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/img/PRINCI/Principal-Iglesia.png'); }
+        .p3 { background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9)), url('/img/PRINCI/Carrusel3.PNG'); }
 
         .pantalla-info {
             padding: 20px;
@@ -1073,3 +1065,20 @@
             .pantalla-item { height: 350px; }
             .footer-links-side { justify-content: center; margin-top: 20px; flex-wrap: wrap; }
         }
+
+    /* FIX SCROLL — fragmentos inline */
+    html, body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    #content-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .spa-view {
+        overflow: visible !important;
+        height: auto !important;
+    }

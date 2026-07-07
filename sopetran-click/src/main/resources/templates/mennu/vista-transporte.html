@@ -1,151 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transporte — SopetranClick</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/transport.css">
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div class="hero-bg"></div>
+<!--
+    FRAGMENTO: vista-transporte
+    Uso en Index.html:
+        <div th:insert.md="~{mennu/vista-transporte :: vista-transporte}"></div>
+-->
 
-<div class="wrapper">
+<section th:fragment="vista-transporte" id="vista-transporte" class="spa-view">
 
-  <button class="btn-back" onclick="history.back()"><i class="fas fa-arrow-left"></i> SopetranClick</button>
+  <div class="hero-bg"></div>
 
-  <div class="breadcrumb-flow" id="breadcrumb"></div>
+  <div class="wrapper">
 
-  <!-- PASO 1 -->
-  <div class="step activo" id="step-1">
-    <div class="step-header">
-      <div class="tag">Módulo de Movilidad</div>
-      <h1>¿Qué necesitas <span>hoy</span>?</h1>
-      <p>Elige si quieres viajar a otro municipio o necesitas un domicilio dentro de Sopetrán.</p>
-      <div class="divider-line"></div>
-    </div>
+    <!-- onclick corregido: navega en el SPA, no usa history.back() -->
+    <button class="btn-back" onclick="navegarA('inicio')">
+      <i class="fas fa-arrow-left"></i> SopetranClick
+    </button>
 
-    <div class="main-choice-grid">
-      <div class="main-choice-card" onclick="irA('transporte')">
-        <div class="main-choice-icon"><i class="fas fa-bus"></i></div>
-        <div class="main-choice-title">Transporte</div>
-        <div class="main-choice-desc">Viaja a otros municipios en bus intermunicipal. Compra tu puesto y elige tu horario.</div>
+    <div class="breadcrumb-flow" id="breadcrumb-transporte"></div>
+
+    <!-- PASO 1 -->
+    <div class="step activo" id="step-1">
+      <div class="step-header">
+        <div class="tag">Módulo de Movilidad</div>
+        <h1>¿Qué necesitas <span>hoy</span>?</h1>
+        <p>Elige si quieres viajar a otro municipio o necesitas un domicilio dentro de Sopetrán.</p>
+        <div class="divider-line"></div>
       </div>
-
-      <div class="main-choice-card" onclick="irA('domicilio')">
-        <div class="main-choice-icon"><i class="fas fa-box"></i></div>
-        <div class="main-choice-title">Domicilio</div>
-        <div class="main-choice-desc">Pide una moto o un carro particular para moverte dentro del municipio.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PASO 2a — Transporte -->
-  <div class="step" id="step-2-transporte">
-    <div class="step-header">
-      <div class="tag">Transporte</div>
-      <h1>Elige tu <span>empresa</span></h1>
-      <p>Selecciona la empresa transportadora para ver sus rutas y horarios.</p>
-      <div class="divider-line"></div>
-    </div>
-
-    <div class="sub-choice-grid">
-      <div class="sub-choice-card" onclick="irA('bus-sotrauraba')">
-        <div class="sub-choice-logo"><i class="fas fa-bus"></i></div>
-        <div class="sub-choice-title">Sotrauraba</div>
-        <div class="sub-choice-desc">Cobertura local y veredal, rutas cortas dentro del occidente antioqueño.</div>
-        <div class="sub-choice-meta">
-          <span class="sc-chip"><i class="fas fa-route"></i> 2 rutas</span>
-          <span class="sc-chip"><i class="fas fa-clock"></i> Salidas frecuentes</span>
+      <div class="main-choice-grid">
+        <div class="main-choice-card" onclick="irA('transporte')">
+          <div class="main-choice-icon"><i class="fas fa-bus"></i></div>
+          <div class="main-choice-title">Transporte</div>
+          <div class="main-choice-desc">Viaja a otros municipios en bus intermunicipal. Compra tu puesto y elige tu horario.</div>
         </div>
-      </div>
-
-      <div class="sub-choice-card" onclick="irA('bus-rapidoochoa')">
-        <div class="sub-choice-logo"><i class="fas fa-bus"></i></div>
-        <div class="sub-choice-title">Rápido Ochoa</div>
-        <div class="sub-choice-desc">Rutas intermunicipales de mayor alcance, ideal para viajar a Medellín.</div>
-        <div class="sub-choice-meta">
-          <span class="sc-chip"><i class="fas fa-route"></i> 2 rutas</span>
-          <span class="sc-chip"><i class="fas fa-clock"></i> Salidas diarias</span>
+        <div class="main-choice-card" onclick="irA('domicilio')">
+          <div class="main-choice-icon"><i class="fas fa-box"></i></div>
+          <div class="main-choice-title">Domicilio</div>
+          <div class="main-choice-desc">Pide una moto o un carro particular para moverte dentro del municipio.</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- PASO 2b — Domicilio -->
-  <div class="step" id="step-2-domicilio">
-    <div class="step-header">
-      <div class="tag">Domicilio</div>
-      <h1>¿Moto o <span>carro</span>?</h1>
-      <p>Elige el tipo de vehículo que necesitas para tu domicilio.</p>
-      <div class="divider-line"></div>
-    </div>
-
-    <div class="sub-choice-grid">
-      <div class="sub-choice-card" onclick="irA('moto')">
-        <div class="sub-choice-logo"><i class="fas fa-motorcycle"></i></div>
-        <div class="sub-choice-title">Moto Taxi</div>
-        <div class="sub-choice-desc">Rápido y económico para distancias cortas dentro del municipio.</div>
-        <div class="sub-choice-meta"><span class="sc-chip"><i class="fas fa-bolt"></i> Llega rápido</span></div>
-      </div>
-
-      <div class="sub-choice-card" onclick="irA('carro')">
-        <div class="sub-choice-logo"><i class="fas fa-car"></i></div>
-        <div class="sub-choice-title">Carro</div>
-        <div class="sub-choice-desc">Más cómodo, ideal para grupos, mercado o equipaje.</div>
-        <div class="sub-choice-meta"><span class="sc-chip"><i class="fas fa-users"></i> Más espacio</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PASO 3a — MÓDULO BUS -->
-  <div class="step" id="step-bus">
-    <div class="step-header">
-      <div class="tag" id="bus-empresa-tag">Empresa</div>
-      <h1 id="bus-empresa-titulo">Rutas Disponibles</h1>
-      <p>Selecciona tu puesto y compra tu tiquete.</p>
-      <div class="divider-line"></div>
-    </div>
-    <div class="bus-grid" id="bus-grid"></div>
-  </div>
-
-  <!-- PASO 3b — MÓDULO MOTO/CARRO -->
-  <div class="step" id="step-driver">
-    <div class="step-header">
-      <div class="tag" id="driver-tag">Domicilio</div>
-      <h1 id="driver-titulo">Conductores Disponibles</h1>
-      <p>Contacta directamente al conductor por llamada o WhatsApp.</p>
-      <div class="divider-line"></div>
-    </div>
-    <div class="drivers-grid" id="driver-grid"></div>
-  </div>
-
-</div>
-
-<div class="modal-overlay" id="modal-tiquete">
-  <div class="modal-box">
-    <button class="modal-close" onclick="cerrarModal()">×</button>
-    <h3 id="modal-titulo">Confirmar tiquete</h3>
-    <p class="modal-sub" id="modal-sub">Completa tus datos para reservar</p>
-    <div class="modal-seat-summary">
-      <p>Asiento(s) seleccionado(s):</p>
-      <strong id="modal-asientos">—</strong>
-    </div>
-    <div class="modal-form">
-      <input type="text"  placeholder="Nombre completo" id="input-nombre">
-      <input type="tel"   placeholder="Número de celular" id="input-cel">
-      <input type="email" placeholder="Correo electrónico (opcional)" id="input-email">
-      <button class="btn-confirmar" onclick="confirmarCompra()">
-        <i class="fas fa-ticket-alt"></i>&nbsp; Confirmar reserva
+    <!-- PASO 2a — Transporte -->
+    <div class="step" id="step-2-transporte">
+      <button class="btn-step-back" onclick="volverAtras()">
+        <i class="fas fa-arrow-left"></i> Volver
       </button>
+      <div class="step-header">
+        <div class="tag">Transporte</div>
+        <h1>Elige tu <span>empresa</span></h1>
+        <p>Selecciona la empresa transportadora para ver sus rutas y horarios.</p>
+        <div class="divider-line"></div>
+      </div>
+      <div class="sub-choice-grid" id="empresa-grid"></div>
+    </div>
+
+    <!-- PASO 2b — Domicilio -->
+    <div class="step" id="step-2-domicilio">
+      <button class="btn-step-back" onclick="volverAtras()">
+        <i class="fas fa-arrow-left"></i> Volver
+      </button>
+      <div class="step-header">
+        <div class="tag">Domicilio</div>
+        <h1>¿Moto o <span>carro</span>?</h1>
+        <p>Elige el tipo de vehículo que necesitas para tu domicilio.</p>
+        <div class="divider-line"></div>
+      </div>
+      <div class="sub-choice-grid">
+        <div class="sub-choice-card" onclick="irA('moto')">
+          <div class="sub-choice-logo"><i class="fas fa-motorcycle"></i></div>
+          <div class="sub-choice-title">Moto Taxi</div>
+          <div class="sub-choice-desc">Rápido y económico para distancias cortas dentro del municipio.</div>
+          <div class="sub-choice-meta"><span class="sc-chip"><i class="fas fa-bolt"></i> Llega rápido</span></div>
+        </div>
+        <div class="sub-choice-card" onclick="irA('carro')">
+          <div class="sub-choice-logo"><i class="fas fa-car"></i></div>
+          <div class="sub-choice-title">Carro</div>
+          <div class="sub-choice-desc">Más cómodo, ideal para grupos, mercado o equipaje.</div>
+          <div class="sub-choice-meta"><span class="sc-chip"><i class="fas fa-users"></i> Más espacio</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3a — MÓDULO BUS -->
+    <div class="step" id="step-bus">
+      <button class="btn-step-back" onclick="volverAtras()">
+        <i class="fas fa-arrow-left"></i> Volver a empresas
+      </button>
+      <div class="step-header">
+        <div class="tag" id="bus-empresa-tag">Empresa</div>
+        <h1 id="bus-empresa-titulo">Rutas Disponibles</h1>
+        <p>Selecciona tu puesto y compra tu tiquete.</p>
+        <div class="divider-line"></div>
+      </div>
+      <div class="bus-grid" id="bus-grid"></div>
+    </div>
+
+    <!-- PASO 3b — MÓDULO MOTO/CARRO -->
+    <div class="step" id="step-driver">
+      <button class="btn-step-back" onclick="volverAtras()">
+        <i class="fas fa-arrow-left"></i> Volver a moto/carro
+      </button>
+      <div class="step-header">
+        <div class="tag" id="driver-tag">Domicilio</div>
+        <h1 id="driver-titulo">Conductores Disponibles</h1>
+        <p>Contacta directamente al conductor por llamada o WhatsApp.</p>
+        <div class="divider-line"></div>
+      </div>
+      <div class="drivers-grid" id="driver-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- MODAL tiquete — dentro del fragmento -->
+  <div class="modal-overlay" id="modal-tiquete">
+    <div class="modal-box">
+      <button class="modal-close" onclick="cerrarModal()">×</button>
+      <h3 id="modal-titulo">Confirmar tiquete</h3>
+      <p class="modal-sub" id="modal-sub">Completa tus datos para reservar</p>
+      <div class="modal-seat-summary">
+        <p>Asiento(s) seleccionado(s):</p>
+        <strong id="modal-asientos">—</strong>
+      </div>
+      <div class="modal-form">
+        <input type="text"  placeholder="Nombre completo"              id="input-nombre">
+        <input type="tel"   placeholder="Número de celular"            id="input-cel">
+        <input type="email" placeholder="Correo electrónico (opcional)" id="input-email">
+        <button class="btn-confirmar" onclick="confirmarCompra()">
+          <i class="fas fa-ticket-alt"></i>&nbsp; Confirmar reserva
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/static/js/transport.js"></script>
+</section>
+
 </body>
 </html>

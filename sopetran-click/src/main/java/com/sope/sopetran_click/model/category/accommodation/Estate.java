@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "estate")
@@ -45,5 +47,19 @@ public class Estate {
 
     @Column(name = "price" , nullable = false)
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("orden ASC")
+    private List<EstateImage> imagenes = new ArrayList<>();
+
+    @Transient
+    public String getCoverUrl() {
+        return imagenes.stream()
+                .filter(i -> i.getOrden() == 0)
+                .map(EstateImage::getUrl)
+                .findFirst()
+                .orElse("/img/placeholder-finca.jpg");
+    }
 
 }

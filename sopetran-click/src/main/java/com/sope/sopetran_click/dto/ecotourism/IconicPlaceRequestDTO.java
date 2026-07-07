@@ -25,4 +25,8 @@ public class IconicPlaceRequestDTO {
     @NotBlank(message = "You need to add directions to the place.")
     @Size(max = 1000, message = "The directions can not have more than 1000 letters.")
     private String indicaciones;
+
+    private String tipo;
+    private String acceso;
+    private String tags;
 }

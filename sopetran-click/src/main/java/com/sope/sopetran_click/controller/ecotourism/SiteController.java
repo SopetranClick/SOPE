@@ -1,8 +1,10 @@
 package com.sope.sopetran_click.controller.ecotourism;
 
 
+import com.sope.sopetran_click.dto.ecotourism.IconicPlaceResponseDTO;
 import com.sope.sopetran_click.dto.ecotourism.SiteRequestDTO;
 import com.sope.sopetran_click.dto.ecotourism.SiteResponseDTO;
+import com.sope.sopetran_click.service.ecotourism.Iconic_placeService;
 import com.sope.sopetran_click.service.ecotourism.SiteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,16 @@ import java.util.List;
 public class SiteController {
 
     private final SiteService siteService;
+    private final Iconic_placeService iconicPlaceService;
 
-    public SiteController(SiteService siteService) {
+    public SiteController(SiteService siteService, Iconic_placeService iconicPlaceService) {
         this.siteService = siteService;
+        this.iconicPlaceService = iconicPlaceService;
+    }
+
+    @GetMapping("/{id}/iconic-places")
+    public ResponseEntity<List<IconicPlaceResponseDTO>> getIconicPlacesBySite(@PathVariable Long id) {
+        return ResponseEntity.ok(iconicPlaceService.listarPorSite(id));
     }
 
     @GetMapping

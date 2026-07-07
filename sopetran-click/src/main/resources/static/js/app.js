@@ -3,17 +3,16 @@
     // CONTROL BOTÓN VOLVER — aparece en módulos
     // ============================================
     const btnVolverGlobal = document.getElementById('btn-volver-global');
-    // Vistas que usan iframe (tienen sus propios botones de volver)
-    const VISTAS_IFRAME = ['alojamiento','transporte','ecoturismo','comercio'];
-    // Vistas sin iframe que sí necesitan el botón global
-    const VISTAS_CON_VOLVER = ['entidades','quienes'];
-    // Exploración tiene su propio contenido inline, no necesita botón global
+    // Vistas que YA tienen su propio botón "volver a inicio" incrustado
+    // (transporte: .btn-back, ecoturismo: .eco-back-btn, entidades/cultural: .btn-back)
+    const VISTAS_CON_BOTON_PROPIO = ['transporte', 'ecoturismo', 'entidades', 'soporte', 'marketing'];
 
     function mostrarOcultarVolver(vistaName) {
-    if (VISTAS_CON_VOLVER.includes(vistaName)) {
-    btnVolverGlobal.style.display = 'block';
-} else {
+    if (!btnVolverGlobal) return;
+    if (vistaName === 'inicio' || VISTAS_CON_BOTON_PROPIO.includes(vistaName)) {
     btnVolverGlobal.style.display = 'none';
+} else {
+    btnVolverGlobal.style.display = 'block';
 }
 }
 
@@ -51,12 +50,18 @@
     if (carousel) {
     // Inicializa con interval explícito de 3000ms
     const bsCarousel = new bootstrap.Carousel(carousel, {
-    interval: 3000,
+    interval: 3000390,
     ride: 'carousel'
 });
 }
 });
 
+
+function cerrarIntro() {
+    const intro = document.getElementById('Welcomed');
+    if (intro) intro.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
             const intro = document.getElementById('Welcomed');
@@ -64,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const slidesIntro = intro.querySelectorAll('img');
             const contentWrapper = document.getElementById('content-wrapper');
             const nav = document.getElementById('main-nav');
+
+            // Fallback duro: si la animación se traba por cualquier motivo,
+            // libera el scroll igual (la cadena normal tarda ~7800ms).
+            setTimeout(cerrarIntro, 8000);
 
             // --- Lógica Intro ---
             setTimeout(() => welcomeText.classList.add('show'), 500);
@@ -79,17 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     intro.style.transform = 'translateY(-100%)';
                     contentWrapper.style.opacity = '1';
                     setTimeout(() => nav.classList.add('visible'), 800);
+                    setTimeout(cerrarIntro, 1500);
+
+                    // Deep link: /comercio, /transporte, etc. redirigen a "/?seccion=X"
+                    // — una vez termina el intro, navega directo a esa sección del SPA.
+                    const seccionSolicitada = new URLSearchParams(window.location.search).get('seccion');
+                    if (seccionSolicitada && typeof window.navegarA === 'function') {
+                        setTimeout(() => window.navegarA(seccionSolicitada), 1600);
+                    }
                 }, 800);
             }, 5500);
-
-            // --- Lógica Carrusel Main ---
-            const mainSlides = document.querySelectorAll('#main-carousel img');
-            let currentSlide = 0;
-            setInterval(() => {
-                mainSlides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % mainSlides.length;
-                mainSlides[currentSlide].classList.add('active');
-            }, 4000);
         });
 
 
@@ -112,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'entidades':    'vista-entidades',
             'exploracion':  'vista-exploracion',
             'quienes':      'vista-quienes',
+            'soporte':      'vista-soporte',
+            'marketing':    'vista-marketing',
         };
 
         let vistaActual = 'inicio';
@@ -154,6 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const panel = document.getElementById('panel-desplegable');
 
         window.addEventListener('scroll', () => {
+            // El botón "saltarín" es del hero de inicio: en cualquier otra
+            // vista (alojamiento, comercio...) no debe reaparecer, porque
+            // en alojamiento queda superpuesto sobre el botón de mostrar/
+            // ocultar interfaz (mismo bottom-center, z-index mayor).
+            if (vistaActual !== 'inicio') { btnSalto.style.display = 'none'; return; }
             const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (window.scrollY / scrollTotal) * 100;
             btnSalto.style.display = scrollPercent > 45 ? 'block' : 'none';
@@ -170,5 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
         }
 
-
-        
+        // Red de seguridad: cada navegación libera el scroll, por si algún
+        // panel/modal quedó con overflow:hidden pegado en el body.
+        // Excepción: alojamiento es una vista fija tipo app (sin scroll),
+        // así que ahí se bloquea el overflow del body en vez de liberarlo;
+        // si no, un scroll residual dispara el botón "saltarín" del hero
+        // sobre los controles propios de alojamiento.
+        window.navegarA = (function (orig) {
+            return function (nombre) {
+                document.body.style.overflow = (nombre === 'alojamiento') ? 'hidden' : 'auto';
+                return orig.apply(this, arguments);
+            };
+        })(window.navegarA);
