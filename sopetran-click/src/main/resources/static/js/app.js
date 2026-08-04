@@ -3,18 +3,18 @@
     // CONTROL BOTÓN VOLVER — aparece en módulos
     // ============================================
     const btnVolverGlobal = document.getElementById('btn-volver-global');
-    // Vistas que YA tienen su propio botón "volver a inicio" incrustado
-    // (transporte: .btn-back, ecoturismo: .eco-back-btn, entidades/cultural: .btn-back)
-    const VISTAS_CON_BOTON_PROPIO = ['transporte', 'ecoturismo', 'entidades', 'soporte', 'marketing'];
+    // Vistas que YA tienen su propio botón "volver a inicio" incrustado o usan el Nav principal
+    // (transporte: .btn-back, ecoturismo: .eco-back-btn, entidades/cultural: .btn-back, exploracion, quienes)
+    const VISTAS_CON_BOTON_PROPIO = ['transporte', 'ecoturismo', 'entidades', 'soporte', 'marketing', 'exploracion', 'quienes'];
 
     function mostrarOcultarVolver(vistaName) {
-    if (!btnVolverGlobal) return;
-    if (vistaName === 'inicio' || VISTAS_CON_BOTON_PROPIO.includes(vistaName)) {
-    btnVolverGlobal.style.display = 'none';
-} else {
-    btnVolverGlobal.style.display = 'block';
-}
-}
+        if (!btnVolverGlobal) return;
+        if (vistaName === 'inicio' || VISTAS_CON_BOTON_PROPIO.includes(vistaName)) {
+            btnVolverGlobal.style.display = 'none';
+        } else {
+            btnVolverGlobal.style.display = 'block';
+        }
+    }
 
     // Sobrescribimos navegarA para controlar el botón volver
     const _navegarAOriginal = typeof navegarA !== 'undefined' ? navegarA : null;

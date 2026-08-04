@@ -142,17 +142,19 @@
     abrirVereda(veredaActualDetalle.id);
 }
 
-    /* Lightbox */
+    /* Lightbox (Paso 3) */
     function abrirLightbox(url) {
         const lb = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
         if (img) img.src = url;
         if (lb) lb.classList.add('open');
+        document.body.classList.add('sin-scroll');
         document.body.style.overflow = 'hidden';
     }
     function cerrarLightbox() {
         const lb = document.getElementById('lightbox');
         if (lb) lb.classList.remove('open');
+        document.body.classList.remove('sin-scroll');
         document.body.style.overflow = 'auto';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });

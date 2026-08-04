@@ -102,6 +102,11 @@
         padding: 10px !important;
         opacity: 0.9 !important;
     }
+    /* Ocultar indicadores (cuadrados blancos) del carrusel en móvil (Paso 1) */
+    #heroCarousel .carousel-indicators,
+    .carousel-indicators {
+        display: none !important;
+    }
     #heroCarousel .carousel-control-prev-icon,
     #heroCarousel .carousel-control-next-icon,
     .carousel-control-prev-icon,
@@ -163,10 +168,11 @@
     }
     .cifra-numero { font-size: 2rem !important; }
 
-    /* ── INDEX: Aventuras ── */
+    /* ── INDEX: Aventuras / Grid de Exploración (1 columna en móvil - Paso 2) ── */
     .aventura-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
     }
     .aventura-card { padding: 18px 14px !important; }
 

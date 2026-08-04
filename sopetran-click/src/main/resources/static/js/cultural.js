@@ -195,22 +195,35 @@ function renderFechas() {
 }
 
 /* ════════════════════════════════════════
-   RENDER HISTORIA
+   HISTORIA — RENDER CON SCROLL SNAP & EXPANSIÓN (Paso 5)
 ════════════════════════════════════════ */
+function toggleTarjetaExpandida(btn) {
+    const card = btn.closest('.historia-card') || btn.closest('.evento-card') || btn.closest('.card-expandible');
+    if (!card) return;
+    const esExpandida = card.classList.toggle('expandida');
+    btn.innerHTML = esExpandida 
+        ? 'Leer menos <i class="fas fa-chevron-up"></i>' 
+        : 'Leer más <i class="fas fa-arrow-right"></i>';
+}
+
 function renderHistoria() {
     const grid = document.getElementById('historia-grid');
     if (!grid) return;
     grid.innerHTML = historia.map((h, i) => `
     <div class="historia-card ${h.main ? 'historia-main' : ''}">
       <div class="hist-banner" style="background:${h.color};">
-        ${h.emoji}
+        <div class="card-gallery-track">
+          <div class="card-gallery-item"><span>${h.emoji}</span></div>
+          <div class="card-gallery-item"><span>🏛️</span></div>
+          <div class="card-gallery-item"><span>📜</span></div>
+        </div>
         <div class="hist-number">${h.numero}</div>
       </div>
       <div class="hist-body">
         <div class="hist-era">${h.era}</div>
         <div class="hist-title">${h.titulo}</div>
-        <div class="hist-text">${(h.texto || '').substring(0,180)}${(h.texto || '').length > 180 ? '...' : ''}</div>
-        <button class="btn-ver-mas-hist" onclick="event.stopPropagation();abrirModal('hist',${i})">
+        <div class="hist-text">${h.texto || ''}</div>
+        <button class="btn-ver-mas-hist" onclick="event.stopPropagation(); toggleTarjetaExpandida(this)">
           Leer más <i class="fas fa-arrow-right"></i>
         </button>
       </div>
