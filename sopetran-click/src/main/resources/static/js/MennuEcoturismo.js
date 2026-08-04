@@ -144,12 +144,17 @@
 
     /* Lightbox */
     function abrirLightbox(url) {
-    document.getElementById('lightbox-img').src = url;
-    document.getElementById('lightbox').classList.add('open');
-}
+        const lb = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        if (img) img.src = url;
+        if (lb) lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
     function cerrarLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-}
+        const lb = document.getElementById('lightbox');
+        if (lb) lb.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });
 
     /* Compartir lugar */

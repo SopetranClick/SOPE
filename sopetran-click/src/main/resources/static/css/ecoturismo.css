@@ -194,34 +194,45 @@
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.95);
-    z-index: 9000;
+    backdrop-filter: blur(10px);
+    z-index: 99999;
     display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.lightbox-overlay.open { display: flex; }
+.lightbox-overlay.open {
+    display: flex !important;
+}
 .lightbox-img {
-    max-width: 90vw;
-    max-height: 80vh;
+    max-width: 95%;
+    max-height: 90vh;
     border-radius: 12px;
     object-fit: contain;
 }
 .lightbox-close {
     position: absolute;
     top: 20px;
-    right: 24px;
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    width: 38px;
-    height: 38px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    transition: transform 0.2s, background-color 0.2s;
 }
-.lightbox-close:hover { background: rgba(255,255,255,0.1); }
+.lightbox-close:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.1);
+}
 
 /* INFO RÁPIDA DEL LUGAR */
 .detalle-info-grid {

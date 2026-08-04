@@ -144,7 +144,7 @@
             <section class="eventos-section">
                 <div class="eventos-grid">
                     <div th:each="evento : ${eventos}" class="evento-card"
-                         onclick="navegarA('entidades')">
+                         onclick="abrirModalEventoDesdeCard(this)">
                         <div class="evento-fecha-badge">
                             <div class="evento-dia"
                                  th:text="${evento.fechaEvento != null ? #temporals.format(evento.fechaEvento, 'dd') : '—'}">14</div>
@@ -502,6 +502,26 @@
             <button class="btn-panel-link" onclick="cerrarPanel(); abrirModulo('marketing')">Publicita tu negocio</button>
         </div>
     </footer>
+</div>
+
+<!-- MODAL DE DETALLE DE EVENTO (Paso 4) -->
+<div id="modal-evento" class="modal-evento-overlay" onclick="cerrarModalEvento()">
+    <div class="modal-evento-container" onclick="event.stopPropagation()">
+        <button class="modal-evento-close" onclick="cerrarModalEvento()" title="Cerrar">✕</button>
+        <div class="modal-evento-hero">
+            <img id="modal-evento-img" th:src="@{/img/PRINCI/carrusel2.jpg}" src="/img/PRINCI/carrusel2.jpg" alt="Evento">
+            <div class="modal-evento-badge" id="modal-evento-fecha">14 JUN 2026</div>
+        </div>
+        <div class="modal-evento-body">
+            <span class="modal-evento-tipo" id="modal-evento-tipo">🎉 EVENTO</span>
+            <h2 id="modal-evento-titulo">Nombre del Evento</h2>
+            <p class="modal-evento-lugar" id="modal-evento-lugar">📍 Sopetrán, Antioquia</p>
+            <hr class="modal-evento-hr">
+            <p class="modal-evento-desc" id="modal-evento-desc">
+                Disfruta de las festividades, tradiciones y expresiones culturales en el municipio de Sopetrán. Un espacio de encuentro para toda la comunidad y visitantes.
+            </p>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts — Bootstrap UNA sola vez + JS propios -->

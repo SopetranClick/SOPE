@@ -197,3 +197,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 return orig.apply(this, arguments);
             };
         })(window.navegarA);
+
+/* ============================================
+   MODAL DE EVENTOS — Lógica de Apertura / Cierre (Paso 4)
+============================================ */
+function abrirModalEvento(titulo, fecha, lugar, tipo, img, desc) {
+    const modal = document.getElementById('modal-evento');
+    if (!modal) return;
+    if (titulo) document.getElementById('modal-evento-titulo').textContent = titulo;
+    if (fecha) document.getElementById('modal-evento-fecha').textContent = fecha;
+    if (lugar) document.getElementById('modal-evento-lugar').textContent = '📍 ' + lugar.replace(/^📍\s*/, '');
+    if (tipo) document.getElementById('modal-evento-tipo').textContent = tipo;
+    if (desc) document.getElementById('modal-evento-desc').textContent = desc;
+    if (img) document.getElementById('modal-evento-img').src = img;
+    
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarModalEvento() {
+    const modal = document.getElementById('modal-evento');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function abrirModalEventoDesdeCard(card) {
+    if (!card) return;
+    const titulo = card.querySelector('.evento-titulo')?.textContent.trim();
+    const dia = card.querySelector('.evento-dia')?.textContent.trim() || '';
+    const mes = card.querySelector('.evento-mes')?.textContent.trim() || '';
+    const ano = card.querySelector('.evento-año')?.textContent.trim() || '';
+    const fecha = `${dia} ${mes} ${ano}`.trim();
+    const lugar = card.querySelector('.evento-lugar')?.textContent.trim();
+    const tipo = card.querySelector('.evento-tipo')?.textContent.trim();
+    abrirModalEvento(titulo, fecha, lugar, tipo);
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') cerrarModalEvento();
+});
+

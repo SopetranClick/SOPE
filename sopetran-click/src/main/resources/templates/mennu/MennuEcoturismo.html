@@ -95,8 +95,8 @@
 
     <!-- LIGHTBOX — dentro del fragmento para que el z-index funcione en el mismo DOM -->
     <div class="lightbox-overlay" id="lightbox" onclick="cerrarLightbox()">
-        <button class="lightbox-close" onclick="cerrarLightbox()">✕</button>
-        <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        <button class="lightbox-close" onclick="event.stopPropagation(); cerrarLightbox();" title="Cerrar">✕</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Vista ampliada" onclick="event.stopPropagation()">
     </div>
 
 </section>

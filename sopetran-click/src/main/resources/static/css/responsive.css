@@ -87,6 +87,35 @@
         height: 350px !important;
         margin-top: 70px !important;
     }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next,
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: transparent !important;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        width: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 10px !important;
+        opacity: 0.9 !important;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon,
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: transparent !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        width: 44px !important;
+        height: 44px !important;
+    }
     .carousel-caption {
         bottom: 10% !important;
         padding: 0 16px !important;
@@ -98,11 +127,24 @@
         font-size: 0.8rem !important;
     }
 
-    /* ── INDEX: Eventos ── */
+    /* ── INDEX: Eventos (Carrusel Horizontal / Swipe) ── */
     .eventos-section { padding: 30px 16px !important; }
     .eventos-grid {
-        grid-template-columns: 1fr !important;
-        gap: 14px !important;
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding-bottom: 15px !important;
+        scrollbar-width: none !important;
+        grid-template-columns: none !important;
+    }
+    .eventos-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+    .evento-card {
+        min-width: 85vw !important;
+        scroll-snap-align: center !important;
+        flex-shrink: 0 !important;
     }
     .evento-card-header h3 { font-size: 1.8rem !important; }
 
@@ -122,8 +164,11 @@
     .cifra-numero { font-size: 2rem !important; }
 
     /* ── INDEX: Aventuras ── */
-    .aventura-grid { grid-template-columns: 1fr !important; }
-    .aventura-card { padding: 20px 16px !important; }
+    .aventura-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+    .aventura-card { padding: 18px 14px !important; }
 
     /* ── INDEX: Reseñas ── */
     .resenas-section { padding: 30px 16px !important; }
@@ -149,20 +194,70 @@
     /* ── INDEX: Map ── */
     .map-section { flex-direction: column !important; }
 
-    /* ── INDEX: Botón volver ── */
-    .btn-volver-fijo {
-        top: auto !important;
-        bottom: 16px !important;
-        left: 16px !important;
+    /* ── BOTONES DE NAVEGACIÓN "VOLVER" (ANCLADOS ESQUINA SUPERIOR IZQUIERDA) ── */
+    .btn-volver-fijo,
+    .btn-back,
+    .btn-volver,
+    .btn-volver-vereda,
+    .eco-back-btn,
+    .detalle-btn-volver,
+    .btn-volver-veredas {
+        position: fixed !important;
+        top: 15px !important;
+        left: 15px !important;
+        bottom: auto !important;
+        right: auto !important;
+        z-index: 9999 !important;
+        background-color: rgba(139, 0, 0, 0.9) !important;
+        backdrop-filter: blur(8px) !important;
+        color: #ffffff !important;
+        border: none !important;
         padding: 8px 16px !important;
-        font-size: 0.78rem !important;
+        border-radius: 30px !important;
+        font-size: 0.8rem !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
     }
 
-    /* ── EXPLORACIÓN ── */
+    /* ── EXPLORACIÓN & HIGHLIGHTS GRID ── */
     .exp-hero { height: 300px !important; }
     .exp-titulo { font-size: 2.2rem !important; }
     .exp-subtitulo { font-size: 0.85rem !important; }
-    .aventura-grid { grid-template-columns: 1fr !important; }
+    .highlight-grid,
+    .highlights-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: auto !important;
+        gap: 12px !important;
+    }
+    .highlight-item,
+    .h-item {
+        aspect-ratio: 4 / 3 !important;
+        height: auto !important;
+        border-radius: 12px !important;
+    }
+    .highlight-item.span-2,
+    .h-span {
+        grid-row: span 1 !important;
+        grid-column: span 2 !important;
+    }
+    .highlight-item img,
+    .h-item img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 12px !important;
+    }
+    .highlight-label,
+    .h-label {
+        padding: 12px 10px 10px !important;
+        font-size: 0.85rem !important;
+        line-height: 1.2 !important;
+    }
+    .highlight-label span,
+    .h-label span {
+        font-size: 0.62rem !important;
+        margin-bottom: 2px !important;
+    }
     .mapa-section { flex-direction: column !important; }
 
     /* ── QUIÉNES SOMOS ── */
