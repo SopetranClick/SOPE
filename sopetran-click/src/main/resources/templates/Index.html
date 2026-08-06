@@ -182,13 +182,13 @@
                             <!-- Carrusel de fotos del evento -->
                             <div class="evento-images-carousel">
                                 <!-- Si hay galería de imágenes -->
-                                <div th:if="${evento.imagenes != null and !evento.imagenes.isEmpty()}"
+                                <div th:if="${evento.gallery != null and !evento.gallery.isEmpty()}"
                                     style="display: flex;">
-                                    <img th:each="imgUrl : ${evento.imagenes}" th:src="${imgUrl}" alt="Evento"
+                                    <img th:each="imgUrl : ${evento.gallery}" th:src="${imgUrl}" alt="Evento"
                                         class="evento-slide-img">
                                 </div>
                                 <!-- Fallback si no hay galería -->
-                                <div th:if="${evento.imagenes == null or evento.imagenes.isEmpty()}"
+                                <div th:if="${evento.gallery == null or evento.gallery.isEmpty()}"
                                     style="display: flex;">
                                     <img th:src="@{/img/PRINCI/carrusel2.jpg}" alt="Evento" class="evento-slide-img">
                                     <img th:src="@{/img/PRINCI/carrusel1.jpg}" alt="Evento" class="evento-slide-img">

@@ -76,8 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (ultimoVisto && (ahora - parseInt(ultimoVisto, 10) < SEIS_MINUTOS)) {
         // Omitir animación
-        intro.style.display = 'none';
+        intro.style.setProperty('display', 'none', 'important');
+        intro.style.opacity = '0';
+        intro.style.zIndex = '-1';
+        
         contentWrapper.style.opacity = '1';
+        contentWrapper.style.display = 'block';
+        contentWrapper.style.visibility = 'visible';
+        
         nav.classList.add('visible');
         document.body.style.overflow = 'auto';
         
