@@ -191,16 +191,9 @@
     /* ── INDEX: Map ── */
     .map-section { flex-direction: column !important; }
 
-    /* ── BOTONES DE NAVEGACIÓN "VOLVER" (ANCLADOS ESQUINA SUPERIOR IZQUIERDA) ── */
+    /* ── BOTONES DE NAVEGACIÓN "VOLVER" (ANCLADOS ESQUINA INFERIOR IZQUIERDA) ── */
     #btn-volver-global,
-    .btn-volver-fijo {
-        bottom: 16px !important;
-        left: 16px !important;
-        padding: 8px 16px !important;
-        font-size: 0.9rem !important;
-        top: auto !important;
-    }
-
+    .btn-volver-fijo,
     .btn-back,
     .btn-volver,
     .btn-volver-vereda,
@@ -208,16 +201,17 @@
     .detalle-btn-volver,
     .btn-volver-veredas {
         position: fixed !important;
-        top: 15px !important;
-        left: 15px !important;
-        bottom: auto !important;
+        bottom: 16px !important;
+        left: 16px !important;
+        top: auto !important;
         right: auto !important;
-        z-index: 9999 !important;
+        padding: 8px 16px !important;
+        font-size: 0.9rem !important;
+        z-index: 99999 !important;
         background-color: rgba(139, 0, 0, 0.9) !important;
         backdrop-filter: blur(8px) !important;
         color: #ffffff !important;
         border: none !important;
-        padding: 8px 16px !important;
         border-radius: 30px !important;
         font-size: 0.8rem !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
