@@ -58,8 +58,8 @@
         <!-- NAV -->
         <nav class="nav" id="main-nav">
             <article class="d-flex align-items-center gap-2">
-                <img th:src="@{/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png}" alt="Logo" class="LogoPrincipal">
-                <h2 class="Name">SopetranClick <b>.</b></h2>
+                <img th:src="@{/img/Logo/sopetranlogo_blancoy negro_Sinfondo.png}" alt="Logo" class="LogoPrincipal" style="cursor:pointer;" onclick="handleAuthClick()">
+                <h2 class="Name" style="cursor:pointer;" onclick="handleAuthClick()">SopetranClick <b>.</b></h2>
             </article>
             <article>
                 <button onclick="navegarA('inicio')" class="inicionav nav-activo">Inicio</button>
@@ -67,12 +67,7 @@
                 <button onclick="navegarA('quienes')" class="Quienesnav">Quiénes Somos</button>
             </article>
             <article class="d-flex align-items-center gap-3">
-                <button id="btn-nav-login" onclick="abrirModalAuth()" style="background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Iniciar Sesión</button>
-                <div id="btn-nav-user" style="display: none; position: relative;">
-                    <button onclick="abrirModulo('reservas')" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                        <i class="bi bi-person-circle"></i> Mis Reservas
-                    </button>
-                </div>
+                <!-- Botones de auth explícitos eliminados a petición del usuario. Autenticación via Logo. -->
                 <img th:src="@{/img/Logo/apoyo.png}" alt="Soporte" style="width: 35px; cursor: pointer;"
                     onclick="navegarA('soporte')" title="Soporte y PQRS">
             </article>
@@ -258,8 +253,12 @@
                 </section>
 
                 <!-- Reseñas -->
-                <div class="section-divider">
-                    <h2>Lo Que Dicen Nuestros Visitantes</h2>
+                <div class="section-divider" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 0 16px; gap: 10px;">
+                    <h2 style="margin: 0;">Lo Que Dicen Nuestros Visitantes</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button onclick="escribirResenaGlobal()" style="padding: 8px 16px; border-radius: 50px; border: 1px solid #8b0000; background: transparent; color: white; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#8b0000'" onmouseout="this.style.background='transparent'">Escribir Reseña</button>
+                        <button onclick="verMasResenas()" style="padding: 8px 16px; border-radius: 50px; background: #8b0000; border: none; color: white; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#a50000'" onmouseout="this.style.background='#8b0000'">Ver Más</button>
+                    </div>
                 </div>
                 <section class="resenas-section">
                     <div class="resenas-inner">
@@ -748,9 +747,14 @@
     <script th:src="@{/js/soporte.js}"></script>
     <script th:src="@{/js/marketing.js}"></script>
     <script th:src="@{/js/reservas.js}"></script>
+    <script th:src="@{/js/dashboard.js}"></script>
 
     <!-- Módulo Global de Autenticación -->
     <div th:insert="~{modal-auth :: modal-auth}"></div>
+    
+    <!-- Modal Reseñas Globales -->
+    <div id="global-reviews-container"></div>
+    <div id="user-dashboard-container"></div>
 
 </body>
 

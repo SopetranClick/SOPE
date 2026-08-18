@@ -204,11 +204,14 @@
 }
 .lightbox-overlay.open {
     display: flex !important;
+    flex-direction: column !important;
 }
 .lightbox-overlay img,
 .lightbox-img {
+    width: 100% !important;
     max-width: 90vw !important;
-    max-height: 85vh !important;
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
     object-fit: contain !important;
     margin: auto !important;
 }

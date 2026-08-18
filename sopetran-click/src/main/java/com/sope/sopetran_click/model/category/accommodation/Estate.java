@@ -59,7 +59,7 @@ public class Estate {
                 .filter(i -> i.getOrden() == 0)
                 .map(EstateImage::getUrl)
                 .findFirst()
-                .orElse("/img/placeholder-finca.jpg");
+                .orElse("/img/PRINCI/carrusel1.jpg");
     }
 
 }

@@ -88,7 +88,7 @@
     const div = document.createElement('div');
     div.className = 'detalle-galeria-item';
     div.innerHTML = `<img src="${url}" alt="Foto ${i+1}">`;
-    div.onclick = () => abrirLightbox(i, imgs);
+    div.onclick = () => abrirLightbox(i, imgs, lugar.desc);
     galeriaEl.appendChild(div);
 });
 }
@@ -146,7 +146,7 @@
     let currentLightboxImgs = [];
 
     /* Lightbox (Paso 3) */
-    function abrirLightbox(index, imgsArray) {
+    function abrirLightbox(index, imgsArray, desc = '') {
         if (!imgsArray || imgsArray.length === 0) {
             // fallback
             if (typeof index === 'string') {
@@ -161,7 +161,11 @@
         
         const lb = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
+        const descEl = document.getElementById('lightbox-desc');
+        
         if (img) img.src = currentLightboxImgs[currentLightboxIndex];
+        if (descEl) descEl.textContent = desc;
+        
         if (lb) lb.classList.add('open');
         document.body.classList.add('sin-scroll');
         document.body.style.overflow = 'hidden';

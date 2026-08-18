@@ -48,7 +48,7 @@
     min-width: 110px !important;
     padding: 10px 20px !important;
     border-radius: 50px !important;
-    display: none !important; /* overridden to inline-flex by JS when active if needed, but original was display: none */
+    display: none; /* overridden to inline-flex by JS when active if needed, but original was display: none */
     align-items: center !important;
     justify-content: center !important;
     z-index: 9999 !important;

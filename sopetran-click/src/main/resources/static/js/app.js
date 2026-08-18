@@ -195,19 +195,29 @@ function goBack() {
 }
 
 // Función para compartir nativa
-function compartirContenido(titulo, texto, url) {
+async function compartirContenido(titulo, texto, url) {
     const shareUrl = url || window.location.href;
-    if (navigator.share) {
-        navigator.share({ title: titulo, text: texto, url: shareUrl })
-            .catch(console.error);
-    } else {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(`${titulo} - ${texto} ${shareUrl}`);
+    const fullText = `${titulo} - ${texto} ${shareUrl}`;
+
+    try {
+        if (navigator.share) {
+            await navigator.share({ title: titulo, text: texto, url: shareUrl });
+        } else if (navigator.clipboard) {
+            await navigator.clipboard.writeText(fullText);
             alert('Enlace copiado al portapapeles.');
         } else {
-            alert('Tu navegador no soporta esta función.');
+            fallbackCompartir(fullText);
+        }
+    } catch (error) {
+        console.error('Error compartiendo:', error);
+        if (error.name !== 'AbortError') {
+            fallbackCompartir(fullText);
         }
     }
+}
+
+function fallbackCompartir(textoBase) {
+    prompt('Tu dispositivo no soporta compartir nativamente. Copia este texto:', textoBase);
 }
 
 // Función para abrir módulos desde los botones de servicios

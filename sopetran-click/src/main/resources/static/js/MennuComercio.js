@@ -439,7 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 grid.appendChild(msg);
             }
         });
-        });
 });
 
 /* ====================================================

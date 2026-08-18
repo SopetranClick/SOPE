@@ -105,7 +105,7 @@ public class EstateServiceImpl implements EstateService{
                             .filter(i -> i.getOrden() == 0)
                             .map(i -> i.getUrl())
                             .findFirst()
-                            .orElse("/img/placeholder-finca.jpg")
+                            .orElse("/img/PRINCI/carrusel1.jpg")
             );
             dto.setGallery(
                     estate.getImagenes().stream()
@@ -114,7 +114,7 @@ public class EstateServiceImpl implements EstateService{
                             .collect(Collectors.toList())
             );
         } else {
-            dto.setCoverUrl("/img/placeholder-finca.jpg");
+            dto.setCoverUrl("/img/PRINCI/carrusel1.jpg");
             dto.setGallery(List.of());
         }
 

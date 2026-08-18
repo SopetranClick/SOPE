@@ -266,9 +266,9 @@ function abrirModal(tipo, index) {
     if (lugar) meta += `<div class="modal-meta-item"><i class="fas fa-map-marker-alt"></i> ${lugar}</div>`;
     if (hora)  meta += `<div class="modal-meta-item"><i class="fas fa-clock"></i> ${hora}</div>`;
     document.getElementById('m-meta').innerHTML = meta;
-    document.getElementById('modal').classList.add('open');
+    document.getElementById('modal-cultural').classList.add('open');
 }
-function cerrarModal() { document.getElementById('modal').classList.remove('open'); }
+function cerrarModal() { document.getElementById('modal-cultural').classList.remove('open'); }
 
 /* ════════════════════════════════════════
    INIT
