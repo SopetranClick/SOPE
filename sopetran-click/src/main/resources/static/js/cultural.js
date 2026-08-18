@@ -159,11 +159,15 @@ function renderEventos() {
     if (!grid) return;
     grid.innerHTML = eventos.map((ev, i) => `
     <div class="evento-card ${ev.featured ? 'evento-featured' : ''}" onclick="abrirModal('ev',${i})">
-      <div class="evento-img-wrap">
-        <div class="ev-bg" style="background:${ev.color};">${ev.emoji}</div>
-        <div class="ev-overlay"></div>
-        <div class="ev-date-badge"><div class="day">${ev.dia}</div><div class="month">${ev.mes}</div></div>
-        <div class="ev-category">${ev.categoria}</div>
+      <div class="evento-img-wrap" style="position: relative; overflow: hidden; height: 180px;">
+        <div class="card-gallery-track" style="background:${ev.color}; height: 100%; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;">
+          <div class="card-gallery-item" style="min-width: 100%; height: 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; font-size: 4rem;"><span>${ev.emoji}</span></div>
+          <div class="card-gallery-item" style="min-width: 100%; height: 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; font-size: 4rem;"><span>📅</span></div>
+          <div class="card-gallery-item" style="min-width: 100%; height: 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; font-size: 4rem;"><span>🎉</span></div>
+        </div>
+        <div class="ev-overlay" style="position: absolute; inset: 0; pointer-events: none;"></div>
+        <div class="ev-date-badge" style="position: absolute; top: 10px; right: 10px; z-index: 2;"><div class="day">${ev.dia}</div><div class="month">${ev.mes}</div></div>
+        <div class="ev-category" style="position: absolute; bottom: 10px; left: 10px; z-index: 2;">${ev.categoria}</div>
       </div>
       <div class="evento-body">
         <div class="evento-title">${ev.titulo}</div>

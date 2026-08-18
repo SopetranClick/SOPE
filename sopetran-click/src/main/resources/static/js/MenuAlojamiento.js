@@ -182,3 +182,57 @@ function moveGallery(dir) {
     if (currentPhotoIdx < 0) currentPhotoIdx = gallery.length - 1;
     mainBg.style.backgroundImage = `url(${gallery[currentPhotoIdx]})`;
 }
+
+function contactarWhatsApp() {
+    const phoneNode = document.getElementById('nodePhone');
+    if (!phoneNode) return;
+    const phone = phoneNode.innerText.replace(/\D/g, '');
+    if (!phone) {
+        alert("Número no disponible para este alojamiento.");
+        return;
+    }
+    const tituloNode = document.getElementById('nodeTitle');
+    const titulo = tituloNode ? tituloNode.innerText : 'este alojamiento';
+    const message = encodeURIComponent(`Hola, vengo desde SopetranClick. Estoy interesado en reservar ${titulo}.`);
+    const url = `https://wa.me/57${phone}?text=${message}`;
+    window.open(url, '_blank');
+}
+
+function intentarReservaAlojamiento() {
+    const jwt = localStorage.getItem('auth_jwt');
+    if (!jwt) {
+        if (typeof abrirModalAuth === 'function') {
+            abrirModalAuth();
+        } else {
+            alert('Por favor, inicia sesión para reservar.');
+        }
+        return;
+    }
+    
+    // Rellenar datos del modal
+    const nombre = document.getElementById('nodeTitle').innerText;
+    const tipo = document.getElementById('nodeTipo').innerText;
+    const precio = document.getElementById('nodePrice').innerText;
+    
+    document.getElementById('reserva-aloj-nombre').innerText = nombre;
+    document.getElementById('reserva-aloj-tipo').innerText = tipo;
+    document.getElementById('reserva-aloj-precio').innerHTML = `<i class="fa-solid fa-tag text-warning"></i> ${precio}`;
+    
+    // Abrir modal
+    const modal = document.getElementById('modal-reserva-alojamiento');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.style.opacity = '0';
+        setTimeout(() => modal.style.opacity = '1', 10);
+    }
+}
+
+function cerrarModalReservaAlojamiento() {
+    const modal = document.getElementById('modal-reserva-alojamiento');
+    if (modal) modal.style.display = 'none';
+}
+
+function confirmarReservaWhatsApp() {
+    cerrarModalReservaAlojamiento();
+    contactarWhatsApp();
+}

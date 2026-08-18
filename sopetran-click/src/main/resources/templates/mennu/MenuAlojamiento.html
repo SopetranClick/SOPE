@@ -89,7 +89,7 @@
                                 <span id="nodeLoc" class="small"></span>
                                 <i class="fa-solid fa-map-pin"></i>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2" style="cursor: pointer; padding: 5px 10px; background: rgba(37, 211, 102, 0.2); border-radius: 8px; transition: background 0.3s;" onclick="intentarReservaAlojamiento()" onmouseover="this.style.background='rgba(37, 211, 102, 0.4)'" onmouseout="this.style.background='rgba(37, 211, 102, 0.2)'">
                                 <span id="nodePhone" class="fw-bold text-white"></span>
                                 <i class="fa-brands fa-whatsapp text-success fs-5"></i>
                             </div>
@@ -121,6 +121,27 @@
             </button>
             <button class="nav-control" onclick="moveGallery(1)">
                 <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DE RESERVA ALOJAMIENTO -->
+    <div id="modal-reserva-alojamiento" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+        <div style="position: relative; width: 100%; max-width: 350px; margin: 0 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #141414; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; color: white; font-family: 'Inter', sans-serif;">
+            <button onclick="cerrarModalReservaAlojamiento()" style="position: absolute; right: 16px; top: 16px; background: transparent; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.2rem;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold; margin-bottom: 8px;">Confirmar Reserva</h2>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 24px;">Estás a punto de solicitar una reserva para:</p>
+            
+            <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 16px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.05); text-align: left;">
+                <h3 id="reserva-aloj-nombre" style="font-weight: bold; font-size: 1.1rem; margin: 0 0 4px 0;">Nombre</h3>
+                <p id="reserva-aloj-tipo" style="font-size: 0.75rem; color: #8b0000; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0;">Tipo</p>
+                <p id="reserva-aloj-precio" style="font-size: 0.85rem; color: rgba(255,255,255,0.8); margin: 0;"><i class="fa-solid fa-tag text-warning"></i> Precio</p>
+            </div>
+            
+            <button onclick="confirmarReservaWhatsApp()" style="width: 100%; border-radius: 12px; background: linear-gradient(to right, #25D366, #128C7E); padding: 12px; font-size: 0.85rem; font-weight: bold; color: white; border: none; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.3);">
+                <i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> Continuar en WhatsApp
             </button>
         </div>
     </div>

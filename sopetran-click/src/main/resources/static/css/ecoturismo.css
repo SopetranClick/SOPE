@@ -191,49 +191,76 @@
 
 /* LIGHTBOX (Paso 3) */
 .lightbox-overlay {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.92);
-    backdrop-filter: blur(10px);
-    z-index: 99999;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.88) !important;
     display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 100000 !important;
 }
 .lightbox-overlay.open {
     display: flex !important;
 }
+.lightbox-overlay img,
 .lightbox-img {
-    max-width: 95%;
-    max-height: 90vh;
-    border-radius: 12px;
-    object-fit: contain;
+    max-width: 90vw !important;
+    max-height: 85vh !important;
+    object-fit: contain !important;
+    margin: auto !important;
 }
 .lightbox-close {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: transparent;
+    background: rgba(0,0,0,0.5);
     border: none;
     outline: none;
     color: #ffffff;
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100000;
+    z-index: 100001;
     transition: transform 0.2s, background-color 0.2s;
 }
 .lightbox-close:hover {
-    background: rgba(255,255,255,0.15);
+    background: rgba(139,0,0,0.8);
     transform: scale(1.1);
+}
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100001;
+    transition: background 0.3s;
+}
+.lightbox-nav:hover {
+    background: rgba(139,0,0,0.8);
+}
+.lightbox-prev {
+    left: 20px;
+}
+.lightbox-next {
+    right: 20px;
 }
 
 /* INFO RÁPIDA DEL LUGAR */

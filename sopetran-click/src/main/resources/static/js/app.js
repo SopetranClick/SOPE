@@ -195,7 +195,7 @@ function goBack() {
 }
 
 // Función para compartir nativa
-function compartir(titulo, texto, url) {
+function compartirContenido(titulo, texto, url) {
     const shareUrl = url || window.location.href;
     if (navigator.share) {
         navigator.share({ title: titulo, text: texto, url: shareUrl })

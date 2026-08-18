@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<section th:fragment="vista-reservas" id="vista-reservas" class="spa-view" style="display: none; padding: 120px 20px 60px; min-height: 100vh; background: #0a0a0a; color: white;">
+    
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: bold; margin: 0;">Mis Reservas</h1>
+            <button class="btn-volver-fijo" style="position: relative; bottom: 0; left: 0;" onclick="abrirModulo('inicio')">← Volver</button>
+        </div>
+
+        <div id="lista-reservas-container" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Renderizado dinámicamente -->
+        </div>
+
+        <div id="sin-reservas-msg" style="display: none; text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px dashed rgba(255,255,255,0.1);">
+            <i class="bi bi-calendar-x" style="font-size: 3rem; color: rgba(255,255,255,0.2); margin-bottom: 16px; display: block;"></i>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Aún no tienes reservas</h3>
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">Explora Sopetrán y realiza tu primera orden o reserva.</p>
+        </div>
+    </div>
+
+    <!-- Modal Reseña Flotante -->
+    <div id="modal-resena" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+        <div style="position: relative; width: 100%; max-width: 400px; margin: 0 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #141414; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; color: white;">
+            <button onclick="cerrarModalResena()" style="position: absolute; right: 16px; top: 16px; background: transparent; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.2rem;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold; margin-bottom: 8px;">Dejar una Reseña</h2>
+            <p id="resena-item-nombre" style="font-size: 0.85rem; color: #8b0000; margin-bottom: 24px; font-weight: bold; text-transform: uppercase;">Lugar</p>
+            
+            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;" id="estrellas-resena">
+                <i class="bi bi-star-fill cursor-pointer text-warning" onclick="setRating(1)" style="font-size: 1.5rem;"></i>
+                <i class="bi bi-star-fill cursor-pointer text-warning" onclick="setRating(2)" style="font-size: 1.5rem;"></i>
+                <i class="bi bi-star-fill cursor-pointer text-warning" onclick="setRating(3)" style="font-size: 1.5rem;"></i>
+                <i class="bi bi-star-fill cursor-pointer text-warning" onclick="setRating(4)" style="font-size: 1.5rem;"></i>
+                <i class="bi bi-star cursor-pointer text-warning" onclick="setRating(5)" style="font-size: 1.5rem;"></i>
+            </div>
+            
+            <textarea id="resena-comentario" rows="3" placeholder="Cuéntanos tu experiencia..." style="width: 100%; border-radius: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 12px; color: white; margin-bottom: 20px; font-size: 0.9rem; resize: none;"></textarea>
+            
+            <button onclick="enviarResena()" style="width: 100%; border-radius: 12px; background: linear-gradient(to right, #8b0000, #5a0000); padding: 12px; font-size: 0.85rem; font-weight: bold; color: white; border: none; cursor: pointer; transition: 0.3s;">
+                Enviar Reseña
+            </button>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

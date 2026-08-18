@@ -36,22 +36,30 @@
 /* ============================================
    BOTÓN VOLVER — FIJO EN TODAS LAS VISTAS
 ============================================ */
-.btn-volver-fijo {
-    position: fixed;
-    top: 90px;
-    left: 20px;
-    z-index: 999;
+.btn-volver-fijo,
+#btn-volver-global {
+    position: fixed !important;
+    bottom: 24px !important;
+    left: 24px !important;
+    top: auto !important;
+    height: auto !important;
+    max-height: 48px !important;
+    width: auto !important;
+    min-width: 110px !important;
+    padding: 10px 20px !important;
+    border-radius: 50px !important;
+    display: none !important; /* overridden to inline-flex by JS when active if needed, but original was display: none */
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 9999 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
     background: #8b0000;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
-    box-shadow: 0 4px 15px rgba(139,0,0,0.4);
     transition: transform 0.2s ease;
-    display: none; /* solo visible cuando la vista está activa */
 }
 .btn-volver-fijo:hover { transform: scale(1.05); }
 
@@ -1234,4 +1242,4 @@
 .evento-glass-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); display: flex; align-items: flex-end; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
 .btn-compartir-evento { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 15px; border-radius: 50px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
 .btn-compartir-evento:hover { background: #8b0000; border-color: #8b0000; }
-.btn-volver-fijo { position: fixed; bottom: 20px; left: 20px; z-index: 1000; }
+

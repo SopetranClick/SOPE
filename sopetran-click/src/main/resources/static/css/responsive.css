@@ -132,24 +132,15 @@
         font-size: 0.8rem !important;
     }
 
-    /* ── INDEX: Eventos (Carrusel Horizontal / Swipe) ── */
+    /* ── INDEX: Eventos (Grid Estático 1 columna) ── */
     .eventos-section { padding: 30px 16px !important; }
     .eventos-grid {
-        display: flex !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
         gap: 15px !important;
-        padding-bottom: 15px !important;
-        scrollbar-width: none !important;
-        grid-template-columns: none !important;
-    }
-    .eventos-grid::-webkit-scrollbar {
-        display: none !important;
     }
     .evento-card {
-        min-width: 85vw !important;
-        scroll-snap-align: center !important;
-        flex-shrink: 0 !important;
+        width: 100% !important;
     }
     .evento-card-header h3 { font-size: 1.8rem !important; }
 
@@ -201,7 +192,15 @@
     .map-section { flex-direction: column !important; }
 
     /* ── BOTONES DE NAVEGACIÓN "VOLVER" (ANCLADOS ESQUINA SUPERIOR IZQUIERDA) ── */
-    .btn-volver-fijo,
+    #btn-volver-global,
+    .btn-volver-fijo {
+        bottom: 16px !important;
+        left: 16px !important;
+        padding: 8px 16px !important;
+        font-size: 0.9rem !important;
+        top: auto !important;
+    }
+
     .btn-back,
     .btn-volver,
     .btn-volver-vereda,

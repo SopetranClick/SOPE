@@ -1,0 +1,180 @@
+<div th:fragment="modal-auth" id="modal-auth-container" class="fixed inset-0 z-[999999] hidden items-center justify-center bg-black/80 backdrop-blur-sm" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: { preflight: false } // Prevent Tailwind from resetting global styles
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Modal Content -->
+    <div id="modal-auth-box" class="relative w-full max-w-md mx-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md transform scale-95 opacity-0 transition-all duration-300">
+        
+        <!-- Close Button -->
+        <button onclick="cerrarModalAuth()" class="absolute right-4 top-4 text-white/50 hover:text-white transition-colors">
+            <i class="bi bi-x-lg text-xl"></i>
+        </button>
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2" style="font-family: 'Playfair Display', serif; letter-spacing: 2px;">ZENITH</h1>
+            <p class="text-sm text-white/60 uppercase tracking-widest" style="font-family: 'Inter', sans-serif;">Portal de Acceso</p>
+        </div>
+
+        <!-- Toggle Login / Register -->
+        <div class="flex rounded-full bg-black/40 p-1 mb-8">
+            <button id="btn-tab-login" onclick="switchAuthTab('login')" class="w-1/2 rounded-full py-2 text-sm font-semibold text-white bg-white/10 shadow transition-all">Iniciar Sesión</button>
+            <button id="btn-tab-register" onclick="switchAuthTab('register')" class="w-1/2 rounded-full py-2 text-sm font-semibold text-white/60 hover:text-white transition-all">Registrarse</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="form-login" class="space-y-5" onsubmit="event.preventDefault(); authSubmit('login');">
+            <div>
+                <label class="block text-xs font-medium text-white/70 mb-1 ml-1">Correo Electrónico</label>
+                <div class="relative">
+                    <i class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    <input type="email" required class="w-full rounded-xl border border-white/10 bg-black/30 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 focus:border-[#8b0000] focus:outline-none focus:ring-1 focus:ring-[#8b0000] transition-colors" placeholder="tu@correo.com">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-white/70 mb-1 ml-1">Contraseña</label>
+                <div class="relative">
+                    <i class="bi bi-lock absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    <input type="password" required class="w-full rounded-xl border border-white/10 bg-black/30 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 focus:border-[#8b0000] focus:outline-none focus:ring-1 focus:ring-[#8b0000] transition-colors" placeholder="••••••••">
+                </div>
+            </div>
+            <div class="flex items-center justify-between mt-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" class="rounded border-white/20 bg-black/30 text-[#8b0000] focus:ring-[#8b0000]">
+                    <span class="text-xs text-white/70">Recordarme</span>
+                </label>
+                <a href="#" class="text-xs text-white/50 hover:text-white transition-colors">¿Olvidaste tu contraseña?</a>
+            </div>
+            <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-[#8b0000] to-[#5a0000] py-3 text-sm font-semibold text-white hover:from-[#a50000] hover:to-[#8b0000] shadow-lg shadow-[#8b0000]/20 transition-all active:scale-95 mt-4">
+                Entrar al portal
+            </button>
+        </form>
+
+        <!-- Register Form (Hidden initially) -->
+        <form id="form-register" class="space-y-5 hidden" onsubmit="event.preventDefault(); authSubmit('register');">
+            <div>
+                <label class="block text-xs font-medium text-white/70 mb-1 ml-1">Nombre Completo</label>
+                <div class="relative">
+                    <i class="bi bi-person absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    <input type="text" required class="w-full rounded-xl border border-white/10 bg-black/30 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 focus:border-white/50 focus:outline-none transition-colors" placeholder="Juan Pérez">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-white/70 mb-1 ml-1">Correo Electrónico</label>
+                <div class="relative">
+                    <i class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    <input type="email" required class="w-full rounded-xl border border-white/10 bg-black/30 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 focus:border-white/50 focus:outline-none transition-colors" placeholder="tu@correo.com">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-white/70 mb-1 ml-1">Contraseña</label>
+                <div class="relative">
+                    <i class="bi bi-lock absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+                    <input type="password" required class="w-full rounded-xl border border-white/10 bg-black/30 py-3 pl-11 pr-4 text-sm text-white placeholder-white/30 focus:border-white/50 focus:outline-none transition-colors" placeholder="••••••••">
+                </div>
+            </div>
+            <button type="submit" class="w-full rounded-xl bg-white/10 border border-white/20 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all active:scale-95 mt-4">
+                Crear Cuenta
+            </button>
+        </form>
+
+        <!-- Social Auth -->
+        <div class="mt-8 pt-6 border-t border-white/10 text-center">
+            <p class="text-xs text-white/50 mb-4">O continúa con</p>
+            <div class="flex justify-center gap-4">
+                <button class="w-12 h-12 rounded-full border border-white/10 bg-black/30 hover:bg-white/10 flex items-center justify-center text-white transition-all">
+                    <i class="bi bi-google text-lg"></i>
+                </button>
+                <button class="w-12 h-12 rounded-full border border-white/10 bg-black/30 hover:bg-white/10 flex items-center justify-center text-white transition-all">
+                    <i class="bi bi-facebook text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Modal Logic -->
+    <script>
+        function abrirModalAuth() {
+            const container = document.getElementById('modal-auth-container');
+            const box = document.getElementById('modal-auth-box');
+            if(container && box) {
+                container.style.display = 'flex';
+                setTimeout(() => {
+                    box.classList.remove('scale-95', 'opacity-0');
+                    box.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+        function cerrarModalAuth() {
+            const container = document.getElementById('modal-auth-container');
+            const box = document.getElementById('modal-auth-box');
+            if(container && box) {
+                box.classList.remove('scale-100', 'opacity-100');
+                box.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    container.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function switchAuthTab(tab) {
+            const btnLogin = document.getElementById('btn-tab-login');
+            const btnRegister = document.getElementById('btn-tab-register');
+            const formLogin = document.getElementById('form-login');
+            const formRegister = document.getElementById('form-register');
+
+            if (tab === 'login') {
+                btnLogin.className = 'w-1/2 rounded-full py-2 text-sm font-semibold text-white bg-white/10 shadow transition-all';
+                btnRegister.className = 'w-1/2 rounded-full py-2 text-sm font-semibold text-white/60 hover:text-white transition-all';
+                formLogin.classList.remove('hidden');
+                formRegister.classList.add('hidden');
+            } else {
+                btnRegister.className = 'w-1/2 rounded-full py-2 text-sm font-semibold text-white bg-white/10 shadow transition-all';
+                btnLogin.className = 'w-1/2 rounded-full py-2 text-sm font-semibold text-white/60 hover:text-white transition-all';
+                formRegister.classList.remove('hidden');
+                formLogin.classList.add('hidden');
+            }
+        }
+
+        function checkAuthState() {
+            const jwt = localStorage.getItem('auth_jwt');
+            const btnLogin = document.getElementById('btn-nav-login');
+            const btnUser = document.getElementById('btn-nav-user');
+            if (jwt) {
+                if(btnLogin) btnLogin.style.display = 'none';
+                if(btnUser) btnUser.style.display = 'block';
+            } else {
+                if(btnLogin) btnLogin.style.display = 'block';
+                if(btnUser) btnUser.style.display = 'none';
+            }
+        }
+
+        // Run on load
+        document.addEventListener('DOMContentLoaded', checkAuthState);
+
+        function authSubmit(type) {
+            // Simulamos el inicio de sesión y guardamos un JWT ficticio en el localStorage
+            localStorage.setItem('auth_jwt', 'token_jwt_valido_demo');
+            localStorage.setItem('auth_user', 'Usuario Demo');
+            
+            const btnText = type === 'login' ? 'Iniciando sesión...' : 'Registrando...';
+            const btn = event.target.querySelector('button[type="submit"]');
+            const origText = btn.innerText;
+            btn.innerText = btnText;
+            
+            setTimeout(() => {
+                btn.innerText = origText;
+                cerrarModalAuth();
+                checkAuthState();
+                alert(`¡${type === 'login' ? 'Bienvenido de nuevo' : 'Registro exitoso'}! Sesión iniciada.`);
+            }, 1000);
+        }
+    </script>
+</div>

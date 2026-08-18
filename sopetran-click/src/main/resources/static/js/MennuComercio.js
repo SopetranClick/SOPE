@@ -439,4 +439,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 grid.appendChild(msg);
             }
         });
+        });
 });
+
+/* ====================================================
+   ÓRDENES Y RESERVAS (Integración Auth)
+==================================================== */
+function intentarOrdenComercio() {
+    const jwt = localStorage.getItem('auth_jwt');
+    if (!jwt) {
+        if (typeof abrirModalAuth === 'function') abrirModalAuth();
+        else alert('Por favor, inicia sesión para ordenar.');
+        return;
+    }
+    
+    if (!localActual || !localActual.platos || localActual.platos.length === 0) return;
+    const plato = localActual.platos[platoActual];
+    if (!plato) return;
+    
+    const orden = {
+        id: Date.now(),
+        fecha: new Date().toLocaleDateString(),
+        local: localActual.nombre,
+        item: plato.nombre,
+        precio: plato.precio,
+        tipo: 'Comercio'
+    };
+    
+    let historial = JSON.parse(localStorage.getItem('historial_reservas') || '[]');
+    historial.push(orden);
+    localStorage.setItem('historial_reservas', JSON.stringify(historial));
+    
+    alert(`¡Orden de ${plato.nombre} en ${localActual.nombre} procesada con éxito!`);
+}

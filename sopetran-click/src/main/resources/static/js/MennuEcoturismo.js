@@ -88,7 +88,7 @@
     const div = document.createElement('div');
     div.className = 'detalle-galeria-item';
     div.innerHTML = `<img src="${url}" alt="Foto ${i+1}">`;
-    div.onclick = () => abrirLightbox(url);
+    div.onclick = () => abrirLightbox(i, imgs);
     galeriaEl.appendChild(div);
 });
 }
@@ -142,34 +142,64 @@
     abrirVereda(veredaActualDetalle.id);
 }
 
+    let currentLightboxIndex = 0;
+    let currentLightboxImgs = [];
+
     /* Lightbox (Paso 3) */
-    function abrirLightbox(url) {
+    function abrirLightbox(index, imgsArray) {
+        if (!imgsArray || imgsArray.length === 0) {
+            // fallback
+            if (typeof index === 'string') {
+                imgsArray = [index];
+                index = 0;
+            } else {
+                return;
+            }
+        }
+        currentLightboxIndex = index;
+        currentLightboxImgs = imgsArray;
+        
         const lb = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
-        if (img) img.src = url;
+        if (img) img.src = currentLightboxImgs[currentLightboxIndex];
         if (lb) lb.classList.add('open');
         document.body.classList.add('sin-scroll');
         document.body.style.overflow = 'hidden';
     }
+    
+    function prevLightboxImg() {
+        if (currentLightboxImgs.length === 0) return;
+        currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImgs.length) % currentLightboxImgs.length;
+        const img = document.getElementById('lightbox-img');
+        if (img) img.src = currentLightboxImgs[currentLightboxIndex];
+    }
+    
+    function nextLightboxImg() {
+        if (currentLightboxImgs.length === 0) return;
+        currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImgs.length;
+        const img = document.getElementById('lightbox-img');
+        if (img) img.src = currentLightboxImgs[currentLightboxIndex];
+    }
+
     function cerrarLightbox() {
         const lb = document.getElementById('lightbox');
         if (lb) lb.classList.remove('open');
         document.body.classList.remove('sin-scroll');
         document.body.style.overflow = 'auto';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });
+    
+    document.addEventListener('keydown', e => { 
+        if (e.key === 'Escape') cerrarLightbox(); 
+        if (e.key === 'ArrowLeft' && document.getElementById('lightbox')?.classList.contains('open')) prevLightboxImg();
+        if (e.key === 'ArrowRight' && document.getElementById('lightbox')?.classList.contains('open')) nextLightboxImg();
+    });
 
     /* Compartir lugar */
     function compartirLugar() {
     const texto = lugarActualDetalle
     ? `¡Visita ${lugarActualDetalle.nombre} en Sopetrán! 🌿 via SopetranClick`
     : 'Descubre Sopetrán con SopetranClick';
-    if (navigator.share) {
-    navigator.share({ title: texto, url: window.location.href });
-} else {
-    navigator.clipboard?.writeText(texto);
-    alert('¡Enlace copiado al portapapeles!');
-}
+    compartirContenido('SopetranClick', texto, window.location.href);
 }
 
     /* ---- Patch de abrirVereda para añadir click en lugar-card ---- */
